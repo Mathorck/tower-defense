@@ -1,0 +1,73 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "F:\\Programation\\C#\\Projet_Tower_Defense\\Projet_Tower_Defense\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{91466903-2609-442F-8F62-5BAE2252C124}|Squelette.csproj|f:\\programation\\c#\\projet_tower_defense\\projet_tower_defense\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91466903-2609-442F-8F62-5BAE2252C124}|Squelette.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91466903-2609-442F-8F62-5BAE2252C124}|Squelette.csproj|f:\\programation\\c#\\projet_tower_defense\\projet_tower_defense\\tours\\canon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91466903-2609-442F-8F62-5BAE2252C124}|Squelette.csproj|solutionrelative:tours\\canon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{91466903-2609-442F-8F62-5BAE2252C124}|Squelette.csproj|f:\\programation\\c#\\projet_tower_defense\\projet_tower_defense\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{91466903-2609-442F-8F62-5BAE2252C124}|Squelette.csproj|solutionrelative:enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Enemy.cs",
+              "DocumentMoniker": "F:\\Programation\\C#\\Projet_Tower_Defense\\Projet_Tower_Defense\\Enemy.cs",
+              "RelativeDocumentMoniker": "Enemy.cs",
+              "ToolTip": "F:\\Programation\\C#\\Projet_Tower_Defense\\Projet_Tower_Defense\\Enemy.cs",
+              "RelativeToolTip": "Enemy.cs",
+              "ViewState": "AQIAABsAAAAAAAAAAAAAAEMAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-23T12:39:32.04Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Canon.cs",
+              "DocumentMoniker": "F:\\Programation\\C#\\Projet_Tower_Defense\\Projet_Tower_Defense\\Tours\\Canon.cs",
+              "RelativeDocumentMoniker": "Tours\\Canon.cs",
+              "ToolTip": "F:\\Programation\\C#\\Projet_Tower_Defense\\Projet_Tower_Defense\\Tours\\Canon.cs",
+              "RelativeToolTip": "Tours\\Canon.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAEAAAAA7AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-28T11:20:38.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\Programation\\C#\\Projet_Tower_Defense\\Projet_Tower_Defense\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "F:\\Programation\\C#\\Projet_Tower_Defense\\Projet_Tower_Defense\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAMMAAAAAAAAAAAAAAMYAAAApAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "OverriddenGroupName": "",
+              "WhenOpened": "2024-08-23T06:11:19.771Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

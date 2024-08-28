@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "8IywZHsUhIfD3sgDAC8ll1WAAx2cePee3fAKH2MG5x7mhC3M0nLpTHnVkk89qQ0pqBJrQkPOCmUX8VlHJCXBsQ==",
+  "success": true,
+  "projectFilePath": "F:\\Programation\\C#\\Projet_Tower_Defense\\Projet_Tower_Defense\\Squelette.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\monnierm\\.nuget\\packages\\raylib-cs\\6.1.1\\raylib-cs.6.1.1.nupkg.sha512",
+    "C:\\Users\\monnierm\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

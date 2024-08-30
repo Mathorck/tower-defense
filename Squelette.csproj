@@ -15,6 +15,9 @@
     <None Update="images\backgroundgame.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="images\coeur.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="images\PorteMonstre.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

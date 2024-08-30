@@ -36,6 +36,9 @@ namespace Projet_Tower_Defense
             cheminNonPosable[10] = new Rectangle(1015, 900, new Vector2(905, 85));
             cheminNonPosable[11] = new Rectangle(565, 260, new Vector2(100, 465));
             cheminNonPosable[12] = new Rectangle(945, 80, new Vector2(95, 465));
+            ///autre hitbox
+            Rectangle[] objetNP = new Rectangle[13];
+            objetNP[0] = new Rectangle(260,210,new Vector2(50,50));
             ///// tableau Rectangles a afficher ////
             Rectangle[] btnAffichage = new Rectangle[2];
             // btnMenu
@@ -53,6 +56,7 @@ namespace Projet_Tower_Defense
             List<Canon> canons = new List<Canon>();
             // canonPos
             Canon canon = new Canon();
+            
         
             //// Déclaration variables Autres ////
             Vector2 mousePoint = new Vector2(0f,0f);
@@ -275,8 +279,8 @@ namespace Projet_Tower_Defense
         {
             Raylib.DrawRectangle(445, 80, 68, 40, Color.White);
             Raylib.DrawRectangle(955, 80, 68, 40, Color.White);
-            Raylib.LoadTexture("./images/PorteMonstre.png");
-            Raylib.DrawTexture(Raylib.LoadTexture("./images/PorteMonstre.png"), 445, 80, Color.White);
+            //Raylib.LoadTexture("./images/PorteMonstre.png");
+            //Raylib.DrawTexture(Raylib.LoadTexture("./images/PorteMonstre.png"), 445, 80, Color.White);
 
         }
 
@@ -308,7 +312,7 @@ namespace Projet_Tower_Defense
             
 
             Raylib.DrawRectangleRounded(btnAfficher[1], 0.2f, 4 , Color.SkyBlue); //Dessin contour bouton menu tours
-            Raylib.DrawTextureEx(Raylib.LoadTexture("./images/Target-icon.png"), btnAfficher[1].Position+new Vector2(4.5f,5),0,0.1f,Color.White); //affichage de l'icon dans le menu des tours
+            //Raylib.DrawTextureEx(Raylib.LoadTexture("./images/Target-icon.png"), btnAfficher[1].Position+new Vector2(4.5f,5),0,0.1f,Color.White); //affichage de l'icon dans le menu des tours
 
         }
 
@@ -362,7 +366,7 @@ namespace Projet_Tower_Defense
                 monstre.dir = 2;
 
             else if (monstre.position == new Vector2(1060, 810))
-                monstre.dir =1;
+                monstre.dir = 1;
 
             else if (monstre.position == new Vector2(1060, 940))
                 monstre.dir = 4;

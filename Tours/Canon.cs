@@ -10,20 +10,25 @@ namespace Projet_Tower_Defense.tours
 {
     internal class Canon
     {
-        private float longueurDataque = 50f;
+        private float porteeTir = 50f;
         private int niveau = 0;
-        private float degat = 10f;
-        private float vitesseDataque = 1.5f;
+        private float degats = 10f;
+        private float vitesseDattaque = 1.5f;
         private Rectangle hitBox;
         public Vector2 Position;
         
 
         public int Niveau { get { return niveau; } }
-        public float LongueurDataque { get {  return longueurDataque; } }
-        public float Degat {  get { return degat; } }
-        public float VitesseDataque { get { return vitesseDataque; } }
+        public float PorteeTir { get {  return porteeTir; } }
+        public float Degats {  get { return degats; } }
+        public float VitesseDattaque { get { return vitesseDattaque; } }
         public Rectangle HitBox { get { return hitBox; } }
 
+
+        public Canon()
+        {
+
+        }
         public Canon(Vector2 position)
         {
             this.Position = position;
@@ -56,15 +61,15 @@ namespace Projet_Tower_Defense.tours
                     break;
             }
         }
-        public void Tir()
-        {
-
-        }
+      
         public void Draw()
         {
             Raylib.DrawCircleV(Position, 10f, Color.White);
         }
-
+        public void Place()
+        {
+            Raylib.DrawCircleV(Raylib.GetMousePosition(), 10f, Color.White);
+        }
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using Raylib_cs;
+﻿using Projet_Tower_Defense.tours;
+using Raylib_cs;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
@@ -21,7 +22,7 @@ namespace Projet_Tower_Defense
             Rectangle btnStop = new(750, 650, new Vector2(420, 110));
         
             //// Hitbox non posables //////
-            Rectangle[] cheminNonPosable = new Rectangle[14];
+            Rectangle[] cheminNonPosable = new Rectangle[13];
             cheminNonPosable[0] = new Rectangle(420,80,new Vector2(105,455));
             cheminNonPosable[1] = new Rectangle(240,450,new Vector2(235, 85));
             cheminNonPosable[2] = new Rectangle(240,450,new Vector2(100, 285));
@@ -30,22 +31,29 @@ namespace Projet_Tower_Defense
             cheminNonPosable[5] = new Rectangle(825, 340, new Vector2(85, 135));
             cheminNonPosable[6] = new Rectangle(755, 390, new Vector2(105, 210));
             cheminNonPosable[7] = new Rectangle(835, 520, new Vector2(330, 75));
-            cheminNonPosable[8] = new Rectangle(1070, 585, new Vector2(90, 25));
-            cheminNonPosable[9] = new Rectangle(1035, 600, new Vector2(95, 520));
-            cheminNonPosable[10] = new Rectangle(1010, 775, new Vector2(95, 215));
-            cheminNonPosable[11] = new Rectangle(1015, 900, new Vector2(905, 85));
-            cheminNonPosable[12] = new Rectangle(565, 260, new Vector2(100, 465));
-            cheminNonPosable[13] = new Rectangle(945, 80, new Vector2(95, 465));
+            cheminNonPosable[8] = new Rectangle(1070, 585, new Vector2(95, 270));
+            cheminNonPosable[9] = new Rectangle(1010, 775, new Vector2(95, 215));
+            cheminNonPosable[10] = new Rectangle(1015, 900, new Vector2(905, 85));
+            cheminNonPosable[11] = new Rectangle(565, 260, new Vector2(100, 465));
+            cheminNonPosable[12] = new Rectangle(945, 80, new Vector2(95, 465));
             ///// tableau Rectangles a afficher ////
             Rectangle[] btnAffichage = new Rectangle[2];
             // btnMenu
             Rectangle btnMenu = new(10, 10, new Vector2(60, 60));
             btnAffichage[0] = btnMenu;
             bool menuOuvert = false;
+            // btnConstruction
+            btnAffichage[1] = new Rectangle(300, 10, new Vector2(60, 60));
+            int nbCanon = 0;
+            bool modeConstruction = false;
+            int tourChoisie = 1;
             //// liste Enemy /////
             List<Enemy> enemies = new List<Enemy>();
+            //// liste Canon /////
+            List<Canon> canons = new List<Canon>();
+            // canonPos
+            Canon canon = new Canon();
         
-
             //// Déclaration variables Autres ////
             Vector2 mousePoint = new Vector2(0f,0f);
             string texte = "Pressez ESC pour quitter!";
@@ -53,7 +61,7 @@ namespace Projet_Tower_Defense
             bool stop = false;
             Vector2 PorteMonstre1 = new Vector2(480, 80);
             Vector2 PorteMonstre2 = new Vector2(990, 80);
-            int viesDeLaBase = 100;
+            int vieDeLaBase = 100;
         
             ///////////// Boucle menu /////////////
             while (!start && !stop)
@@ -104,57 +112,47 @@ namespace Projet_Tower_Defense
 
                 Texture2D Fond = Raylib.LoadTexture("./images/backgroundgame.png");
                 ///////////// Boucle principale /////////////
-                while (!Raylib.WindowShouldClose() && !stop)
+                while (!stop)
                 {
                     mousePoint = Raylib.GetMousePosition();
                 
                 
-                    if (Collide(cheminNonPosable[0]) || Collide(cheminNonPosable[1]) || Collide(cheminNonPosable[2]) || Collide(cheminNonPosable[3]) || Collide(cheminNonPosable[4]) || Collide(cheminNonPosable[5]) || Collide(cheminNonPosable[6]) || Collide(cheminNonPosable[7]) || Collide(cheminNonPosable[8]) || Collide(cheminNonPosable[9]) || Collide(cheminNonPosable[10]) || Collide(cheminNonPosable[11]) || Collide(cheminNonPosable[12]) || Collide(cheminNonPosable[13]))
+                    if (Collide(cheminNonPosable[0]) || Collide(cheminNonPosable[1]) || Collide(cheminNonPosable[2]) || Collide(cheminNonPosable[3]) || Collide(cheminNonPosable[4]) || Collide(cheminNonPosable[5]) || Collide(cheminNonPosable[6]) || Collide(cheminNonPosable[7]) || Collide(cheminNonPosable[8]) || Collide(cheminNonPosable[9]) || Collide(cheminNonPosable[10]) || Collide(cheminNonPosable[11]) || Collide(cheminNonPosable[12]))
                         texte = "Non";
                     else
                         texte = "Ok";
                 
                 
-                    if (Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[0]) && Raylib.IsMouseButtonDown(MouseButton.Left))
+                    if (Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[0]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
                         menuOuvert = true;
 
-                    while (menuOuvert )
+                    if (Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[1]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
                     {
-                        mousePoint = Raylib.GetMousePosition();
-                        if (Raylib.CheckCollisionPointRec(mousePoint, btnStart) && Raylib.IsMouseButtonDown(MouseButton.Left))
-                            menuOuvert = false;
-
-                        else if (Raylib.CheckCollisionPointRec(mousePoint, btnStop) && Raylib.IsMouseButtonDown(MouseButton.Left))
-                        {
-                            menuOuvert = false;
-                            stop = true;
-                        }
-                        
-                    
-
-                        Raylib.BeginDrawing();
-                        Raylib.ClearBackground(Color.White);
-                        DessinerJeuFond(Fond);
-
-                        for (int i = 0; i < enemies.Count; i++)
-                            enemies[i].Draw();
-
-                        Raylib.DrawText("PAUSE", 822, 225, 80, Color.Black);
-
-                        Raylib.DrawRectangleRec(btnStart, Color.Lime);
-                        Raylib.DrawText("Continuer", 845, 480, 50, Color.Black);
-
-                        Raylib.DrawRectangleRec(btnStop, Color.Red);
-                        Raylib.DrawText("Quit", 910, 685, 50, Color.Black);
-
-                        DessinerGui(texte, mousePoint, btnAffichage);
-                        Raylib.EndDrawing();
-
+                        if (modeConstruction)
+                            modeConstruction = false;
+                        else
+                            modeConstruction = true;
                     }
 
-                    ///////////////////////////Semble shlag de ouf///
-                                                                    //
-                                                                    //
+                    if (Raylib.IsKeyDown(KeyboardKey.Escape))
+                        modeConstruction = false;
+
+
+                    if (modeConstruction)
+                    {
+                        switch (tourChoisie)
+                        {
+                            case 1:
+                                
+                                break;
+                        }
+                    }
+
+
+
+                    /////////////////////////Semble shlag de ouf//
+                                                                //
+                                                                //
                     for (int i = 0; i < enemies.Count; i++)
                     {
                         try
@@ -173,20 +171,70 @@ namespace Projet_Tower_Defense
 
                     for (int i = 0; i < enemies.Count; i++)
                         enemies[i].Draw();
-                
+
+                    if (modeConstruction)
+                    {
+                        for (int i = 0; i < cheminNonPosable.Length; i++)
+                            Raylib.DrawRectangleRec(cheminNonPosable[i], new Color(255,0,0,25));
+                    }
+
                     DessinerGui(texte, mousePoint, btnAffichage);
 
                     Raylib.EndDrawing();
 
+                    //////////////////////////// MENU ///////////////////////
+                    while (menuOuvert)
+                    {
+                        mousePoint = Raylib.GetMousePosition();
+                        if ((Raylib.CheckCollisionPointRec(mousePoint, btnStart) && Raylib.IsMouseButtonDown(MouseButton.Left)) || (Raylib.CheckCollisionPointRec(mousePoint, btnMenu) && Raylib.IsMouseButtonPressed(MouseButton.Left)))
+                            menuOuvert = false;
+
+                        else if (Raylib.CheckCollisionPointRec(mousePoint, btnStop) && Raylib.IsMouseButtonDown(MouseButton.Left))
+                        {
+                            menuOuvert = false;
+                            stop = true;
+                        }
+
+
+                        modeConstruction = false;
+
+                        Raylib.BeginDrawing();
+                        Raylib.ClearBackground(Color.White);
+                        DessinerJeuFond(Fond);
+
+                        for (int i = 0; i < enemies.Count; i++)
+                            enemies[i].Draw();
+
+
+                        Raylib.DrawText("PAUSE", 822, 225, 80, Color.Black);
+
+                        Raylib.DrawRectangleRec(btnStart, Color.Lime);
+                        Raylib.DrawText("Continuer", 845, 480, 50, Color.Black);
+
+                        Raylib.DrawRectangleRec(btnStop, Color.Red);
+                        Raylib.DrawText("Quit", 910, 685, 50, Color.Black);
+
+                        DessinerGui(texte, mousePoint, btnAffichage);
+                        Raylib.EndDrawing();
+
+                    }
+                    /////////////////////////// MENU ///////////////////////////
                 }
             }
 
             Raylib.CloseWindow();
         }
-    
+        
+        static void DessinerMenuTours()
+        {
+            
+        }
+
         static void DessinerMenu()
         {
             Raylib.DrawText("Tower Defense", 685, 150, 70, Color.Black);
+            if (Raylib.GetScreenHeight() < 1080 || Raylib.GetRenderWidth() < 1920)
+                Raylib.DrawText("Votre Experience de jeu ne sera pas optimal votre écran est trop petit minimun:1080p", 12, 12, 20, Color.Red);
             //960
             Raylib.DrawRectangle(750,450,420,110, Color.Gold);
             Raylib.DrawText("Start", 885, 485, 50, Color.Black);
@@ -213,18 +261,24 @@ namespace Projet_Tower_Defense
             Raylib.DrawLineEx(new Vector2(20, 25),new Vector2(60, 25),6f,Color.Black);
             Raylib.DrawLineEx(new Vector2(20, 40), new Vector2(60, 40), 6f, Color.Black);
             Raylib.DrawLineEx(new Vector2(20, 55), new Vector2(60, 55), 6f, Color.Black);
+            
 
-            //Raylib.DrawRectangleRec(new Rectangle())
+            Raylib.DrawRectangleRounded(btnAfficher[1], 0.2f, 4 , Color.SkyBlue); //Dessin contour bouton menu tours
+            Raylib.DrawTextureEx(Raylib.LoadTexture("./images/Target-icon.png"), btnAfficher[1].Position+new Vector2(4.5f,5),0,0.1f,Color.White); //affichage de l'icon dans le menu des tours
+
         }
+
         static void DessinerJeuFond(Texture2D Fond)
         {
             Raylib.DrawTextureEx(Fond, new Vector2(0, 80), 0f, 1f, Color.White);
         }
+
         static bool Collide(Rectangle rect)
         {
             Vector2 mousePoint = Raylib.GetMousePosition();
             return Raylib.CheckCollisionPointRec(mousePoint, rect);
         }
+
         static void Direction(Enemy monstre, List<Enemy> monstresList)
         {
             if (monstre.position == new Vector2(480, 490))

@@ -68,7 +68,6 @@ namespace Projet_Tower_Defense
             ///////////// Boucle menu /////////////
             while (!start && !stop)
             {
-
                 mousePoint = Raylib.GetMousePosition();
 
             

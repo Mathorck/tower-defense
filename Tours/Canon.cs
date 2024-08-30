@@ -64,11 +64,11 @@ namespace Projet_Tower_Defense.tours
       
         public void Draw()
         {
-            Raylib.DrawCircleV(Position, 10f, Color.White);
+            Raylib.DrawCircleV(Position, 40f, Color.White);
         }
         public void Place()
         {
-            Raylib.DrawCircleV(Raylib.GetMousePosition(), 10f, Color.White);
+            Raylib.DrawCircleV(Raylib.GetMousePosition(), 40f, Color.White);
         }
 
     }

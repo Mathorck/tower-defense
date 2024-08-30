@@ -109,6 +109,7 @@ namespace Projet_Tower_Defense
                 enemies.Add(new Enemy(PorteMonstre1,5f, Color.SkyBlue, 20));
                 enemies.Add(new Enemy(PorteMonstre2,0.5f, Color.Brown, 50));
                 
+                
 
                 Texture2D Fond = Raylib.LoadTexture("./images/backgroundgame.png");
                 ///////////// Boucle principale /////////////
@@ -179,6 +180,8 @@ namespace Projet_Tower_Defense
                     }
 
                     DessinerGui(texte, mousePoint, btnAffichage);
+                    DessinerPortesMonstres();
+                    DessinerBase();
 
                     Raylib.EndDrawing();
 
@@ -244,9 +247,16 @@ namespace Projet_Tower_Defense
 
         }
 
-       static void DessinerPorteMonstre()
+       static void DessinerPortesMonstres()
         {
+            Raylib.DrawRectangle(445, 80, 68, 40, Color.White);
+            Raylib.DrawRectangle(955, 80, 68, 40, Color.White);
 
+        }
+
+        static void DessinerBase()
+        {
+            Raylib.DrawRectangle(1860, 910, 75, 70, Color.Green);
         }
   
         static void DessinerGui(string texte, Vector2 mousePoint, Rectangle[] btnAfficher)

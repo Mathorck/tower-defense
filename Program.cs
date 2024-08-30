@@ -251,6 +251,8 @@ namespace Projet_Tower_Defense
         {
             Raylib.DrawRectangle(445, 80, 68, 40, Color.White);
             Raylib.DrawRectangle(955, 80, 68, 40, Color.White);
+            Raylib.LoadTexture("./images/PorteMonstre.png");
+            Raylib.DrawTexture(Raylib.LoadTexture("./images/PorteMonstre.png"), 445, 80, Color.White);
 
         }
 

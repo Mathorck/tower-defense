@@ -1,4 +1,4 @@
-﻿using Projet_Tower_Defense.tours;
+using Projet_Tower_Defense.tours;
 using Raylib_cs;
 using System.Numerics;
 using System.Runtime.CompilerServices;
@@ -68,7 +68,6 @@ namespace Projet_Tower_Defense
             ///////////// Boucle menu /////////////
             while (!start && !stop)
             {
-
                 mousePoint = Raylib.GetMousePosition();
 
             
@@ -173,13 +172,18 @@ namespace Projet_Tower_Defense
                     Raylib.ClearBackground(Color.White);
                     DessinerJeuFond(Fond);
 
-                    for (int i = 0; i < enemies.Count; i++)
-                        enemies[i].Draw();
+                    DessinerEntitees(enemies,canons);
 
                     if (modeConstruction)
                     {
                         for (int i = 0; i < cheminNonPosable.Length; i++)
                             Raylib.DrawRectangleRec(cheminNonPosable[i], new Color(255,0,0,25));
+                        canon.Place();
+                        if (Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[1]) && !TourCollide(cheminNonPosable, canons))
+                        {
+                            canons.Add(new Canon(Raylib.GetMousePosition()));
+                            modeConstruction = false;
+                        }
                     }
 
                     DessinerGui(texte, mousePoint, btnAffichage);
@@ -209,8 +213,7 @@ namespace Projet_Tower_Defense
                         Raylib.ClearBackground(Color.White);
                         DessinerJeuFond(Fond);
 
-                        for (int i = 0; i < enemies.Count; i++)
-                            enemies[i].Draw();
+                        DessinerEntitees(enemies, canons);
 
 
                         Raylib.DrawText("PAUSE", 822, 225, 80, Color.Black);
@@ -230,6 +233,26 @@ namespace Projet_Tower_Defense
             }
 
             Raylib.CloseWindow();
+        }
+
+        static bool TourCollide(Rectangle[] chm,List<Canon> canon)
+        {
+            Vector2 mousePoint = Raylib.GetMousePosition();
+            
+            bool touche = false;
+            foreach (Rectangle bout in chm)
+            {
+                if (Raylib.CheckCollisionCircleRec(mousePoint, 40f, bout))
+                    touche = true;
+            }
+            foreach (Canon canon1 in canon)
+            {
+                if (Raylib.CheckCollisionCircles(mousePoint,40f,canon1.Position,40f))
+                    touche = true;
+            }
+
+
+            return touche;
         }
         
         static void DessinerMenuTours()
@@ -257,7 +280,7 @@ namespace Projet_Tower_Defense
             Rectangle PorteMonstreD1 = new Rectangle(445, 80, 68, 40);
             Rectangle PorteMonstreD2 = new Rectangle(955, 80, 68, 40);
 
-            Texture2D porte = Raylib.LoadTexture("./images/PorteMonstre.png");
+            //Texture2D porte = Raylib.LoadTexture("./images/PorteMonstre.png");
 
             Raylib.DrawRectangleRec(PorteMonstreD1, Color.White);
             Raylib.DrawRectangleRec(PorteMonstreD2, Color.White);
@@ -270,6 +293,14 @@ namespace Projet_Tower_Defense
         static void DessinerBase()
         {
             Raylib.DrawRectangle(1860, 910, 75, 70, Color.Green);
+        }
+
+        static void DessinerEntitees(List<Enemy> enemies, List<Canon> canons) 
+        {
+            for (int i = 0; i < enemies.Count; i++)
+                enemies[i].Draw();
+            for (int i = 0; i < canons.Count; i++)
+                canons[i].Draw();
         }
   
         static void DessinerGui(string texte, Vector2 mousePoint, Rectangle[] btnAfficher)

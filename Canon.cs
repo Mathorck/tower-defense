@@ -49,6 +49,7 @@ namespace Squelette
         {
             Position = position;
             this.tourChoisie = tourChoisie;
+            setTextureCanon();
         }
 
         public void NiveauSup()
@@ -71,10 +72,8 @@ namespace Squelette
         {
             Raylib.DrawCircleV(Position, 40f, Color.White);
             Raylib.DrawTextureEx(Base, Position - new Vector2(35, 35), 0, 0.30f, Color.White);
-            if (textureActive)
-            {
-                Raylib.DrawTextureEx(Base, Position - new Vector2(35, 35), 0, 0.30f, Color.White);
-            }
+
+            Raylib.DrawTextureEx(Cannon, Position - new Vector2(35, 35), 0, 0.3f, Color.White);
         }
         public void Place(Vector2 mousePosition)
         {
@@ -89,7 +88,7 @@ namespace Squelette
                     switch (Niveau)
                     {
                         case 1:
-                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon1.png");
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon.png");
                             break;
                         case 2:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon2.png");
@@ -103,13 +102,13 @@ namespace Squelette
                     switch (Niveau)
                     {
                         case 1:
-                            Cannon = Raylib.LoadTexture(@"./images/Cannon/CannonMG.png");
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/MG.png");
                             break;
                         case 2:
-                            Cannon = Raylib.LoadTexture(@"./images/Cannon/CannonMG2.png");
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/MG2.png");
                             break;
                         case 3:
-                            Cannon = Raylib.LoadTexture(@"./images/Cannon/CannonMG3.png");
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/MG3.png");
                             break;
                     }
                     break;

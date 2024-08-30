@@ -127,7 +127,7 @@ namespace Projet_Tower_Defense
                 Texture2D porte = Raylib.LoadTexture("./images/PorteMonstre.png");
                 Texture2D cible = Raylib.LoadTexture("./images/Target-icon.png");
 
-                Texture2D Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon1.png");
+                Texture2D Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon.png");
 
                 ///////////// Boucle principale /////////////
                 while (!stop)

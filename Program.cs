@@ -280,7 +280,7 @@ namespace Projet_Tower_Defense
             Rectangle PorteMonstreD1 = new Rectangle(445, 80, 68, 40);
             Rectangle PorteMonstreD2 = new Rectangle(955, 80, 68, 40);
 
-            Texture2D porte = Raylib.LoadTexture("./images/PorteMonstre.png");
+            //Texture2D porte = Raylib.LoadTexture("./images/PorteMonstre.png");
 
             Raylib.DrawRectangleRec(PorteMonstreD1, Color.White);
             Raylib.DrawRectangleRec(PorteMonstreD2, Color.White);

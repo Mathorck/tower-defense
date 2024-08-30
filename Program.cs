@@ -56,8 +56,13 @@ namespace Projet_Tower_Defense
             List<Canon> canons = new List<Canon>();
             // canonPos
             Canon canon = new Canon();
-            
-        
+            //// btnChoixTour /////
+            Rectangle[] btnChoixTour = new Rectangle[3];
+            btnChoixTour[0] = new Rectangle(0, 0, new Vector2(50, 50));
+            btnChoixTour[1] = new Rectangle(0, 0, new Vector2(50, 50));
+            btnChoixTour[2] = new Rectangle(0, 0, new Vector2(50, 50));
+            bool ChoixTourOuvert = false;
+
             //// Déclaration variables Autres ////
             Vector2 mousePoint = new Vector2(0f,0f);
             string texte = "Pressez ESC pour quitter!";
@@ -115,9 +120,12 @@ namespace Projet_Tower_Defense
                 enemies.Add(new Enemy(PorteMonstre1,5f, Color.SkyBlue, 20));
                 enemies.Add(new Enemy(PorteMonstre2,0.5f, Color.Brown, 50));
                 
-                
-
+                ////////////// Déclarations des textures ////////////////////////////////////////////////////////////
+                ///pour libèrer des la place dans la ram lorsqu'on est dans le menu//
                 Texture2D Fond = Raylib.LoadTexture("./images/backgroundgame.png");
+                Texture2D porte = Raylib.LoadTexture("./images/PorteMonstre.png");
+                Texture2D cible = Raylib.LoadTexture("./images/Target-icon.png");
+
                 ///////////// Boucle principale /////////////
                 while (!stop)
                 {
@@ -147,11 +155,17 @@ namespace Projet_Tower_Defense
 
                     if (modeConstruction)
                     {
-                        switch (tourChoisie)
+                        canon.Place();
+                        if ((Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[1]) && !TourCollide(cheminNonPosable, canons)))
                         {
-                            case 1:
-                                
-                                break;
+                            
+                            Raylib.BeginDrawing();// En gros sa fonctionne pas parce que il éfface tout quand il commance a dessiner ce neuille
+                            Raylib.DrawRectangleRounded(btnChoixTour[0], 0.2f, 4, Color.SkyBlue);
+                            Raylib.DrawText("Mode Construction activé", 250, 12, 20, Color.Black);
+                            Raylib.EndDrawing();
+
+                            canons.Add(new Canon(Raylib.GetMousePosition()));
+                            modeConstruction = false;
                         }
                     }
 
@@ -178,21 +192,10 @@ namespace Projet_Tower_Defense
 
                     DessinerEntitees(enemies,canons);
 
-                    if (modeConstruction)
-                    {
-                        for (int i = 0; i < cheminNonPosable.Length; i++)
-                            Raylib.DrawRectangleRec(cheminNonPosable[i], new Color(255,0,0,25));
-                        canon.Place();
-                        if (Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[1]) && !TourCollide(cheminNonPosable, canons))
-                        {
-                            canons.Add(new Canon(Raylib.GetMousePosition()));
-                            modeConstruction = false;
-                        }
-                    }
 
-                    DessinerGui(texte, mousePoint, btnAffichage);
+                    DessinerGui(texte, mousePoint, btnAffichage, cible);
                     DessinerBase();
-                    DessinerPortesMonstres();
+                    DessinerPortesMonstres(porte);
                     
 
                     Raylib.EndDrawing();
@@ -228,7 +231,7 @@ namespace Projet_Tower_Defense
                         Raylib.DrawRectangleRec(btnStop, Color.Red);
                         Raylib.DrawText("Quit", 910, 685, 50, Color.Black);
 
-                        DessinerGui(texte, mousePoint, btnAffichage);
+                        DessinerGui(texte, mousePoint, btnAffichage, cible);
                         Raylib.EndDrawing();
 
                     }
@@ -278,18 +281,18 @@ namespace Projet_Tower_Defense
 
         }
 
-        static void DessinerPortesMonstres()
+        static void DessinerPortesMonstres(Texture2D porte)
         {
             Rectangle PorteMonstreD1 = new Rectangle(445, 80, 68, 40);
             Rectangle PorteMonstreD2 = new Rectangle(955, 80, 68, 40);
 
-            //Texture2D porte = Raylib.LoadTexture("./images/PorteMonstre.png");
+            
 
             Raylib.DrawRectangleRec(PorteMonstreD1, Color.White);
             Raylib.DrawRectangleRec(PorteMonstreD2, Color.White);
 
-            //Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), PorteMonstreD1, new Vector2(0, 0), 0.0f, Color.White);
-            //Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), PorteMonstreD2, new Vector2(0, 0), 0.0f, Color.White);
+            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), PorteMonstreD1, new Vector2(0, 0), 0.0f, Color.White);
+            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), PorteMonstreD2, new Vector2(0, 0), 0.0f, Color.White);
 
 
         }
@@ -307,14 +310,13 @@ namespace Projet_Tower_Defense
                 canons[i].Draw();
         }
   
-        static void DessinerGui(string texte, Vector2 mousePoint, Rectangle[] btnAfficher)
+        static void DessinerGui(string texte, Vector2 mousePoint, Rectangle[] btnAfficher, Texture2D Cible)
         {
             Raylib.DrawRectangleGradientV(0, 0, 1920, 80, Color.Blue, Color.DarkBlue);
             // Debug
             Raylib.DrawText(texte, 100, 12, 20, Color.Black);
             Raylib.DrawText($"X:{mousePoint.X} Y:{mousePoint.Y}", 100, 35, 20, Color.Black);
             //
-            //Raylib.DrawRectangleRec(btnAfficher[0], Color.SkyBlue);
             Raylib.DrawRectangleRounded(btnAfficher[0], 0.2f, 4 ,Color.SkyBlue);
             Raylib.DrawLineEx(new Vector2(20, 25),new Vector2(60, 25),6f,Color.Black);
             Raylib.DrawLineEx(new Vector2(20, 40), new Vector2(60, 40), 6f, Color.Black);
@@ -322,7 +324,7 @@ namespace Projet_Tower_Defense
             
 
             Raylib.DrawRectangleRounded(btnAfficher[1], 0.2f, 4 , Color.SkyBlue); //Dessin contour bouton menu tours
-            //Raylib.DrawTextureEx(Raylib.LoadTexture("./images/Target-icon.png"), btnAfficher[1].Position+new Vector2(4.5f,5),0,0.1f,Color.White); //affichage de l'icon dans le menu des tours
+            Raylib.DrawTextureEx(Cible, btnAfficher[1].Position+new Vector2(4.5f,5),0,0.1f,Color.White); //affichage de l'icon dans le menu des tours
 
         }
 

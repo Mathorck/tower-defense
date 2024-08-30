@@ -11,18 +11,31 @@ namespace Projet_Tower_Defense.tours
     internal class Canon
     {
         private float porteeTir = 50f;
-        private int niveau = 0;
+        private int niveau = 1;
         private float degats = 10f;
         private float vitesseDattaque = 1.5f;
         public Vector2 Position;
         public int tourChoisie = 0;
-        
+        private Texture2D Base = Raylib.LoadTexture(@"./images/Cannon/Tower.png");
+        private Texture2D Cannon;
+        private bool textureActive = false;
+
 
         public int Niveau { get { return niveau; } }
         public float PorteeTir { get {  return porteeTir; } }
         public float Degats {  get { return degats; } }
         public float VitesseDattaque { get { return vitesseDattaque; } }
-
+        public int TourChoisie
+        {
+            get { return tourChoisie; }
+            set 
+            { 
+                tourChoisie = value;
+                setTextureCanon();
+            }
+        }
+        
+        
 
         public Canon()
         {
@@ -42,10 +55,6 @@ namespace Projet_Tower_Defense.tours
         {
             switch (niveau)
             {
-                case 0:
-                    niveau = 1; 
-                    // ajouter buff ici
-                    break;
                 case 1: 
                     niveau = 2; 
 
@@ -54,26 +63,73 @@ namespace Projet_Tower_Defense.tours
                     niveau = 3;
 
                     break;
-                case 3:
-                    niveau = 4;
-
-                    break;
-                case 4: 
-                    niveau = 5;
-
-                    break;
             }
+            setTextureCanon();
         }
       
         public void Draw()
         {
             Raylib.DrawCircleV(Position, 40f, Color.White);
+            Raylib.DrawTextureEx(Base, Position - new Vector2(35, 35), 0, 0.30f, Color.White);
+            if (textureActive)
+            {
+                Raylib.DrawTextureEx(Base, Position - new Vector2(35, 35), 0, 0.30f, Color.White);
+            }
         }
-        public void Place()
+        public void Place(Vector2 mousePosition)
         {
-            Raylib.DrawCircleV(Raylib.GetMousePosition(), 40f, Color.White);
+            Raylib.DrawTextureEx(Base, mousePosition - new Vector2(35, 35), 0, 0.30f, Color.White);
         }
-        
+
+        private void setTextureCanon()
+        {
+            switch (TourChoisie)
+            {
+                case 0:
+                    switch (Niveau)
+                    {
+                        case 0:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon1.png");
+                            break;
+                        case 1:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon2.png");
+                            break;
+                        case 2:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon3.png");
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (Niveau)
+                    {
+                        case 0:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/CannonMG.png");
+                            break;
+                        case 1:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/CannonMG2.png");
+                            break;
+                        case 2:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/CannonMG3.png");
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (Niveau)
+                    {
+                        case 0:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher.png");
+                            break;
+                        case 1:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher2.png");
+                            break;
+                        case 2:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher3.png");
+                            break;
+                    }
+                    break;
+            }
+            textureActive = true;
+        }
 
     }
 }

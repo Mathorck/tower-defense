@@ -58,9 +58,9 @@ namespace Projet_Tower_Defense
             Canon canon = new Canon();
             //// btnChoixTour /////
             Rectangle[] btnChoixTour = new Rectangle[3];
-            btnChoixTour[0] = new Rectangle(0, 0, new Vector2(50, 50));
-            btnChoixTour[1] = new Rectangle(0, 0, new Vector2(50, 50));
-            btnChoixTour[2] = new Rectangle(0, 0, new Vector2(50, 50));
+            btnChoixTour[0] = new Rectangle(0, 0, new Vector2(75, 75));
+            btnChoixTour[1] = new Rectangle(0, 0, new Vector2(75, 75));
+            btnChoixTour[2] = new Rectangle(0, 0, new Vector2(75, 75));
             bool ChoixTourOuvert = false;
 
             //// Déclaration variables Autres ////
@@ -73,6 +73,7 @@ namespace Projet_Tower_Defense
             int vieDeLaBase = 100;
             Rectangle PorteMonstreD1 = new Rectangle(445, 80, 68, 40);
             Rectangle PorteMonstreD2 = new Rectangle(955, 80, 68, 40);
+            Vector2 tempMousePosition = new Vector2(0,0);
         
             ///////////// Boucle menu /////////////
             while (!start && !stop)
@@ -147,29 +148,11 @@ namespace Projet_Tower_Defense
                             modeConstruction = false;
                         else
                             modeConstruction = true;
+                        ChoixTourOuvert = false;
                     }
 
                     if (Raylib.IsKeyDown(KeyboardKey.Escape))
                         modeConstruction = false;
-
-
-                    if (modeConstruction)
-                    {
-                        canon.Place();
-                        if ((Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[1]) && !TourCollide(cheminNonPosable, canons)))
-                        {
-                            
-                            Raylib.BeginDrawing();// En gros sa fonctionne pas parce que il éfface tout quand il commance a dessiner ce neuille
-                            Raylib.DrawRectangleRounded(btnChoixTour[0], 0.2f, 4, Color.SkyBlue);
-                            Raylib.DrawText("Mode Construction activé", 250, 12, 20, Color.Black);
-                            Raylib.EndDrawing();
-
-                            canons.Add(new Canon(Raylib.GetMousePosition()));
-                            modeConstruction = false;
-                        }
-                    }
-
-
 
                     /////////////////////////Semble shlag de ouf//
                                                                 //
@@ -186,19 +169,66 @@ namespace Projet_Tower_Defense
                                                                 //
                     //////////////////////////////////////////////
 
+
+                    if (modeConstruction)
+                    {
+                        if ((Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[1]) && !TourCollide(cheminNonPosable, canons)))
+                        {
+                            ChoixTourOuvert = true;
+                            tempMousePosition = mousePoint;
+
+                            //canons.Add(new Canon(Raylib.GetMousePosition()));
+                            //modeConstruction = false;
+                        }
+                        if (!Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[0])&& Raylib.IsMouseButtonPressed(MouseButton.Left))
+                        {
+                            canons.Add(new Canon(tempMousePosition, 1));
+                            //ChoixTourOuvert = false;
+                            //modeConstruction = false;
+                        }
+                        else if (!Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[1])&& Raylib.IsMouseButtonPressed(MouseButton.Left))
+                        {
+                            canons.Add(new Canon(tempMousePosition, 2));
+                            //ChoixTourOuvert = false;
+                            //modeConstruction = false;
+                        }
+                        else if (!Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[2]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
+                        {
+                            canons.Add(new Canon(tempMousePosition, 3));
+                            //ChoixTourOuvert = false;
+                            //modeConstruction = false;
+                        }
+                    }
                     Raylib.BeginDrawing();
                     Raylib.ClearBackground(Color.White);
                     DessinerJeuFond(Fond);
-
                     DessinerEntitees(enemies,canons);
-
-
                     DessinerGui(texte, mousePoint, btnAffichage, cible);
                     DessinerBase();
                     DessinerPortesMonstres(porte);
-                    
+                    if (modeConstruction)
+                    {
+                        Raylib.DrawText("Mode Construction activé", 370, 30, 20, Color.Red);
 
+                        if (ChoixTourOuvert)
+                        {
+                            canon.Place(tempMousePosition);
+                            btnChoixTour[0].Position = tempMousePosition + new Vector2(90-35, 50);
+                            btnChoixTour[1].Position = tempMousePosition + new Vector2(0-35, 50);
+                            btnChoixTour[2].Position = tempMousePosition + new Vector2(-90-35, 50);
+                            Raylib.DrawRectangleRounded(btnChoixTour[0], 0.2f, 4, Color.SkyBlue);
+                            Raylib.DrawRectangleRounded(btnChoixTour[1], 0.2f, 4, Color.SkyBlue);
+                            Raylib.DrawRectangleRounded(btnChoixTour[2], 0.2f, 4, Color.SkyBlue);
+                        }
+                        else
+                        {
+                            canon.Place(mousePoint);
+                        }
+                    }
+                    
                     Raylib.EndDrawing();
+
+
 
                     //////////////////////////// MENU ///////////////////////
                     while (menuOuvert)

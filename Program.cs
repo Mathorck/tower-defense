@@ -62,10 +62,13 @@ namespace Projet_Tower_Defense
             Vector2 PorteMonstre1 = new Vector2(480, 80);
             Vector2 PorteMonstre2 = new Vector2(990, 80);
             int vieDeLaBase = 100;
+            Rectangle PorteMonstreD1 = new Rectangle(445, 80, 68, 40);
+            Rectangle PorteMonstreD2 = new Rectangle(955, 80, 68, 40);
         
             ///////////// Boucle menu /////////////
             while (!start && !stop)
             {
+
                 mousePoint = Raylib.GetMousePosition();
 
             
@@ -180,8 +183,9 @@ namespace Projet_Tower_Defense
                     }
 
                     DessinerGui(texte, mousePoint, btnAffichage);
-                    DessinerPortesMonstres();
                     DessinerBase();
+                    DessinerPortesMonstres();
+                    
 
                     Raylib.EndDrawing();
 
@@ -247,12 +251,18 @@ namespace Projet_Tower_Defense
 
         }
 
-       static void DessinerPortesMonstres()
+        static void DessinerPortesMonstres()
         {
-            Raylib.DrawRectangle(445, 80, 68, 40, Color.White);
-            Raylib.DrawRectangle(955, 80, 68, 40, Color.White);
-            Raylib.LoadTexture("./images/PorteMonstre.png");
-            Raylib.DrawTexture(Raylib.LoadTexture("./images/PorteMonstre.png"), 445, 80, Color.White);
+            Rectangle PorteMonstreD1 = new Rectangle(445, 80, 68, 40);
+            Rectangle PorteMonstreD2 = new Rectangle(955, 80, 68, 40);
+
+            Texture2D porte = Raylib.LoadTexture("./images/PorteMonstre.png");
+
+            Raylib.DrawRectangleRec(PorteMonstreD1, Color.White);
+            Raylib.DrawRectangleRec(PorteMonstreD2, Color.White);
+
+            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), PorteMonstreD1, new Vector2(0, 0), 0.0f, Color.White);
+            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), PorteMonstreD2, new Vector2(0, 0), 0.0f, Color.White);
 
         }
 

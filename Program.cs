@@ -234,7 +234,8 @@ namespace Projet_Tower_Defense
         
         static void DessinerMenuTours()
         {
-            
+
+       
         }
 
         static void DessinerMenu()
@@ -261,7 +262,7 @@ namespace Projet_Tower_Defense
             Raylib.DrawRectangleRec(PorteMonstreD1, Color.White);
             Raylib.DrawRectangleRec(PorteMonstreD2, Color.White);
 
-            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), PorteMonstreD1, new Vector2(0, 0), 0.0f, Color.White);
+            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), new Rectangle(445, 80, 68, 40), new Vector2(0, 0), 0.0f, Color.White);
             Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), PorteMonstreD2, new Vector2(0, 0), 0.0f, Color.White);
 
         }

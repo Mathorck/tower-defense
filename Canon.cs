@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Raylib_cs;
 
-namespace Projet_Tower_Defense.tours
+namespace Squelette
 {
     internal class Canon
     {
@@ -22,20 +22,20 @@ namespace Projet_Tower_Defense.tours
 
 
         public int Niveau { get { return niveau; } }
-        public float PorteeTir { get {  return porteeTir; } }
-        public float Degats {  get { return degats; } }
+        public float PorteeTir { get { return porteeTir; } }
+        public float Degats { get { return degats; } }
         public float VitesseDattaque { get { return vitesseDattaque; } }
         public int TourChoisie
         {
             get { return tourChoisie; }
-            set 
-            { 
+            set
+            {
                 tourChoisie = value;
                 setTextureCanon();
             }
         }
-        
-        
+
+
 
         public Canon()
         {
@@ -43,11 +43,11 @@ namespace Projet_Tower_Defense.tours
         }
         public Canon(Vector2 position)
         {
-            this.Position = position;
+            Position = position;
         }
         public Canon(Vector2 position, int tourChoisie)
         {
-            this.Position = position;
+            Position = position;
             this.tourChoisie = tourChoisie;
         }
 
@@ -55,18 +55,18 @@ namespace Projet_Tower_Defense.tours
         {
             switch (niveau)
             {
-                case 1: 
-                    niveau = 2; 
+                case 1:
+                    niveau = 2;
 
                     break;
-                case 2: 
+                case 2:
                     niveau = 3;
 
                     break;
             }
             setTextureCanon();
         }
-      
+
         public void Draw()
         {
             Raylib.DrawCircleV(Position, 40f, Color.White);
@@ -85,44 +85,44 @@ namespace Projet_Tower_Defense.tours
         {
             switch (TourChoisie)
             {
-                case 0:
-                    switch (Niveau)
-                    {
-                        case 0:
-                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon1.png");
-                            break;
-                        case 1:
-                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon2.png");
-                            break;
-                        case 2:
-                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon3.png");
-                            break;
-                    }
-                    break;
                 case 1:
                     switch (Niveau)
                     {
-                        case 0:
-                            Cannon = Raylib.LoadTexture(@"./images/Cannon/CannonMG.png");
-                            break;
                         case 1:
-                            Cannon = Raylib.LoadTexture(@"./images/Cannon/CannonMG2.png");
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon1.png");
                             break;
                         case 2:
-                            Cannon = Raylib.LoadTexture(@"./images/Cannon/CannonMG3.png");
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon2.png");
+                            break;
+                        case 3:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon3.png");
                             break;
                     }
                     break;
                 case 2:
                     switch (Niveau)
                     {
-                        case 0:
-                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher.png");
-                            break;
                         case 1:
-                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher2.png");
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/CannonMG.png");
                             break;
                         case 2:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/CannonMG2.png");
+                            break;
+                        case 3:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/CannonMG3.png");
+                            break;
+                    }
+                    break;
+                case 3:
+                    switch (Niveau)
+                    {
+                        case 1:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher.png");
+                            break;
+                        case 2:
+                            Cannon = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher2.png");
+                            break;
+                        case 3:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher3.png");
                             break;
                     }

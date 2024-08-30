@@ -1,5 +1,5 @@
-using Projet_Tower_Defense.tours;
 using Raylib_cs;
+using Squelette;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
@@ -127,6 +127,8 @@ namespace Projet_Tower_Defense
                 Texture2D porte = Raylib.LoadTexture("./images/PorteMonstre.png");
                 Texture2D cible = Raylib.LoadTexture("./images/Target-icon.png");
 
+                Texture2D Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon1.png");
+
                 ///////////// Boucle principale /////////////
                 while (!stop)
                 {
@@ -176,27 +178,24 @@ namespace Projet_Tower_Defense
                         {
                             ChoixTourOuvert = true;
                             tempMousePosition = mousePoint;
-
-                            //canons.Add(new Canon(Raylib.GetMousePosition()));
-                            //modeConstruction = false;
                         }
-                        if (!Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[0])&& Raylib.IsMouseButtonPressed(MouseButton.Left))
+                        if (Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[0]) && Raylib.IsMouseButtonPressed(MouseButton.Left) )
                         {
                             canons.Add(new Canon(tempMousePosition, 1));
-                            //ChoixTourOuvert = false;
-                            //modeConstruction = false;
+                            ChoixTourOuvert = false;
+                            modeConstruction = false;
                         }
-                        else if (!Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[1])&& Raylib.IsMouseButtonPressed(MouseButton.Left))
+                        else if (Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[1]) && Raylib.IsMouseButtonPressed(MouseButton.Left) )
                         {
                             canons.Add(new Canon(tempMousePosition, 2));
-                            //ChoixTourOuvert = false;
-                            //modeConstruction = false;
+                            ChoixTourOuvert = false;
+                            modeConstruction = false;
                         }
-                        else if (!Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[2]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
+                        else if (Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[2]) && Raylib.IsMouseButtonPressed(MouseButton.Left) )
                         {
                             canons.Add(new Canon(tempMousePosition, 3));
-                            //ChoixTourOuvert = false;
-                            //modeConstruction = false;
+                            ChoixTourOuvert = false;
+                            modeConstruction = false;
                         }
                     }
                     Raylib.BeginDrawing();

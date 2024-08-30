@@ -49,7 +49,6 @@ namespace Projet_Tower_Defense
             btnAffichage[1] = new Rectangle(300, 10, new Vector2(60, 60));
             int nbCanon = 0;
             bool modeConstruction = false;
-            int tourChoisie = 1;
             //// liste Enemy /////
             List<Enemy> enemies = new List<Enemy>();
             //// liste Canon /////
@@ -70,11 +69,11 @@ namespace Projet_Tower_Defense
             bool stop = false;
             Vector2 PorteMonstre1 = new Vector2(480, 80);
             Vector2 PorteMonstre2 = new Vector2(990, 80);
-            int vieDeLaBase = 100;
             Rectangle PorteMonstreD1 = new Rectangle(445, 80, 68, 40);
             Rectangle PorteMonstreD2 = new Rectangle(955, 80, 68, 40);
             Vector2 tempMousePosition = new Vector2(0,0);
-        
+
+            int vieActuelle = 100;
             ///////////// Boucle menu /////////////
             while (!start && !stop)
             {
@@ -126,6 +125,7 @@ namespace Projet_Tower_Defense
                 Texture2D Fond = Raylib.LoadTexture("./images/backgroundgame.png");
                 Texture2D porte = Raylib.LoadTexture("./images/PorteMonstre.png");
                 Texture2D cible = Raylib.LoadTexture("./images/Target-icon.png");
+                Texture2D coeur = Raylib.LoadTexture("./images/coeur.png");
 
                 Texture2D Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon.png");
 
@@ -205,9 +205,13 @@ namespace Projet_Tower_Defense
                     DessinerGui(texte, mousePoint, btnAffichage, cible);
                     DessinerBase();
                     DessinerPortesMonstres(porte);
+                    DessinerBarreDeVie(ref vieActuelle, coeur);
+
+                    DessinerPortesMonstres(porte);
                     if (modeConstruction)
                     {
                         Raylib.DrawText("Mode Construction activé", 370, 30, 20, Color.Red);
+            
 
                         if (ChoixTourOuvert)
                         {
@@ -290,10 +294,25 @@ namespace Projet_Tower_Defense
 
             return touche;
         }
+
+        static void DessinerBarreDeVie(ref int vieActuelle, Texture2D coeur)
+        {
+            Raylib.DrawRectangle(585, 30, vieActuelle*2, 30, Color.Green);
+            Raylib.DrawRectangleLines(585, 30, vieActuelle * 2, 30, Color.Black);
+
+            
+            Rectangle Coeur = new Rectangle(555, 20, 50, 50);
+           
+            Raylib.DrawTexturePro(coeur, new Rectangle(0, 0, coeur.Width, coeur.Height), Coeur, new Vector2(0, 0), 0.0f, Color.White);
+
+            
+            
+        }
         
         static void DessinerMenuTours()
         {
-            
+
+       
         }
 
         static void DessinerMenu()
@@ -315,14 +334,11 @@ namespace Projet_Tower_Defense
             Rectangle PorteMonstreD1 = new Rectangle(445, 80, 68, 40);
             Rectangle PorteMonstreD2 = new Rectangle(955, 80, 68, 40);
 
-            
-
             Raylib.DrawRectangleRec(PorteMonstreD1, Color.White);
             Raylib.DrawRectangleRec(PorteMonstreD2, Color.White);
 
-            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), PorteMonstreD1, new Vector2(0, 0), 0.0f, Color.White);
+            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), new Rectangle(445, 80, 68, 40), new Vector2(0, 0), 0.0f, Color.White);
             Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), PorteMonstreD2, new Vector2(0, 0), 0.0f, Color.White);
-
 
         }
 

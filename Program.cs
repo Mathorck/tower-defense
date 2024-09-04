@@ -186,24 +186,43 @@ namespace Squelette
                             canons.Add(new Canon(tempMousePosition, 1));
                             choixTourOuvert = false;
                             modeConstruction = false;
+                            btnChoixTour[0].Position = new Vector2(0,0);
+                            btnChoixTour[1].Position = new Vector2(0,0);
+                            btnChoixTour[2].Position = new Vector2(0,0);
                         }
                         else if (Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[1]) && Raylib.IsMouseButtonPressed(MouseButton.Left) )
                         {
                             canons.Add(new Canon(tempMousePosition, 2));
                             choixTourOuvert = false;
                             modeConstruction = false;
+                            btnChoixTour[0].Position = new Vector2(0, 0);
+                            btnChoixTour[1].Position = new Vector2(0, 0);
+                            btnChoixTour[2].Position = new Vector2(0, 0);
                         }
                         else if (Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[2]) && Raylib.IsMouseButtonPressed(MouseButton.Left) )
                         {
                             canons.Add(new Canon(tempMousePosition, 3));
                             choixTourOuvert = false;
                             modeConstruction = false;
+                            btnChoixTour[0].Position = new Vector2(0, 0);
+                            btnChoixTour[1].Position = new Vector2(0, 0);
+                            btnChoixTour[2].Position = new Vector2(0, 0);
                         }
                     }
                     Raylib.BeginDrawing();
                     Raylib.ClearBackground(Color.White);
                     DessinerJeuFond(fond);
                     DessinerEntitees(enemies,canons);
+                    foreach (Canon canon2 in canons)
+                    {
+                        try 
+                        { 
+                            canon2.setRotation(getRotation(enemies[0].position, canon2.Position));
+                        }catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.ToString());
+                        }
+                    }
                     DessinerGui(texte, mousePoint, btnAffichage, cible);
                     DessinerBase();
                     DessinerPortesMonstres(porte);
@@ -429,6 +448,15 @@ namespace Squelette
                 monstresList.Remove(monstre);
                 monstresList.Order();
             }
+        }
+        static float getRotation(Vector2 Ennemy, Vector2 Tour)
+        {
+            float coteGauche = Ennemy.Y - Tour.Y;
+            float coteBas = Tour.X - Ennemy.X;
+            return float.Atan(coteGauche / coteBas);
+            
+            
+
         }
 
     }

@@ -20,6 +20,10 @@ namespace Squelette
         private Texture2D Cannon;
         private bool textureActive = false;
 
+        private int frameWidth;
+        private int frameHeight;
+        private Rectangle sourceRec;
+        private Rectangle destRec;
 
         public int Niveau { get { return niveau; } }
         public float PorteeTir { get { return porteeTir; } }
@@ -39,7 +43,7 @@ namespace Squelette
 
         public Canon()
         {
-
+            
         }
         public Canon(Vector2 position)
         {
@@ -78,6 +82,11 @@ namespace Squelette
         public void Place(Vector2 mousePosition)
         {
             Raylib.DrawTextureEx(Base, mousePosition - new Vector2(35, 35), 0, 0.30f, Color.White);
+        }
+        public void setRotation(float rotation)
+        {
+            Raylib.DrawTexturePro(Cannon, sourceRec, destRec, new Vector2(0,0), rotation, Color.White);
+            
         }
 
         private void setTextureCanon()
@@ -128,6 +137,10 @@ namespace Squelette
                     break;
             }
             textureActive = true;
+            frameWidth = Cannon.Width;
+            frameHeight = Cannon.Height;
+            sourceRec = new Rectangle(0, 0, frameWidth, frameHeight);
+            destRec = new Rectangle(Position.X+100,Position.Y+100, frameWidth/2, frameHeight/2);
         }
 
     }

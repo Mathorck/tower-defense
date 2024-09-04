@@ -176,7 +176,7 @@ namespace Squelette
 
                     if (modeConstruction)
                     {
-                        if ((Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[1]) && !TourCollide(cheminNonPosable, canons)))
+                        if ((Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[1]) && !TourCollide(cheminNonPosable, canons))&& !choixTourOuvert)
                         {
                             choixTourOuvert = true;
                             tempMousePosition = mousePoint;
@@ -222,11 +222,11 @@ namespace Squelette
                             btnChoixTour[1].Position = tempMousePosition + new Vector2(0-35, 50);
                             btnChoixTour[2].Position = tempMousePosition + new Vector2(-90-35, 50);
                             Raylib.DrawRectangleRounded(btnChoixTour[0], 0.2f, 4, Color.SkyBlue);
-                            Raylib.DrawTextureEx(cannon, btnChoixTour[0].Position+ new Vector2(20,5),0f,0.25f, Color.White);
+                            Raylib.DrawTextureEx(cannon, btnChoixTour[0].Position+ new Vector2(52.5f,-7.5f),45f,0.3f, Color.White);
                             Raylib.DrawRectangleRounded(btnChoixTour[1], 0.2f, 4, Color.SkyBlue);
-                            Raylib.DrawTextureEx(mg, btnChoixTour[1].Position+ new Vector2(20,5),0f,0.25f, Color.White);
+                            Raylib.DrawTextureEx(mg, btnChoixTour[1].Position+ new Vector2(45,-2.5f),45f,0.3f, Color.White);
                             Raylib.DrawRectangleRounded(btnChoixTour[2], 0.2f, 4, Color.SkyBlue);
-                            Raylib.DrawTextureEx(missileLauncher, btnChoixTour[2].Position+ new Vector2(20,5),0f,0.25f, Color.White);
+                            Raylib.DrawTextureEx(missileLauncher, btnChoixTour[2].Position+ new Vector2(45,0),45f,0.3f, Color.White);
                         }
                         else
                         {

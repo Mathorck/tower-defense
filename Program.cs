@@ -8,7 +8,7 @@ namespace Squelette
         public static void Main()
         {
             ///////////// Création de la fenêtre /////////////
-            Raylib.InitWindow(1920, 1080, "Hello World");
+            Raylib.InitWindow(1920, 1080, "Tower Defense");
             Raylib.ToggleFullscreen();
             Raylib.SetTargetFPS(60);
 
@@ -218,9 +218,10 @@ namespace Squelette
                         try 
                         { 
                             canon2.setRotation(getRotation(enemies[0].position, canon2.Position));
-                        }catch (Exception ex)
+                        }
+                        catch (Exception ex)
                         {
-                            Console.WriteLine(ex.ToString());
+                            
                         }
                     }
                     DessinerGui(texte, mousePoint, btnAffichage, cible);
@@ -451,13 +452,11 @@ namespace Squelette
         }
         static float getRotation(Vector2 Ennemy, Vector2 Tour)
         {
-            float coteGauche = Ennemy.Y - Tour.Y;
-            float coteBas = Tour.X - Ennemy.X;
-            return float.Atan(coteGauche / coteBas);
-            
-            
-
+            float deltaY = Ennemy.Y - Tour.Y;
+            float deltaX = Ennemy.X - Tour.X;
+            return (float)(Math.Atan2(deltaY, deltaX) * (180.0 / Math.PI));
         }
+
 
     }
 }

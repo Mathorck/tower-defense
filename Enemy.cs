@@ -10,17 +10,22 @@ using Raylib_cs;
 public class Enemy
 {
     public Vector2 position;
-    private float size = 30;
+    public float size = 30;
     public float speed = 0.1f;
     public int dir = 1;
     public Color couleur = Color.Red;
-    public int vie = 3;
-    
+    public int vie = 20;
+    public bool Placebo = false;
+    public int recompense = 100;
 
-    //   3
-    // 2 0 4
-    //   1
 
+    //   3      
+    // 2 0 4    
+    //   1      
+    public Enemy()
+    {
+        Placebo = true;
+    }
     public Enemy(Vector2 position)
     {
         this.position = position;
@@ -42,12 +47,13 @@ public class Enemy
         this.speed = vitesse;
         this.vie = vie;
     }
-    public Enemy(Vector2 position, float vitesse, Color couleur, int vie)
+    public Enemy(Vector2 position, float vitesse, Color couleur, int vie, int recompense)
     {
         this.position = position;
         this.speed = vitesse;
         this.couleur = couleur;
         this.vie = vie;
+        this.recompense = recompense;
     }
 
     public void Go()
@@ -73,6 +79,6 @@ public class Enemy
     public void Draw()
     {
         Raylib.DrawCircle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), size, couleur);
-        Raylib.DrawText(vie.ToString(), Convert.ToInt32(position.X-11), Convert.ToInt32(position.Y-size/3), 20, Color.Black);
+        Raylib.DrawText(vie.ToString(), Convert.ToInt32(position.X-11), Convert.ToInt32(position.Y-size/3), 2, Color.Black);
     }
 }

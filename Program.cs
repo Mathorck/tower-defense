@@ -8,7 +8,7 @@ namespace Squelette
         public static void Main()
         {
             ///////////// Création de la fenêtre /////////////
-            Raylib.InitWindow(1920, 1080, "Hello World");
+            Raylib.InitWindow(1920, 1080, "Tower Defense");
             Raylib.ToggleFullscreen();
             Raylib.SetTargetFPS(60);
 
@@ -186,24 +186,44 @@ namespace Squelette
                             canons.Add(new Canon(tempMousePosition, 1));
                             choixTourOuvert = false;
                             modeConstruction = false;
+                            btnChoixTour[0].Position = new Vector2(0,0);
+                            btnChoixTour[1].Position = new Vector2(0,0);
+                            btnChoixTour[2].Position = new Vector2(0,0);
                         }
                         else if (Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[1]) && Raylib.IsMouseButtonPressed(MouseButton.Left) )
                         {
                             canons.Add(new Canon(tempMousePosition, 2));
                             choixTourOuvert = false;
                             modeConstruction = false;
+                            btnChoixTour[0].Position = new Vector2(0, 0);
+                            btnChoixTour[1].Position = new Vector2(0, 0);
+                            btnChoixTour[2].Position = new Vector2(0, 0);
                         }
                         else if (Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[2]) && Raylib.IsMouseButtonPressed(MouseButton.Left) )
                         {
                             canons.Add(new Canon(tempMousePosition, 3));
                             choixTourOuvert = false;
                             modeConstruction = false;
+                            btnChoixTour[0].Position = new Vector2(0, 0);
+                            btnChoixTour[1].Position = new Vector2(0, 0);
+                            btnChoixTour[2].Position = new Vector2(0, 0);
                         }
                     }
                     Raylib.BeginDrawing();
                     Raylib.ClearBackground(Color.White);
                     DessinerJeuFond(fond);
                     DessinerEntitees(enemies,canons);
+                    foreach (Canon canon2 in canons)
+                    {
+                        try 
+                        { 
+                            canon2.setRotation(getRotation(enemies[0].position, canon2.Position));
+                        }
+                        catch (Exception ex)
+                        {
+                            
+                        }
+                    }
                     DessinerGui(texte, mousePoint, btnAffichage, cible);
                     DessinerBase();
                     DessinerPortesMonstres(porte);
@@ -430,6 +450,13 @@ namespace Squelette
                 monstresList.Order();
             }
         }
+        static float getRotation(Vector2 Ennemy, Vector2 Tour)
+        {
+            float deltaY = Ennemy.Y - Tour.Y;
+            float deltaX = Ennemy.X - Tour.X;
+            return (float)(Math.Atan2(deltaY, deltaX) * (180.0 / Math.PI));
+        }
+
 
     }
 }

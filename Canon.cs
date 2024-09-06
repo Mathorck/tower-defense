@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,11 +16,18 @@ namespace Squelette
         private float degats = 10f;
         private float vitesseDattaque = 1.5f;
         public Vector2 Position;
+        public Vector2 PositionCanon;
         public int tourChoisie = 0;
         private Texture2D Base = Raylib.LoadTexture(@"./images/Cannon/Tower.png");
         private Texture2D Cannon;
         private bool textureActive = false;
+        private float rotation = 0f;
 
+        private int frameWidth;
+        private int frameHeight;
+        private Rectangle sourceRec;
+        private Rectangle destRec;
+        private Vector2 origin = new(70,180);
 
         public int Niveau { get { return niveau; } }
         public float PorteeTir { get { return porteeTir; } }
@@ -39,7 +47,7 @@ namespace Squelette
 
         public Canon()
         {
-
+            
         }
         public Canon(Vector2 position)
         {
@@ -72,12 +80,20 @@ namespace Squelette
         {
             Raylib.DrawCircleV(Position, 40f, Color.White);
             Raylib.DrawTextureEx(Base, Position - new Vector2(35, 35), 0, 0.30f, Color.White);
-
-            Raylib.DrawTextureEx(Cannon, Position - new Vector2(35, 35), 0, 0.3f, Color.White);
+            Raylib.DrawTexturePro(Cannon, sourceRec, destRec, origin, rotation, Color.White);
+            
         }
         public void Place(Vector2 mousePosition)
         {
             Raylib.DrawTextureEx(Base, mousePosition - new Vector2(35, 35), 0, 0.30f, Color.White);
+        }
+        public void setRotation(float rotation)
+        {
+            this.rotation = rotation + 90;
+        }
+        public void FireBall()
+        {
+
         }
 
         private void setTextureCanon()
@@ -128,6 +144,12 @@ namespace Squelette
                     break;
             }
             textureActive = true;
+            frameWidth = Cannon.Width;
+            frameHeight = Cannon.Height;
+            destRec = new Rectangle(Position.X + 0, Position.Y + 0, frameWidth / 3, frameHeight / 3);
+            sourceRec = new Rectangle(0, 0, frameWidth, frameHeight);
+            origin = new Vector2(frameWidth/2/3, frameHeight/4*3/3);
+
         }
 
     }

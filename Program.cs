@@ -51,6 +51,8 @@ namespace Squelette
             List<Enemy> enemies = new List<Enemy>();
             //// liste Canon /////
             List<Canon> canons = new List<Canon>();
+            //// liste bullets ////
+            List<Bullet> bullets = new List<Bullet>();
             // canonPos
             Canon canon = new Canon();
             //// btnChoixTour /////
@@ -133,12 +135,8 @@ namespace Squelette
                 while (!stop)
                 {
                     mousePoint = Raylib.GetMousePosition();
-                
-                
-                    if (Collide(cheminNonPosable[0]) || Collide(cheminNonPosable[1]) || Collide(cheminNonPosable[2]) || Collide(cheminNonPosable[3]) || Collide(cheminNonPosable[4]) || Collide(cheminNonPosable[5]) || Collide(cheminNonPosable[6]) || Collide(cheminNonPosable[7]) || Collide(cheminNonPosable[8]) || Collide(cheminNonPosable[9]) || Collide(cheminNonPosable[10]) || Collide(cheminNonPosable[11]) || Collide(cheminNonPosable[12]))
-                        texte = "Non";
-                    else
-                        texte = "Ok";
+
+                    texte = bullets.Count().ToString();
                 
                 
                     if (Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[0]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
@@ -166,13 +164,41 @@ namespace Squelette
                             Direction(enemies[i], enemies);
                             enemies[i].Go();
                         }catch{}
-
-                        
-
                     }                                           //
                                                                 //
                     //////////////////////////////////////////////
 
+                    List<Bullet> bulletsToRemove = new List<Bullet>();
+
+                    foreach (Bullet balle in bullets)
+                    {
+                        if (enemies.Count != 0)
+                        {
+                            if (HitEnnemy(enemies, balle, out Enemy touche))
+                            {
+                                bulletsToRemove.Add(balle);
+                                if (!touche.Placebo)
+                                {
+                                    touche.vie -= 10;
+                                }
+                            }
+                        }
+                        else if (balle.Position.X > Raylib.GetScreenWidth() || balle.Position.Y > Raylib.GetScreenHeight())
+                        {
+                            bulletsToRemove.Add(balle);
+                        }
+                        else if (balle.Position.X < 0 || balle.Position.Y < 0)
+                        {
+                            bulletsToRemove.Add(balle);
+                        }
+                    }
+                    
+
+                    foreach (Bullet balle in bulletsToRemove)
+                    {
+                        bullets.Remove(balle.Destroy());
+                    }
+                    bullets.Order();
 
                     if (modeConstruction)
                     {
@@ -215,14 +241,20 @@ namespace Squelette
                     DessinerEntitees(enemies,canons);
                     foreach (Canon canon2 in canons)
                     {
+                        canon2.UpdateTimer();
+                        canon2.Fire(bullets);
                         try 
                         { 
                             canon2.setRotation(getRotation(enemies[0].position, canon2.Position));
                         }
-                        catch (Exception ex)
+                        catch
                         {
                             
                         }
+                    }
+                    foreach (Bullet bullet in bullets)
+                    {
+                        bullet.Draw();
                     }
                     DessinerGui(texte, mousePoint, btnAffichage, cible);
                     DessinerBase();
@@ -456,7 +488,20 @@ namespace Squelette
             float deltaX = Ennemy.X - Tour.X;
             return (float)(Math.Atan2(deltaY, deltaX) * (180.0 / Math.PI));
         }
-
+        static bool HitEnnemy(List<Enemy> enemies, Bullet balle, out Enemy Touche)
+        {
+            bool hit = false;
+            foreach (Enemy enemy in enemies)
+            {
+                if (Raylib.CheckCollisionCircleRec(enemy.position, enemy.size, balle.rctDest))
+                {
+                    hit = true;
+                    Touche = enemy;
+                }
+            }
+            Touche = new Enemy(Vector2.Zero);
+            return hit;
+        }
 
     }
 }

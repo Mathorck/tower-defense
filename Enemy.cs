@@ -16,11 +16,12 @@ public class Enemy
     public Color couleur = Color.Red;
     public int vie = 20;
     public bool Placebo = false;
+    public int recompense = 100;
 
 
-    //   3
-    // 2 0 4
-    //   1
+    //   3      
+    // 2 0 4    
+    //   1      
     public Enemy()
     {
         Placebo = true;
@@ -46,12 +47,13 @@ public class Enemy
         this.speed = vitesse;
         this.vie = vie;
     }
-    public Enemy(Vector2 position, float vitesse, Color couleur, int vie)
+    public Enemy(Vector2 position, float vitesse, Color couleur, int vie, int recompense)
     {
         this.position = position;
         this.speed = vitesse;
         this.couleur = couleur;
         this.vie = vie;
+        this.recompense = recompense;
     }
 
     public void Go()

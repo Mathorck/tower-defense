@@ -11,7 +11,8 @@ namespace Squelette
 {
     internal class Canon
     {
-        private float porteeTir = 50f;
+        private float porteeTir = 500f;
+        public float hitbox = 40f;
         private int niveau = 1;
         private float degats = 10f;
         private float vitesseDattaque = 10f;
@@ -26,7 +27,7 @@ namespace Squelette
         private int frameHeight;
         private Rectangle sourceRec;
         private Rectangle destRec;
-        private Vector2 origin = new(70,180);
+        private Vector2 origin = new(70, 180);
         private float temp = 0.0f;
 
         public int Niveau { get { return niveau; } }
@@ -47,7 +48,7 @@ namespace Squelette
 
         public Canon()
         {
-            
+
         }
         public Canon(Vector2 position)
         {
@@ -59,14 +60,14 @@ namespace Squelette
             this.tourChoisie = tourChoisie;
             setTextureCanon();
         }
-        
+
 
         public void Draw()
         {
-            Raylib.DrawCircleV(Position, 40f, Color.White);
+            Raylib.DrawCircleV(Position, hitbox, Color.White);
             Raylib.DrawTextureEx(Base, Position - new Vector2(35, 35), 0, 0.30f, Color.White);
             Raylib.DrawTexturePro(Cannon, sourceRec, destRec, origin, rotation, Color.White);
-            
+
         }
         public void Place(Vector2 mousePosition)
         {
@@ -89,7 +90,7 @@ namespace Squelette
         }
         public void UpdateTimer()
         {
-            temp+=0.1f;
+            temp += 0.1f;
         }
         public float getTimer()
         {
@@ -100,6 +101,8 @@ namespace Squelette
         {
             temp = 0.0f;
         }
+    
+        
 
         private void setTextureCanon()
         {
@@ -111,9 +114,10 @@ namespace Squelette
                         case 1:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon.png");
                             vitesseDattaque = 10f;
+                            porteeTir = 250f;
 
                             degats = 10f;
-                            porteeTir = 40f;
+
                             break;
                         case 2:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon2.png");
@@ -122,6 +126,7 @@ namespace Squelette
                         case 3:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon3.png");
                             vitesseDattaque = 9f;
+                            bulletSize = 1.5f;
                             break;
                     }
                     break;
@@ -138,7 +143,7 @@ namespace Squelette
                             break;
                         case 3:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/MG3.png");
-                            vitesseDattaque = 1f;
+                            vitesseDattaque = 0.2f;
                             break;
                     }
                     break;
@@ -165,8 +170,79 @@ namespace Squelette
             destRec = new Rectangle(Position.X + 0, Position.Y + 0, frameWidth / 3, frameHeight / 3);
             sourceRec = new Rectangle(0, 0, frameWidth, frameHeight);
             origin = new Vector2(frameWidth/2/3, frameHeight/4*3/3);
-
         }
 
+        public int getPrice()
+        {
+            int Argent = 0;
+            if (TourChoisie == 1)
+            {
+                if (niveau == 1)
+                    Argent = 400;
+                else if (niveau == 2)
+                    Argent = 800;
+            }
+            else if (TourChoisie == 2)
+            {
+                if (niveau == 1)
+                    Argent = 1000;
+                else if (niveau == 2)
+                    Argent = 2500;
+            }
+            else if (TourChoisie == 3)
+            {
+                if (niveau == 1)
+                    Argent = 1000;
+                else if (niveau == 2)
+                    Argent = 1500;
+            }
+            return Argent;
+        }
+        public void Upgrade(ref int Argent)
+        {
+            if (TourChoisie == 1)
+            {
+                if (niveau == 1 && Argent >= 400)
+                {
+                    Argent -= 400;
+                    niveau++;
+                }
+                else if (niveau == 2 && Argent >= 800)
+                {
+                    Argent -= 800;
+                    niveau++;
+                }
+            }
+            else if (TourChoisie == 2)
+            {
+                if (niveau == 1 && Argent >= 1000)
+                {
+                    Argent -= 1000;
+                    niveau++;
+                }
+                else if (niveau == 2 && Argent >= 2500)
+                {
+                    Argent -= 2500;
+                    niveau++;
+                }
+            }
+            else if (TourChoisie == 3)
+            {
+                if (niveau == 1 && Argent >= 1000)
+                {
+                    Argent -= 1000;
+                    niveau++;
+                }
+                else if (niveau == 2 && Argent >= 1500)
+                {
+                    Argent -= 1500;
+                    niveau++;
+                }
+            }
+
+
+
+            setTextureCanon();
+        }
     }
 }

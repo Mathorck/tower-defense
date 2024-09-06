@@ -13,6 +13,7 @@ namespace Squelette
         public Vector2 Position;
         public float Rotation;
         public float Size;
+        public Enemy Target;
 
         private Rectangle rctSource;
         public Rectangle rctDest;

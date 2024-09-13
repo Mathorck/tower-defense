@@ -69,8 +69,7 @@ namespace Squelette
             bool stop = false;
             Vector2 porteMonstre1 = new Vector2(480, 80);
             Vector2 porteMonstre2 = new Vector2(990, 80);
-            Rectangle porteMonstreD1 = new Rectangle(445, 80, 68, 40);
-            Rectangle porteMonstreD2 = new Rectangle(955, 80, 68, 40);
+            
             Vector2 tempMousePosition = new Vector2(0, 0);
             int Argent = 20000;
             int vague = 0;
@@ -126,7 +125,8 @@ namespace Squelette
                 ////////////// Déclarations des textures ////////////////////////////////////////////////////////////
                 ////pour libèrer des la place dans la ram lorsqu'on est dans le menu////
                 Texture2D fond = Raylib.LoadTexture("./images/backgroundgame.png");
-                Texture2D porte = Raylib.LoadTexture("./images/PorteMonstre.png");
+                Texture2D porte = Raylib.LoadTexture("./images/basemonstre1.png");
+                Texture2D baseV = Raylib.LoadTexture("./images/base1.png");
                 Texture2D cible = Raylib.LoadTexture("./images/Target-icon.png");
                 Texture2D coeur = Raylib.LoadTexture("./images/coeur.png");
                 Texture2D argent = Raylib.LoadTexture("./images/Argent.png");
@@ -312,7 +312,7 @@ namespace Squelette
                         bullet.Draw();
                     }
                     DessinerGui(texte, mousePoint, btnAffichage, cible, Argent, argent, vieActuelle, coeur);
-                    DessinerBase();
+                    DessinerBase(baseV);
                     DessinerPortesMonstres(porte);
 
                     DessinerPortesMonstres(porte);
@@ -417,20 +417,22 @@ namespace Squelette
 
         static void DessinerPortesMonstres(Texture2D porte)
         {
+            /*
             Rectangle porteMonstreD1 = new Rectangle(445, 80, 68, 40);
             Rectangle porteMonstreD2 = new Rectangle(955, 80, 68, 40);
 
             Raylib.DrawRectangleRec(porteMonstreD1, Color.White);
-            Raylib.DrawRectangleRec(porteMonstreD2, Color.White);
+            Raylib.DrawRectangleRec(porteMonstreD2, Color.White);*/
 
-            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), new Rectangle(445, 80, 68, 40), new Vector2(0, 0), 0.0f, Color.White);
-            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), porteMonstreD2, new Vector2(0, 0), 0.0f, Color.White);
+            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), new Rectangle(445-31, 40, porte.Width/8, porte.Height/8), new Vector2(0, 0), 0.0f, Color.White);
+            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), new Rectangle(955-31, 40, porte.Width/8, porte.Height/8), new Vector2(0, 0), 0.0f, Color.White);
 
         }
 
-        static void DessinerBase()
+        static void DessinerBase(Texture2D baseV)
         {
-            Raylib.DrawRectangle(1860, 910, 75, 70, Color.Green);
+            //Raylib.DrawRectangle(1860, 910, 75, 70, Color.Green);
+            Raylib.DrawTexturePro(baseV, new Rectangle(0, 0, baseV.Width, baseV.Height), new Rectangle(1815, 735, baseV.Width/4, baseV.Height/4), new Vector2(0,0), 0.0f, Color.White);
         }
 
         static void DessinerEntitees( List<Canon> canons)

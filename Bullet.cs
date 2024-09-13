@@ -20,6 +20,7 @@ namespace Squelette
         private Vector2 origin;
         private Texture2D texture;
         private int type;
+
         
 
         public Bullet(float rotation, Vector2 position, int type, float Size, Enemy Target)
@@ -60,14 +61,15 @@ namespace Squelette
 
             
         }
-        public Bullet Destroy()
+        public Bullet Destroy(List<Explosion> explosions)
         {
             if (type == 3)
             {
-                // Explode
+                explosions.Add(new Explosion(Position));
             }
             Raylib.UnloadTexture(texture);
             return this;
         }
+
     }
 }

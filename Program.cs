@@ -55,6 +55,8 @@ namespace Squelette
             List<Bullet> bullets = new List<Bullet>();
             // canonPos
             Canon canon = new Canon();
+            //// liste Explosion ////
+            List<Explosion> explosions = new List<Explosion>();
             //// btnChoixTour /////
             Rectangle[] btnChoixTour = new Rectangle[3];
             btnChoixTour[0] = new Rectangle(0, 0, new Vector2(75, 75));
@@ -69,7 +71,6 @@ namespace Squelette
             bool stop = false;
             Vector2 porteMonstre1 = new Vector2(480, 80);
             Vector2 porteMonstre2 = new Vector2(990, 80);
-            
             Vector2 tempMousePosition = new Vector2(0, 0);
             int Argent = 20000;
             int vague = 0;
@@ -135,6 +136,8 @@ namespace Squelette
                 Texture2D mg = Raylib.LoadTexture(@"./images/Cannon/MG.png");
                 Texture2D missileLauncher = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher.png");
 
+                //Texture2D explosionTexture = Raylib.LoadTexture("./images/Cannon/explosions.png");
+
                 Texture2D[] monstre1run = new Texture2D[] 
                 {
                     Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_000.png"),
@@ -148,6 +151,7 @@ namespace Squelette
                     Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_016.png"),
                     Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_018.png")
                 };
+
 
                 ///////////// Boucle principale /////////////
                 while (!stop)
@@ -207,13 +211,15 @@ namespace Squelette
                         else if (balle.Position.X < 0 || balle.Position.Y < 0)
                             bulletsToRemove.Add(balle);
                     }
-
-
                     foreach (Bullet balle in bulletsToRemove)
                     {
-                        bullets.Remove(balle.Destroy());
+                        bullets.Remove(balle.Destroy(explosions));
                     }
                     bullets.Order();
+
+
+
+
 
                     if (modeConstruction)
                     {
@@ -266,6 +272,27 @@ namespace Squelette
                     Raylib.ClearBackground(Color.White);
                     DessinerJeuFond(fond);
                     DessinerEntitees( canons);
+
+
+                    List<Explosion> explosionsToRemove = new List<Explosion>();
+
+                    // Itérer sur les explosions sans les supprimer directement
+                    foreach (Explosion explosion in explosions)
+                    {
+                        if (explosion.UpdateTimer())
+                        {
+                            explosionsToRemove.Add(explosion);
+                        }
+                    }
+
+                    // Supprimer les explosions après la boucle
+                    foreach (Explosion explosion in explosionsToRemove)
+                    {
+                        explosions.Remove(explosion);
+                    }
+                    explosions.Order();
+
+
                     foreach (Canon canon2 in canons)
                     {
                         if (Raylib.CheckCollisionPointCircle(Raylib.GetMousePosition(), canon2.Position, canon2.hitbox))
@@ -579,7 +606,7 @@ namespace Squelette
         static Enemy EnemyLeMieux(List<Enemy> enemies, Canon canon)
         {
             // Initialiser Mieu avec le premier ennemi de la liste qui est dans la portée du canon
-            Enemy Mieu = null;
+            Enemy? Mieu = null;
             float maxDistance = 10000;
 
             foreach (Enemy enemy in enemies)
@@ -603,7 +630,7 @@ namespace Squelette
         static Enemy EnemyLeMieux(List<Enemy> enemies, Bullet canon)
         {
             // Initialiser Mieu avec le premier ennemi de la liste qui est dans la portée du canon
-            Enemy Mieu = null;
+            Enemy? Mieu = null;
             float maxDistance = 10000;
 
             foreach (Enemy enemy in enemies)

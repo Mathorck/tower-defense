@@ -64,7 +64,6 @@ namespace Squelette
 
         public void Draw()
         {
-            Raylib.DrawCircleV(Position, hitbox, Color.White);
             Raylib.DrawTextureEx(Base, Position - new Vector2(35, 35), 0, 0.30f, Color.White);
             Raylib.DrawTexturePro(Cannon, sourceRec, destRec, origin, rotation, Color.White);
 

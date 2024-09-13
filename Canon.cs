@@ -139,7 +139,7 @@ namespace Squelette
                             break;
                         case 2:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/MG2.png");
-                            vitesseDattaque = 3f;
+                            vitesseDattaque = 0.5f;
                             break;
                         case 3:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/MG3.png");

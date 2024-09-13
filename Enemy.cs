@@ -6,18 +6,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Raylib_cs;
+using Squelette;
 
 public class Enemy
 {
     public Vector2 position;
-    public float size = 30;
+    public float size = 35;
     public float speed = 0.1f;
     public int dir = 1;
     public Color couleur = Color.Red;
     public int vie = 20;
     public bool Placebo = false;
     public int recompense = 100;
-
+    private float temp = 0.0f;
+    public int EnemyType = 1;
+    private int runState = 0;
 
     //   3      
     // 2 0 4    
@@ -76,9 +79,31 @@ public class Enemy
         }
     }
 
-    public void Draw()
+
+
+    public void PlayAnime(Texture2D[] texture)
     {
-        Raylib.DrawCircle(Convert.ToInt32(position.X), Convert.ToInt32(position.Y), size, couleur);
-        Raylib.DrawText(vie.ToString(), Convert.ToInt32(position.X-11), Convert.ToInt32(position.Y-size/3), 2, Color.Black);
+        if (getTimer() > 1/speed)
+        {
+            ResetTimer();
+            if (runState > texture.Length -2)
+                runState = 0;
+            else
+                runState++;
+        }
+        Raylib.DrawTextureEx(texture[runState],position-new Vector2(50,70),0f,0.5f,Color.White);
+    }
+
+    public void UpdateTimer()
+    {
+        temp += 0.1f;
+    }
+    public float getTimer()
+    {
+        return temp;
+    }
+    public void ResetTimer()
+    {
+        temp = 0.0f;
     }
 }

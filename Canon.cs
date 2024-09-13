@@ -77,12 +77,12 @@ namespace Squelette
         {
             this.rotation = rotation + 90;
         }
-        public bool Fire(List<Bullet> bullets)
+        public bool Fire(List<Bullet> bullets, Enemy Target)
         {
             bool IsTimerReady = getTimer() > vitesseDattaque;
             if (IsTimerReady)
             {
-                bullets.Add(new Bullet(rotation, Position, TourChoisie, bulletSize));
+                bullets.Add(new Bullet(rotation, Position, TourChoisie, bulletSize, Target));
                 ResetTimer();
             }
 
@@ -106,6 +106,7 @@ namespace Squelette
 
         private void setTextureCanon()
         {
+            Raylib.UnloadTexture(Cannon);
             switch (TourChoisie)
             {
                 case 1:

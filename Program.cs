@@ -179,7 +179,7 @@ namespace Squelette
                     {
                         try
                         {
-                            Direction(enemies[i], enemies);
+                            Direction(enemies[i], enemies, ref vieActuelle);
                             enemies[i].Go();
                         }
                         catch { }
@@ -201,6 +201,8 @@ namespace Squelette
                             }
                         }
                         else if (balle.Position.X > Raylib.GetScreenWidth() || balle.Position.Y > Raylib.GetScreenHeight())
+                            bulletsToRemove.Add(balle);
+                        else if (enemies.Count == 0)
                             bulletsToRemove.Add(balle);
                         else if (balle.Position.X < 0 || balle.Position.Y < 0)
                             bulletsToRemove.Add(balle);
@@ -280,7 +282,7 @@ namespace Squelette
                         canon2.UpdateTimer();
                         if (enemies.Count != 0)
                         {
-                            canon2.Fire(bullets);
+                            canon2.Fire(bullets, EnemyLeMieux(enemies,canon2));
                             try
                             {
                                 canon2.setRotation(getRotation(EnemyLeMieux(enemies, canon2).position, canon2.Position));
@@ -303,7 +305,10 @@ namespace Squelette
                     }
                     foreach (Bullet bullet in bullets)
                     {
-                        //bullet.Rotation = getRotation(EnemyLeMieux(enemies, bullet).position, bullet.Position);
+                        if (enemies.Count > 0 || bullet.Target != null )
+                        {
+                            bullet.Rotation = getRotation(bullet.Target.position, bullet.Position, 90);
+                        }
                         bullet.Draw();
                     }
                     DessinerGui(texte, mousePoint, btnAffichage, cible, Argent, argent, vieActuelle, coeur);
@@ -396,29 +401,6 @@ namespace Squelette
             }
             return touche;
         }
-        /*
-        static void DessinerBarreDeVie(int vieActuelle, Texture2D coeur)
-        {
-            Color color = Color.DarkGray;
-            if (vieActuelle > 80)
-                color = Color.DarkGreen;
-            else if (vieActuelle > 60)
-                color = Color.Green;
-            else if (vieActuelle > 40)
-                color = Color.Yellow;
-            else if (vieActuelle > 20)
-                color = Color.Orange;
-            else if (vieActuelle > 0)
-                color = Color.Red;
-
-            Raylib.DrawRectangle(585, 30, 200, 30, Color.Black);
-            Raylib.DrawRectangle(585, 30, vieActuelle * 2, 30, color);
-            Raylib.DrawRectangleLines(585, 30, vieActuelle * 2, 30, Color.Black);
-            Rectangle coeurRec = new Rectangle(555, 20, 50, 50);
-
-            Raylib.DrawTexturePro(coeur, new Rectangle(0, 0, coeur.Width, coeur.Height), coeurRec, new Vector2(0, 0), 0.0f, Color.White);
-        }
-        */
         static void DessinerMenu()
         {
             Raylib.DrawText("Tower Defense", 685, 150, 70, Color.Black);
@@ -477,6 +459,11 @@ namespace Squelette
             Raylib.DrawTextureEx(argent, new Vector2(1000 + 250 - 50+650, 20), 0f, 0.2f, Color.White);
             Raylib.DrawText(Argent.ToString(), 1010+650, 22, 40, Color.Black);
 
+            if (vieActuelle > 100)
+                vieActuelle = 100;
+
+            
+
             Color color = Color.DarkGray;
             if (vieActuelle > 80)
                 color = Color.DarkGreen;
@@ -509,7 +496,7 @@ namespace Squelette
             return Raylib.CheckCollisionPointRec(mousePoint, rect);
         }
 
-        static void Direction(Enemy monstre, List<Enemy> monstresList)
+        static void Direction(Enemy monstre, List<Enemy> monstresList, ref float vie)
         {
             if (monstre.position == new Vector2(480, 490))
                 monstre.dir = 2;
@@ -555,6 +542,7 @@ namespace Squelette
 
             if (monstre.position == new Vector2(1910, 940))
             {
+                vie -= monstre.vie;
                 monstresList.Remove(monstre);
                 monstresList.Order();
             }
@@ -564,6 +552,12 @@ namespace Squelette
             float deltaY = Ennemy.Y - Tour.Y;
             float deltaX = Ennemy.X - Tour.X;
             return (float)(Math.Atan2(deltaY, deltaX) * (180.0 / Math.PI));
+        }
+        static float getRotation(Vector2 Ennemy, Vector2 Tour, float offset)
+        {
+            float deltaY = Ennemy.Y - Tour.Y;
+            float deltaX = Ennemy.X - Tour.X;
+            return (float)(Math.Atan2(deltaY, deltaX) * (180.0 / Math.PI)) + offset;
         }
         static bool HitEnnemy(List<Enemy> enemies, Bullet balle, out Enemy Touche)
         {
@@ -623,7 +617,10 @@ namespace Squelette
             // Si aucun ennemi n'est trouvé dans la portée, retourner le premier ennemi
             if (Mieu == null)
             {
-                Mieu = enemies[0];
+                if (enemies.Count > 0)
+                {
+                    Mieu = enemies[0];
+                }
             }
 
             return Mieu;

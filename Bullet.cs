@@ -22,12 +22,13 @@ namespace Squelette
         private int type;
         
 
-        public Bullet(float rotation, Vector2 position, int type, float Size)
+        public Bullet(float rotation, Vector2 position, int type, float Size, Enemy Target)
         {
             Rotation = rotation;
             Position = position;
             this.Size = Size;
             this.type = type;
+            this.Target = Target;
             switch (type)
             {
                 case 1:

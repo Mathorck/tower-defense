@@ -73,8 +73,10 @@ namespace Squelette
             Rectangle porteMonstreD2 = new Rectangle(955, 80, 68, 40);
             Vector2 tempMousePosition = new Vector2(0, 0);
             int Argent = 20000;
+            int vague = 0;
+            Random rand = new Random();
 
-            int vieActuelle = 100;
+            float vieActuelle = 100;
             ///////////// Boucle menu /////////////
             while (!start && !stop)
             {
@@ -132,6 +134,20 @@ namespace Squelette
                 Texture2D cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon.png");
                 Texture2D mg = Raylib.LoadTexture(@"./images/Cannon/MG.png");
                 Texture2D missileLauncher = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher.png");
+
+                Texture2D[] monstre1run = new Texture2D[] 
+                {
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_018.png")
+                };
 
                 ///////////// Boucle principale /////////////
                 while (!stop)
@@ -247,7 +263,7 @@ namespace Squelette
                     Raylib.BeginDrawing();
                     Raylib.ClearBackground(Color.White);
                     DessinerJeuFond(fond);
-                    DessinerEntitees(enemies, canons);
+                    DessinerEntitees( canons);
                     foreach (Canon canon2 in canons)
                     {
                         if (Raylib.CheckCollisionPointCircle(Raylib.GetMousePosition(), canon2.Position, canon2.hitbox))
@@ -275,14 +291,24 @@ namespace Squelette
                             }
                         }
                     }
+                    foreach (Enemy enemy in enemies)
+                    {
+                        enemy.UpdateTimer();
+                        switch (enemy.EnemyType)
+                        {
+                            case 1:
+                                enemy.PlayAnime(monstre1run);
+                                break;
+                        }
+                    }
                     foreach (Bullet bullet in bullets)
                     {
+                        //bullet.Rotation = getRotation(EnemyLeMieux(enemies, bullet).position, bullet.Position);
                         bullet.Draw();
                     }
-                    DessinerGui(texte, mousePoint, btnAffichage, cible, Argent, argent);
+                    DessinerGui(texte, mousePoint, btnAffichage, cible, Argent, argent, vieActuelle, coeur);
                     DessinerBase();
                     DessinerPortesMonstres(porte);
-                    DessinerBarreDeVie(vieActuelle, coeur);
 
                     DessinerPortesMonstres(porte);
                     if (modeConstruction)
@@ -333,7 +359,7 @@ namespace Squelette
                         Raylib.ClearBackground(Color.White);
                         DessinerJeuFond(fond);
 
-                        DessinerEntitees(enemies, canons);
+                        DessinerEntitees( canons);
 
 
                         Raylib.DrawText("PAUSE", 822, 225, 80, Color.Black);
@@ -344,7 +370,7 @@ namespace Squelette
                         Raylib.DrawRectangleRec(btnStop, Color.Red);
                         Raylib.DrawText("Quit", 910, 685, 50, Color.Black);
 
-                        DessinerGui(texte, mousePoint, btnAffichage, cible, Argent, argent);
+                        DessinerGui(texte, mousePoint, btnAffichage, cible, Argent, argent,vieActuelle,coeur);
                         Raylib.EndDrawing();
 
                     }
@@ -371,7 +397,7 @@ namespace Squelette
             }
             return touche;
         }
-
+        /*
         static void DessinerBarreDeVie(int vieActuelle, Texture2D coeur)
         {
             Color color = Color.DarkGray;
@@ -393,7 +419,7 @@ namespace Squelette
 
             Raylib.DrawTexturePro(coeur, new Rectangle(0, 0, coeur.Width, coeur.Height), coeurRec, new Vector2(0, 0), 0.0f, Color.White);
         }
-
+        */
         static void DessinerMenu()
         {
             Raylib.DrawText("Tower Defense", 685, 150, 70, Color.Black);
@@ -426,15 +452,13 @@ namespace Squelette
             Raylib.DrawRectangle(1860, 910, 75, 70, Color.Green);
         }
 
-        static void DessinerEntitees(List<Enemy> enemies, List<Canon> canons)
+        static void DessinerEntitees( List<Canon> canons)
         {
-            for (int i = 0; i < enemies.Count; i++)
-                enemies[i].Draw();
             for (int i = 0; i < canons.Count; i++)
                 canons[i].Draw();
         }
 
-        static void DessinerGui(string texte, Vector2 mousePoint, Rectangle[] btnAfficher, Texture2D cible, int Argent, Texture2D argent)
+        static void DessinerGui(string texte, Vector2 mousePoint, Rectangle[] btnAfficher, Texture2D cible, int Argent, Texture2D argent, float vieActuelle, Texture2D coeur)
         {
             Raylib.DrawRectangleGradientV(0, 0, 1920, 80, Color.Blue, Color.DarkBlue);
             // Debug
@@ -450,9 +474,28 @@ namespace Squelette
             Raylib.DrawRectangleRounded(btnAfficher[1], 0.2f, 4, Color.SkyBlue); //Dessin contour bouton menu tours
             Raylib.DrawTextureEx(cible, btnAfficher[1].Position + new Vector2(4.5f, 5), 0, 0.1f, Color.White); //affichage de l'icon dans le menu des tours
 
-            Raylib.DrawRectangleRounded(new Rectangle(1000, 10, new(250, 60)), 0.2f, 4, Color.SkyBlue);
-            Raylib.DrawTextureEx(argent, new Vector2(1000 + 250 - 50, 20), 0f, 0.2f, Color.White);
-            Raylib.DrawText(Argent.ToString(), 1010, 22, 40, Color.Black);
+            Raylib.DrawRectangleRounded(new Rectangle(1000+650, 10, new(250, 60)), 0.2f, 4, Color.SkyBlue);
+            Raylib.DrawTextureEx(argent, new Vector2(1000 + 250 - 50+650, 20), 0f, 0.2f, Color.White);
+            Raylib.DrawText(Argent.ToString(), 1010+650, 22, 40, Color.Black);
+
+            Color color = Color.DarkGray;
+            if (vieActuelle > 80)
+                color = Color.DarkGreen;
+            else if (vieActuelle > 60)
+                color = Color.Green;
+            else if (vieActuelle > 40)
+                color = Color.Yellow;
+            else if (vieActuelle > 20)
+                color = Color.Orange;
+            else if (vieActuelle > 0)
+                color = Color.Red;
+
+            Raylib.DrawRectangleRounded(new Rectangle(1380-50+25, 10, new(300-25, 60)), 0.2f, 4, Color.SkyBlue);
+            Raylib.DrawRectangle(1365, 25, 200, 30, Color.Black);
+            Raylib.DrawRectangle(1365, 25, Convert.ToInt32(vieActuelle) * 2, 30, color);
+            Raylib.DrawRectangleLines(1365, 25, Convert.ToInt32(vieActuelle) * 2, 30, Color.Black);
+
+            Raylib.DrawTextureEx(coeur, new(1580, 20), 0f, 0.9f, Color.White);
 
         }
 
@@ -526,6 +569,7 @@ namespace Squelette
         static bool HitEnnemy(List<Enemy> enemies, Bullet balle, out Enemy Touche)
         {
             bool hit = false;
+            Touche = new Enemy(Vector2.Zero);
             foreach (Enemy enemy in enemies)
             {
                 if (Raylib.CheckCollisionCircleRec(enemy.position, enemy.size, balle.rctDest))
@@ -534,7 +578,7 @@ namespace Squelette
                     Touche = enemy;
                 }
             }
-            Touche = new Enemy(Vector2.Zero);
+
             return hit;
         }
         static Enemy EnemyLeMieux(List<Enemy> enemies, Canon canon)
@@ -561,7 +605,30 @@ namespace Squelette
 
             return Mieu;
         }
+        static Enemy EnemyLeMieux(List<Enemy> enemies, Bullet canon)
+        {
+            // Initialiser Mieu avec le premier ennemi de la liste qui est dans la portée du canon
+            Enemy Mieu = null;
+            float maxDistance = 10000;
 
+            foreach (Enemy enemy in enemies)
+            {
+                float distance = Vector2.Distance(canon.Position, enemy.position);
+                if (distance < maxDistance)
+                {
+                    maxDistance = distance;
+                    Mieu = enemy;
+                }
+            }
+
+            // Si aucun ennemi n'est trouvé dans la portée, retourner le premier ennemi
+            if (Mieu == null)
+            {
+                Mieu = enemies[0];
+            }
+
+            return Mieu;
+        }
 
 
     }

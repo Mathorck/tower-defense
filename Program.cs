@@ -5,6 +5,7 @@ namespace Squelette
 {
     internal class Program
     {
+        private static int valueTest = 2;
         public static void Main()
         {
             ///////////// Création de la fenêtre /////////////
@@ -83,7 +84,7 @@ namespace Squelette
                 mousePoint = Raylib.GetMousePosition();
 
 
-
+                
                 //////// Boutton Vérif ////////////
 
                 // BtnStart
@@ -309,14 +310,17 @@ namespace Squelette
                         canon2.UpdateTimer();
                         if (enemies.Count != 0)
                         {
-                            canon2.Fire(bullets, EnemyLeMieux(enemies,canon2));
-                            try
+                            if (!EnemyLeMieux(enemies, canon2).Placebo)
                             {
-                                canon2.setRotation(getRotation(EnemyLeMieux(enemies, canon2).position, canon2.Position));
-                            }
-                            catch
-                            {
+                                canon2.Fire(bullets, EnemyLeMieux(enemies, canon2));
+                                try
+                                {
+                                    canon2.setRotation(getRotation(EnemyLeMieux(enemies, canon2).position, canon2.Position));
+                                }
+                                catch
+                                {
 
+                                }
                             }
                         }
                     }
@@ -466,6 +470,7 @@ namespace Squelette
         {
             for (int i = 0; i < canons.Count; i++)
                 canons[i].Draw();
+
         }
 
         static void DessinerGui(string texte, Vector2 mousePoint, Rectangle[] btnAfficher, Texture2D cible, int Argent, Texture2D argent, float vieActuelle, Texture2D coeur)
@@ -606,55 +611,29 @@ namespace Squelette
         static Enemy EnemyLeMieux(List<Enemy> enemies, Canon canon)
         {
             // Initialiser Mieu avec le premier ennemi de la liste qui est dans la portée du canon
-            Enemy? Mieu = null;
-            float maxDistance = 10000;
+
+            Enemy Mieu = null;
+            float maxDistance = canon.PorteeTir;
+
 
             foreach (Enemy enemy in enemies)
             {
                 float distance = Vector2.Distance(canon.Position, enemy.position);
-                if (distance < maxDistance)
+                if (distance <= canon.PorteeTir )
                 {
                     maxDistance = distance;
                     Mieu = enemy;
+
                 }
             }
 
             // Si aucun ennemi n'est trouvé dans la portée, retourner le premier ennemi
             if (Mieu == null)
             {
-                Mieu = enemies[0];
+                Mieu = new Enemy();
             }
 
             return Mieu;
         }
-        static Enemy EnemyLeMieux(List<Enemy> enemies, Bullet canon)
-        {
-            // Initialiser Mieu avec le premier ennemi de la liste qui est dans la portée du canon
-            Enemy? Mieu = null;
-            float maxDistance = 10000;
-
-            foreach (Enemy enemy in enemies)
-            {
-                float distance = Vector2.Distance(canon.Position, enemy.position);
-                if (distance < maxDistance)
-                {
-                    maxDistance = distance;
-                    Mieu = enemy;
-                }
-            }
-
-            // Si aucun ennemi n'est trouvé dans la portée, retourner le premier ennemi
-            if (Mieu == null)
-            {
-                if (enemies.Count > 0)
-                {
-                    Mieu = enemies[0];
-                }
-            }
-
-            return Mieu;
-        }
-
-
     }
 }

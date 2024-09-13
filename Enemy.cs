@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Raylib_cs;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-using Raylib_cs;
-using Squelette;
 
 public class Enemy
 {
@@ -83,15 +76,15 @@ public class Enemy
 
     public void PlayAnime(Texture2D[] texture)
     {
-        if (getTimer() > 1/speed)
+        if (getTimer() > 1 / speed)
         {
             ResetTimer();
-            if (runState > texture.Length -2)
+            if (runState > texture.Length - 2)
                 runState = 0;
             else
                 runState++;
         }
-        Raylib.DrawTextureEx(texture[runState],position-new Vector2(50,70),0f,0.5f,Color.White);
+        Raylib.DrawTextureEx(texture[runState], position - new Vector2(50, 70), 0f, 0.5f, Color.White);
     }
 
     public void UpdateTimer()

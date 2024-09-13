@@ -5,7 +5,6 @@ namespace Squelette
 {
     internal class Program
     {
-        private static int valueTest = 2;
         public static void Main()
         {
             ///////////// Création de la fenêtre /////////////
@@ -17,6 +16,7 @@ namespace Squelette
             //// Déclaration Variables hitbox ////
             // BtnStart
             Rectangle btnStart = new(750, 450, new Vector2(420, 110));
+
             // BtnLeave
             Rectangle btnStop = new(750, 650, new Vector2(420, 110));
 
@@ -35,29 +35,40 @@ namespace Squelette
             cheminNonPosable[10] = new Rectangle(1015, 900, new Vector2(905, 85));
             cheminNonPosable[11] = new Rectangle(565, 260, new Vector2(100, 465));
             cheminNonPosable[12] = new Rectangle(945, 80, new Vector2(95, 465));
+
             //// autre hitbox
             Rectangle[] objetNp = new Rectangle[13];
             objetNp[0] = new Rectangle(260, 210, new Vector2(50, 50));
+
             ///// tableau Rectangles a afficher ////
             Rectangle[] btnAffichage = new Rectangle[2];
+
             // btnMenu
             Rectangle btnMenu = new(10, 10, new Vector2(60, 60));
             btnAffichage[0] = btnMenu;
             bool menuOuvert = false;
+
             // btnConstruction
             btnAffichage[1] = new Rectangle(300, 10, new Vector2(60, 60));
+
             //int nbCanon = 0;
             bool modeConstruction = false;
+
             //// liste Enemy /////
             List<Enemy> enemies = new List<Enemy>();
+
             //// liste Canon /////
             List<Canon> canons = new List<Canon>();
+
             //// liste bullets ////
             List<Bullet> bullets = new List<Bullet>();
+
             // canonPos
             Canon canon = new Canon();
+
             //// liste Explosion ////
             List<Explosion> explosions = new List<Explosion>();
+
             //// btnChoixTour /////
             Rectangle[] btnChoixTour = new Rectangle[3];
             btnChoixTour[0] = new Rectangle(0, 0, new Vector2(75, 75));
@@ -76,46 +87,25 @@ namespace Squelette
             int Argent = 20000;
             int vague = 0;
             Random rand = new Random();
-
             float vieActuelle = 100;
+
             ///////////// Boucle menu /////////////
             while (!start && !stop)
             {
                 mousePoint = Raylib.GetMousePosition();
 
-
-                
                 //////// Boutton Vérif ////////////
-
                 // BtnStart
                 if (Raylib.CheckCollisionPointRec(mousePoint, btnStart) && Raylib.IsMouseButtonDown(MouseButton.Left))
-                {
-                    texte = "Ok btn start Bon";
                     start = true;
-                }
+
                 // BtnStop
                 else if (Raylib.CheckCollisionPointRec(mousePoint, btnStop) && Raylib.IsMouseButtonDown(MouseButton.Left))
-                {
-                    texte = "Ok btn Stop Bon";
                     stop = true;
-                }
-                else
-                {
-                    texte = "Pas Ok";
-                }
-
-
 
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.White);
-
-                // Debug
-                Raylib.DrawText(texte, 12, 12, 20, Color.Black);
-                Raylib.DrawText($"X:{mousePoint.X} Y:{mousePoint.Y}", 12, 35, 20, Color.Black);
-                //
-
                 DessinerMenu();
-
                 Raylib.EndDrawing();
 
             }
@@ -124,7 +114,7 @@ namespace Squelette
                 enemies.Add(new Enemy(porteMonstre1, 5f, Color.SkyBlue, 20, 200));
                 enemies.Add(new Enemy(porteMonstre2, 1f, Color.Brown, 50, 200));
 
-                ////////////// Déclarations des textures ////////////////////////////////////////////////////////////
+                //////////////////////////// Déclarations des textures ////////////////////////////
                 ////pour libèrer des la place dans la ram lorsqu'on est dans le menu////
                 Texture2D fond = Raylib.LoadTexture("./images/backgroundgame.png");
                 Texture2D porte = Raylib.LoadTexture("./images/basemonstre1.png");
@@ -133,13 +123,12 @@ namespace Squelette
                 Texture2D coeur = Raylib.LoadTexture("./images/coeur.png");
                 Texture2D argent = Raylib.LoadTexture("./images/Argent.png");
 
+                //// Image Canon ////
                 Texture2D cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon.png");
                 Texture2D mg = Raylib.LoadTexture(@"./images/Cannon/MG.png");
                 Texture2D missileLauncher = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher.png");
 
-                //Texture2D explosionTexture = Raylib.LoadTexture("./images/Cannon/explosions.png");
-
-                Texture2D[] monstre1run = new Texture2D[] 
+                Texture2D[] monstre1run = new Texture2D[]
                 {
                     Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_000.png"),
                     Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_002.png"),
@@ -153,14 +142,11 @@ namespace Squelette
                     Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_018.png")
                 };
 
-
                 ///////////// Boucle principale /////////////
                 while (!stop)
                 {
                     mousePoint = Raylib.GetMousePosition();
-
                     texte = bullets.Count().ToString();
-
 
                     if (Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[0]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
                         menuOuvert = true;
@@ -171,26 +157,22 @@ namespace Squelette
                             modeConstruction = false;
                         else
                             modeConstruction = true;
+
                         choixTourOuvert = false;
                     }
 
                     if (Raylib.IsKeyDown(KeyboardKey.Escape))
                         modeConstruction = false;
-
-                    /////////////////////////Semble shlag de ouf//
-                    //
-                    //
-                    for (int i = 0; i < enemies.Count; i++)
+                    if (enemies.Count > 0)
                     {
-                        try
+                        for (int i = 0; i < enemies.Count; i++)
                         {
+
                             Direction(enemies[i], enemies, ref vieActuelle);
                             enemies[i].Go();
                         }
-                        catch { }
-                    }                                           //
-                                                                //
-                                                                //////////////////////////////////////////////
+
+                    }
 
                     List<Bullet> bulletsToRemove = new List<Bullet>();
 
@@ -272,7 +254,7 @@ namespace Squelette
                     Raylib.BeginDrawing();
                     Raylib.ClearBackground(Color.White);
                     DessinerJeuFond(fond);
-                    DessinerEntitees( canons);
+                    DessinerEntitees(canons);
 
 
                     List<Explosion> explosionsToRemove = new List<Explosion>();
@@ -306,7 +288,7 @@ namespace Squelette
                             }
                         }
 
-                        
+
                         canon2.UpdateTimer();
                         if (enemies.Count != 0)
                         {
@@ -336,7 +318,7 @@ namespace Squelette
                     }
                     foreach (Bullet bullet in bullets)
                     {
-                        if (enemies.Count > 0 || bullet.Target != null )
+                        if (enemies.Count > 0 || bullet.Target != null)
                         {
                             bullet.Rotation = getRotation(bullet.Target.position, bullet.Position, 90);
                         }
@@ -395,7 +377,7 @@ namespace Squelette
                         Raylib.ClearBackground(Color.White);
                         DessinerJeuFond(fond);
 
-                        DessinerEntitees( canons);
+                        DessinerEntitees(canons);
 
                         Raylib.DrawText("PAUSE", 822, 225, 80, Color.Black);
 
@@ -405,7 +387,7 @@ namespace Squelette
                         Raylib.DrawRectangleRec(btnStop, Color.Red);
                         Raylib.DrawText("Quit", 910, 685, 50, Color.Black);
 
-                        DessinerGui(texte, mousePoint, btnAffichage, cible, Argent, argent,vieActuelle,coeur);
+                        DessinerGui(texte, mousePoint, btnAffichage, cible, Argent, argent, vieActuelle, coeur);
                         Raylib.EndDrawing();
 
                     }
@@ -455,18 +437,18 @@ namespace Squelette
             Raylib.DrawRectangleRec(porteMonstreD1, Color.White);
             Raylib.DrawRectangleRec(porteMonstreD2, Color.White);*/
 
-            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), new Rectangle(445-31, 40, porte.Width/8, porte.Height/8), new Vector2(0, 0), 0.0f, Color.White);
-            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), new Rectangle(955-31, 40, porte.Width/8, porte.Height/8), new Vector2(0, 0), 0.0f, Color.White);
+            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), new Rectangle(445 - 31, 40, porte.Width / 8, porte.Height / 8), new Vector2(0, 0), 0.0f, Color.White);
+            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), new Rectangle(955 - 31, 40, porte.Width / 8, porte.Height / 8), new Vector2(0, 0), 0.0f, Color.White);
 
         }
 
         static void DessinerBase(Texture2D baseV)
         {
             //Raylib.DrawRectangle(1860, 910, 75, 70, Color.Green);
-            Raylib.DrawTexturePro(baseV, new Rectangle(0, 0, baseV.Width, baseV.Height), new Rectangle(1815, 735, baseV.Width/4, baseV.Height/4), new Vector2(0,0), 0.0f, Color.White);
+            Raylib.DrawTexturePro(baseV, new Rectangle(0, 0, baseV.Width, baseV.Height), new Rectangle(1815, 735, baseV.Width / 4, baseV.Height / 4), new Vector2(0, 0), 0.0f, Color.White);
         }
 
-        static void DessinerEntitees( List<Canon> canons)
+        static void DessinerEntitees(List<Canon> canons)
         {
             for (int i = 0; i < canons.Count; i++)
                 canons[i].Draw();
@@ -489,14 +471,14 @@ namespace Squelette
             Raylib.DrawRectangleRounded(btnAfficher[1], 0.2f, 4, Color.SkyBlue); //Dessin contour bouton menu tours
             Raylib.DrawTextureEx(cible, btnAfficher[1].Position + new Vector2(4.5f, 5), 0, 0.1f, Color.White); //affichage de l'icon dans le menu des tours
 
-            Raylib.DrawRectangleRounded(new Rectangle(1000+650, 10, new(250, 60)), 0.2f, 4, Color.SkyBlue);
-            Raylib.DrawTextureEx(argent, new Vector2(1000 + 250 - 50+650, 20), 0f, 0.2f, Color.White);
-            Raylib.DrawText(Argent.ToString(), 1010+650, 22, 40, Color.Black);
+            Raylib.DrawRectangleRounded(new Rectangle(1000 + 650, 10, new(250, 60)), 0.2f, 4, Color.SkyBlue);
+            Raylib.DrawTextureEx(argent, new Vector2(1000 + 250 - 50 + 650, 20), 0f, 0.2f, Color.White);
+            Raylib.DrawText(Argent.ToString(), 1010 + 650, 22, 40, Color.Black);
 
             if (vieActuelle > 100)
                 vieActuelle = 100;
 
-            
+
 
             Color color = Color.DarkGray;
             if (vieActuelle > 80)
@@ -510,7 +492,7 @@ namespace Squelette
             else if (vieActuelle > 0)
                 color = Color.Red;
 
-            Raylib.DrawRectangleRounded(new Rectangle(1380-50+25, 10, new(300-25, 60)), 0.2f, 4, Color.SkyBlue);
+            Raylib.DrawRectangleRounded(new Rectangle(1380 - 50 + 25, 10, new(300 - 25, 60)), 0.2f, 4, Color.SkyBlue);
             Raylib.DrawRectangle(1365, 25, 200, 30, Color.Black);
             Raylib.DrawRectangle(1365, 25, Convert.ToInt32(vieActuelle) * 2, 30, color);
             Raylib.DrawRectangleLines(1365, 25, Convert.ToInt32(vieActuelle) * 2, 30, Color.Black);
@@ -619,7 +601,7 @@ namespace Squelette
             foreach (Enemy enemy in enemies)
             {
                 float distance = Vector2.Distance(canon.Position, enemy.position);
-                if (distance <= canon.PorteeTir )
+                if (distance <= canon.PorteeTir)
                 {
                     maxDistance = distance;
                     Mieu = enemy;

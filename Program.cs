@@ -361,7 +361,6 @@ namespace Squelette
 
                         DessinerEntitees( canons);
 
-
                         Raylib.DrawText("PAUSE", 822, 225, 80, Color.Black);
 
                         Raylib.DrawRectangleRec(btnStart, Color.Lime);

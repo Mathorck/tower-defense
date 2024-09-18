@@ -14,10 +14,24 @@ for ($i = 1; $i -le 10; $i++) {
     foreach ($action in $actions) {
         # Récupérer les fichiers .png dans le dossier correspondant
         $files = Get-ChildItem -Path "$base_path\$i\$action\" -Filter "*.png" -Recurse
+        
+        if ($files.Count -gt 0) {
+            # Ajouter une barre de séparation au début de chaque groupe
+            Add-Content -Path $output_file -Value "`n---------------------------------`n"
+            
+            # Ajouter la déclaration du tableau pour le monstre et l'action
+            Add-Content -Path $output_file -Value "Texture2D[] monstre$i$action = new Texture2D[]`n{"
+        }
+        
         foreach ($file in $files) {
-            # Ajouter le chemin dans le fichier de sortie
-            $output = "Raylib.LoadTexture('$($file.FullName)')"
+            # Ajouter chaque chemin sous forme de tableau
+            $output = "`tRaylib.LoadTexture('$($file.FullName)'),"
             Add-Content -Path $output_file -Value $output
+        }
+
+        if ($files.Count -gt 0) {
+            # Fermer le tableau avec une accolade
+            Add-Content -Path $output_file -Value "};`n"
         }
     }
 }

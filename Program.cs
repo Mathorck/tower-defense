@@ -1,5 +1,7 @@
 using Raylib_cs;
+using System;
 using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Squelette
 {
@@ -10,7 +12,6 @@ namespace Squelette
 
         public static bool DebugActivated = true;
         public static Rectangle[] cheminNonPosable = new Rectangle[13];
-
 
 
 
@@ -81,7 +82,7 @@ namespace Squelette
             Vector2 porteMonstre1 = new Vector2(480, 80);
             Vector2 porteMonstre2 = new Vector2(990, 80);
             Vector2 tempMousePosition = new Vector2(0, 0);
-            int Argent = 20000;
+            int Argent = int.MaxValue;
             int vague = 0;
             Random rand = new Random();
 
@@ -571,9 +572,12 @@ namespace Squelette
                         switch (enemy.EnemyType)
                         {
                             case 1:
-                                enemy.PlayAnime(monstre1run);
+                                enemy.PlayRunAnime(monstre1run);
+                                enemy.PlayDieAnime(monstre1die);
                                 break;
                         }
+
+                        
                     }
                     foreach (Bullet bullet in bullets)
                     {
@@ -586,6 +590,7 @@ namespace Squelette
                     DessinerGui(texte, mousePoint, btnAffichage, cible, Argent, argent, vieActuelle, coeur);
                     DessinerBase(baseV);
                     DessinerPortesMonstres(porte);
+                    killEnemy(enemies);
 
                     DessinerPortesMonstres(porte);
                     if (modeConstruction)
@@ -750,7 +755,6 @@ namespace Squelette
             Raylib.DrawRectangle(1365, 25, 200, 30, Color.Black);
             Raylib.DrawRectangle(1365, 25, Convert.ToInt32(vieActuelle) * 2, 30, color);
             Raylib.DrawRectangleLines(1365, 25, Convert.ToInt32(vieActuelle) * 2, 30, Color.Black);
-
             Raylib.DrawTextureEx(coeur, new(1580, 20), 0f, 0.9f, Color.White);
 
         }
@@ -839,6 +843,7 @@ namespace Squelette
                 {
                     hit = true;
                     Touche = enemy;
+                    Touche.vie -= balle.degats;
                 }
             }
 
@@ -871,5 +876,20 @@ namespace Squelette
 
             return Mieu;
         }
+
+        static void killEnemy(List<Enemy> enemies)
+        {
+            foreach (Enemy enemy in enemies)
+            {
+                if (enemy.vie <= 0)
+                {
+                    enemy.Mourrant = true;
+                    
+                }
+            }
+        }
+
+        
+
     }
 }

@@ -46,13 +46,13 @@ public class Enemy
         this.speed = vitesse;
         this.vie = vie;
     }
-    public Enemy(Vector2 position, float vitesse, Color couleur, int vie, int recompense)
+    public Enemy(Vector2 position, float vitesse, int vie, int recompense,int type)
     {
         this.position = position;
         this.speed = vitesse;
-        this.couleur = couleur;
         this.vie = vie;
         this.recompense = recompense;
+        this.EnemyType = type;
     }
 
     public void Go()

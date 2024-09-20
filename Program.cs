@@ -404,8 +404,14 @@ namespace Squelette
             }
             if (start)
             {
-                Enemies.Add(new Enemy(porteMonstre1, 5f, Color.SkyBlue, 20, 200));
-                Enemies.Add(new Enemy(porteMonstre2, 1f, Color.Brown, 50, 200));
+                Enemies.Add(new Enemy(porteMonstre1, 5f, 20, 200,1));
+                Enemies.Add(new Enemy(porteMonstre2, 1f, 50, 200,3));
+                Enemies.Add(new Enemy(porteMonstre2, 5f, 20, 200,1));
+                Enemies.Add(new Enemy(porteMonstre1, 1f, 50, 200,3));
+                Enemies.Add(new Enemy(porteMonstre1, 5f, 20, 200, 2));
+                Enemies.Add(new Enemy(porteMonstre2, 1f, 50, 200, 4));
+                Enemies.Add(new Enemy(porteMonstre2, 5f, 20, 200, 2));
+                Enemies.Add(new Enemy(porteMonstre1, 1f, 50, 200, 4));
 
                 ////////////// Déclarations des textures ////////////////////////////////////////////////////////////
                 //// pour libèrer des la place dans la ram lorsqu'on est dans le menu ////
@@ -422,7 +428,7 @@ namespace Squelette
                 Mg = Raylib.LoadTexture(@"./images/Cannon/MG.png");
                 MissileLauncher = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher.png");
 
-                
+
 
                 ///////////// Boucle principale /////////////
                 while (!stop)
@@ -493,12 +499,12 @@ namespace Squelette
                     Raylib.ClearBackground(Color.White);
                     DessinerJeuFond();
                     DessinerEntitees(monstre1run, monstre2run, monstre3run, monstre4run, monstre5run, monstre6run, monstre7run, monstre8run, monstre9run, monstre10run, monstre1die, monstre2die, monstre3die, monstre4die, monstre5die, monstre6die, monstre7die, monstre8die, monstre9die, monstre10die);
-                    Explosion();
+                    ExplosionM();
                     DessinerBase();
                     MenuConstruction();
                     DessinMenuConstruction();
                     DessinerGui(texte);
-                    //// En Dessu de GUI parce qu'elles dépassent
+                    //// En Dessus de GUI parce qu'elles dépassent
                     DessinerPortesMonstres();
                     killEnemy();
                     Raylib.EndDrawing();
@@ -522,8 +528,13 @@ namespace Squelette
                         Raylib.BeginDrawing();
                         Raylib.ClearBackground(Color.White);
                         DessinerJeuFond();
-
-                        //DessinerEntitees();
+                        DessinerEntitees(monstre1run, monstre2run, monstre3run, monstre4run, monstre5run, monstre6run, monstre7run, monstre8run, monstre9run, monstre10run, monstre1die, monstre2die, monstre3die, monstre4die, monstre5die, monstre6die, monstre7die, monstre8die, monstre9die, monstre10die);
+                        DessinerBase();
+                        MenuConstruction();
+                        DessinMenuConstruction();
+                        DessinerGui(texte);
+                        //// En Dessus de GUI parce qu'elles dépassent
+                        DessinerPortesMonstres();
 
                         Raylib.DrawText("PAUSE", 822, 225, 80, Color.Black);
 
@@ -533,11 +544,9 @@ namespace Squelette
                         Raylib.DrawRectangleRec(btnStop, Color.Red);
                         Raylib.DrawText("Quit", 910, 685, 50, Color.Black);
 
-                        DessinerGui(texte);
                         Raylib.EndDrawing();
-
                     }
-                    /////////////////////////// MENU ///////////////////////////
+                    /////////////////////////// MENU ////////////////////////////
                 }
             }
             #region Unload Textures
@@ -616,7 +625,6 @@ namespace Squelette
             Raylib.CloseWindow();
         }
 
-
         #region Dessin
 
         static void DessinerMenu()
@@ -666,7 +674,8 @@ namespace Squelette
 
             foreach (Enemy enemy in Enemies)
             {
-                enemy.UpdateTimer();
+                if (!menuOuvert)
+                    enemy.UpdateTimer();
                 switch (enemy.EnemyType)
                 {
                     case 1:
@@ -846,12 +855,14 @@ namespace Squelette
                 Enemies.Order();
             }
         }
+
         static float getRotation(Vector2 Ennemy, Vector2 Tour, float offset)
         {
             float deltaY = Ennemy.Y - Tour.Y;
             float deltaX = Ennemy.X - Tour.X;
             return (float)(Math.Atan2(deltaY, deltaX) * (180.0 / Math.PI)) + offset;
         }
+
         static bool HitEnnemy(List<Enemy> enemies, Bullet balle, out Enemy Touche)
         {
             bool hit = false;
@@ -862,7 +873,8 @@ namespace Squelette
                 {
                     hit = true;
                     Touche = enemy;
-                    Touche.vie -= balle.degats;
+                    if (!(balle.Type == 3))
+                        Touche.vie -= balle.Degats;
                 }
             }
 
@@ -897,13 +909,23 @@ namespace Squelette
             return Mieu;
         }
 
-        #endregion
-
-        static void Explosion()
+        static void ExplosionM()
         {
             List<Explosion> explosionsToRemove = new List<Explosion>();
             foreach (Explosion explosion in Explosions)
             {
+                if (explosion.Stade == 4)
+                {
+                    foreach (Enemy enemy in Enemies)
+                    {
+                        if (Raylib.CheckCollisionCircles(enemy.position, enemy.size, explosion.Position, Explosion.EXPLOSIONRADIUS) && !explosion.DegatFait)
+                        {
+                            enemy.vie -= 10;
+                            explosion.DegatFait = true;
+                        }
+                            
+                    }
+                }
                 if (explosion.UpdateTimer())
                 {
                     explosionsToRemove.Add(explosion);
@@ -916,6 +938,8 @@ namespace Squelette
             Explosions.Order();
             explosionsToRemove.Clear();
         }
+
+        #endregion
 
         #region Construction
 

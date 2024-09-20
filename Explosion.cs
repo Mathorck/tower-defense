@@ -5,9 +5,11 @@ namespace Squelette
 {
     public class Explosion
     {
+        public const float EXPLOSIONRADIUS = 100;
         public float ExplosionTime = 0;
-        private int stade = 0;
+        public int Stade = 0;
         public Vector2 Position;
+        public bool DegatFait = false;
         Rectangle rctSource;
         Rectangle rctDestination;
         Texture2D explosionTexture;
@@ -28,15 +30,15 @@ namespace Squelette
             if (ExplosionTime > 1f)
             {
                 ExplosionTime = 0f;
-                stade++;
-                Console.WriteLine($"Stade : {stade}");
+                Stade++;
+                Console.WriteLine($"Stade : {Stade}");
             }
 
-            rctSource = new(explosionTexture.Width / 8 * stade, 0, explosionTexture.Width / 8, explosionTexture.Height);
+            rctSource = new(explosionTexture.Width / 8 * Stade, 0, explosionTexture.Width / 8, explosionTexture.Height);
             Raylib.DrawTexturePro(explosionTexture, rctSource, new Rectangle(Position - new Vector2(100, 100), 200, 200), new(0, 0), 0, Color.White);
 
 
-            if (stade >= 8)
+            if (Stade >= 8)
             {
                 Console.WriteLine("SuprrExp");
                 destroy = true;

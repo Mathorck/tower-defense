@@ -9,23 +9,22 @@ namespace Squelette
         public float Rotation;
         public float Size;
         public Enemy Target;
-        public float degats;
+        public float Degats;
+        public int Type;
 
         private Rectangle rctSource;
         public Rectangle rctDest;
         private Vector2 origin;
         private Texture2D texture;
-        private int type;
-
 
 
         public Bullet(float rotation, Vector2 position, int type, float Size, Enemy Target, float degats)
         {
-            this.degats = degats;
+            this.Degats = degats;
             Rotation = rotation;
             Position = position;
             this.Size = Size;
-            this.type = type;
+            this.Type = type;
             this.Target = Target;
             switch (type)
             {
@@ -58,7 +57,7 @@ namespace Squelette
         }
         public Bullet Destroy(List<Explosion> explosions)
         {
-            if (type == 3)
+            if (Type == 3)
             {
                 explosions.Add(new Explosion(Position));
             }

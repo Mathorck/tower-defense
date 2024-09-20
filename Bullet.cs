@@ -59,7 +59,7 @@ namespace Squelette
         {
             if (Type == 3)
             {
-                explosions.Add(new Explosion(Position));
+                explosions.Add(new Explosion(Position,Degats));
             }
             Raylib.UnloadTexture(texture);
             return this;

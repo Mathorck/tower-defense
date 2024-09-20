@@ -665,13 +665,14 @@ namespace Squelette
 
             List<Enemy> EnemyToRemove = new List<Enemy>();
 
-            foreach (Enemy enemy in Enemies)
+            foreach (Enemy enemy in Enemies.ToList()) // Utiliser ToList pour éviter les modifications pendant l'itération
             {
                 enemy.DessinerLifeBar();
                 enemy.UpdateLife();
 
                 if (!menuOuvert)
                     enemy.UpdateTimer();
+
                 switch (enemy.EnemyType)
                 {
                     case 1:
@@ -707,10 +708,13 @@ namespace Squelette
                 }
             }
 
+            // Après avoir parcouru la collection, supprimer les ennemis marqués
             foreach (Enemy deadGuy in EnemyToRemove)
             {
                 Enemies.Remove(deadGuy);
             }
+
+            // Réorganiser la liste après les suppressions, si nécessaire
             Enemies.Order();
             EnemyToRemove.Clear();
 

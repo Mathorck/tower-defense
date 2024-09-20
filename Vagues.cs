@@ -15,6 +15,7 @@ namespace Squelette
         public static int NbMonstres = 0;
         private static Random R = new Random();
         private static int Rand;
+        private static int randomTime;
 
         public static async Task Update()
         {
@@ -50,11 +51,13 @@ namespace Squelette
 
             for (int i = 0; i < NbMonstres; i++)
             {
-                await Task.Delay(1000);
+                randomTime = R.Next(250,1000);
+                await Task.Delay(randomTime);
+
                 Rand = R.Next(1, 3);
                 // Bout de code compliqué mais en gros en fonction du chiffre tiré au dessu cela prend soit la porte1 soit la porte2
                 // c'est un if sur une ligne
-                Program.Enemies.Add(new Enemy(Rand==1?Program.porteMonstre1:Program.porteMonstre2, 5f, 20, 200, 5));
+                Program.Enemies.Add(new Enemy(Rand==1?Program.porteMonstre1:Program.porteMonstre2, 5f, 200, 5));
             }
         }
     }

@@ -133,7 +133,7 @@ public class Enemy
                 Raylib.DrawTextureEx(texture[state], position - new Vector2(50, 75), 0f, 0.4f, Color.White);
                 break;
             case 5:
-                Raylib.DrawTextureEx(texture[state], position - new Vector2(50, 75), 0f, 0.4f, Color.White);
+                Raylib.DrawTextureEx(texture[state], position - new Vector2(37, 75), 0f, 0.4f, Color.White);
                 break;
         }
     }

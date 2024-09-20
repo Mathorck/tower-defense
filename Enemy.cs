@@ -1,4 +1,5 @@
 ﻿using Raylib_cs;
+using Squelette;
 using System.Numerics;
 
 public class Enemy
@@ -45,13 +46,13 @@ public class Enemy
         this.speed = vitesse;
         this.vie = vie;
     }
-    public Enemy(Vector2 position, float vitesse, Color couleur, int vie, int recompense)
+    public Enemy(Vector2 position, float vitesse, int vie, int recompense,int type)
     {
         this.position = position;
         this.speed = vitesse;
-        this.couleur = couleur;
         this.vie = vie;
         this.recompense = recompense;
+        this.EnemyType = type;
     }
 
     public void Go()
@@ -74,9 +75,9 @@ public class Enemy
         }
     }
 
-    public void PlayDieAnime(Texture2D[] texture)
+    public bool PlayDieAnime(Texture2D[] texture)
     {
-        
+        bool isDead = false;
         if (Mourrant)
         {
             speed = 0;
@@ -90,12 +91,12 @@ public class Enemy
             }
             if (deadState == -1)
             {
-                //Retirer de la liste des mourrant
+                isDead = true;
             }
             else
                 Raylib.DrawTextureEx(texture[deadState], position - new Vector2(50, 70), 0f, 0.5f, Color.White);
         }
-
+        return isDead;
     }
 
     public void PlayRunAnime(Texture2D[] texture)

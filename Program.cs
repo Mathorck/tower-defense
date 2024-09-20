@@ -1,5 +1,7 @@
 using Raylib_cs;
+using System;
 using System.Numerics;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Squelette
 {
@@ -49,7 +51,6 @@ namespace Squelette
         public static Texture2D Cannon;
         public static Texture2D Mg;
         public static Texture2D MissileLauncher;
-
 
         public static void Main()
         {
@@ -104,6 +105,7 @@ namespace Squelette
             bool stop = false;
             Vector2 porteMonstre1 = new Vector2(480, 80);
             Vector2 porteMonstre2 = new Vector2(990, 80);
+
             Random rand = new Random();
 
 
@@ -769,6 +771,7 @@ namespace Squelette
                 {
                     hit = true;
                     Touche = enemy;
+                    Touche.vie -= balle.degats;
                 }
             }
 
@@ -850,6 +853,16 @@ namespace Squelette
                 else
                 {
                     canon.Place(MousePoint);
+                }
+            }
+        }
+        static void killEnemy(List<Enemy> enemies)
+        {
+            foreach (Enemy enemy in enemies)
+            {
+                if (enemy.vie <= 0)
+                {
+                    enemy.Mourrant = true;
                 }
             }
         }

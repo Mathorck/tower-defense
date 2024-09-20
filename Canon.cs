@@ -75,7 +75,7 @@ namespace Squelette
             bool IsTimerReady = getTimer() > vitesseDattaque;
             if (IsTimerReady)
             {
-                bullets.Add(new Bullet(rotation, Position, TourChoisie, bulletSize, Target));
+                bullets.Add(new Bullet(rotation, Position, TourChoisie, bulletSize, Target, Degats));
                 ResetTimer();
             }
 
@@ -109,7 +109,6 @@ namespace Squelette
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon.png");
                             vitesseDattaque = 10f;
                             porteeTir = 250f;
-
                             degats = 10f;
 
                             break;
@@ -130,14 +129,17 @@ namespace Squelette
                         case 1:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/MG.png");
                             vitesseDattaque = 1f;
+                            degats = 3f;
                             break;
                         case 2:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/MG2.png");
                             vitesseDattaque = 0.5f;
+                            degats = 3f;
                             break;
                         case 3:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/MG3.png");
                             vitesseDattaque = 0.2f;
+                            degats = 3f;
                             break;
                     }
                     break;

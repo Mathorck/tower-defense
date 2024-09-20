@@ -8,12 +8,14 @@ public class Enemy
     public float speed = 0.1f;
     public int dir = 1;
     public Color couleur = Color.Red;
-    public int vie = 20;
+    public float vie = 20;
     public bool Placebo = false;
     public int recompense = 100;
     private float temp = 0.0f;
     public int EnemyType = 1;
     private int runState = 0;
+    private int deadState = 0;
+    public bool Mourrant = false;
 
     //   3      
     // 2 0 4    
@@ -72,19 +74,44 @@ public class Enemy
         }
     }
 
-
-
-    public void PlayAnime(Texture2D[] texture)
+    public void PlayDieAnime(Texture2D[] texture)
     {
-        if (getTimer() > 1 / speed)
+        
+        if (Mourrant)
         {
-            ResetTimer();
-            if (runState > texture.Length - 2)
-                runState = 0;
+            speed = 0;
+            if (getTimer() > 1f)
+            {
+                ResetTimer();
+                if (deadState > texture.Length - 2)
+                    deadState = -1;
+                else
+                    deadState++;
+            }
+            if (deadState == -1)
+            {
+                //Retirer de la liste des mourrant
+            }
             else
-                runState++;
+                Raylib.DrawTextureEx(texture[deadState], position - new Vector2(50, 70), 0f, 0.5f, Color.White);
         }
-        Raylib.DrawTextureEx(texture[runState], position - new Vector2(50, 70), 0f, 0.5f, Color.White);
+
+    }
+
+    public void PlayRunAnime(Texture2D[] texture)
+    {
+        if (!Mourrant)
+        {
+            if (getTimer() > 1 / speed)
+            {
+                ResetTimer();
+                if (runState > texture.Length - 2)
+                    runState = 0;
+                else
+                    runState++;
+            }
+            Raylib.DrawTextureEx(texture[runState], position - new Vector2(50, 70), 0f, 0.5f, Color.White);
+        }
     }
 
     public void UpdateTimer()

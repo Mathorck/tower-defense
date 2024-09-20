@@ -9,6 +9,7 @@ namespace Squelette
         public float Rotation;
         public float Size;
         public Enemy Target;
+        public float degats;
 
         private Rectangle rctSource;
         public Rectangle rctDest;
@@ -18,8 +19,9 @@ namespace Squelette
 
 
 
-        public Bullet(float rotation, Vector2 position, int type, float Size, Enemy Target)
+        public Bullet(float rotation, Vector2 position, int type, float Size, Enemy Target, float degats)
         {
+            this.degats = degats;
             Rotation = rotation;
             Position = position;
             this.Size = Size;

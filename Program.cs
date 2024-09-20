@@ -1,5 +1,7 @@
 using Raylib_cs;
+using System.Diagnostics;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace Squelette
 {
@@ -20,23 +22,24 @@ namespace Squelette
 
         public static Vector2 MousePoint = new Vector2(0, 0);
         public static Vector2 tempMousePosition = new Vector2(0, 0);
-
+        public static Vector2 porteMonstre1 = new Vector2(480, 80);
+        public static Vector2 porteMonstre2 = new Vector2(990, 80);
+                                                                   
         public static Rectangle[] CheminNonPosable = new Rectangle[13];
-        public static Rectangle[] BtnAffichage = new Rectangle[2];
-        public static Rectangle[] BtnChoixTour = new Rectangle[3];
-
-        //// liste Enemy /////
-        public static List<Enemy> Enemies = new List<Enemy>();
-        //// liste Canon /////
-        public static List<Canon> Canons = new List<Canon>();
-        //// liste bullets ////
-        public static List<Bullet> Bullets = new List<Bullet>();
-        //// liste Explosion ////
+        public static Rectangle[] BtnAffichage = new Rectangle[2]; 
+        public static Rectangle[] BtnChoixTour = new Rectangle[3]; 
+                                                                   
+        //// liste Enemy /////                                     
+        public static List<Enemy> Enemies = new List<Enemy>();     
+        //// liste Canon /////                                     
+        public static List<Canon> Canons = new List<Canon>();      
+        //// liste bullets ////                                    
+        public static List<Bullet> Bullets = new List<Bullet>();   
+        //// liste Explosion ////                                  
         public static List<Explosion> Explosions = new List<Explosion>();
-
-        public static int Money = 20000;
+                                                                   
+        public static int Money = 20000;                           
         public static float VieActuelle = 100;
-        public static int vague = 0;
 
         //// Textures ////
         public static Texture2D Fond;
@@ -101,8 +104,7 @@ namespace Squelette
             string texte = "Debug Actif";
             bool start = false;
             bool stop = false;
-            Vector2 porteMonstre1 = new Vector2(480, 80);
-            Vector2 porteMonstre2 = new Vector2(990, 80);
+
 
             Random rand = new Random();
 
@@ -404,8 +406,13 @@ namespace Squelette
             }
             if (start)
             {
-                Enemies.Add(new Enemy(porteMonstre1, 5f, Color.SkyBlue, 20, 200));
-                Enemies.Add(new Enemy(porteMonstre2, 1f, Color.Brown, 50, 200));
+                /*Enemies.Add(new Enemy(porteMonstre1, 5f, Color.SkyBlue, 20, 200));
+                Enemies.Add(new Enemy(porteMonstre2, 1f, Color.Brown, 50, 200));+*/
+
+                    
+                    
+                   
+                
 
                 ////////////// Déclarations des textures ////////////////////////////////////////////////////////////
                 //// pour libèrer des la place dans la ram lorsqu'on est dans le menu ////
@@ -422,7 +429,7 @@ namespace Squelette
                 Mg = Raylib.LoadTexture(@"./images/Cannon/MG.png");
                 MissileLauncher = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher.png");
 
-                
+                Task.Run(Vagues.Update);
 
                 ///////////// Boucle principale /////////////
                 while (!stop)
@@ -778,6 +785,7 @@ namespace Squelette
                 color = Color.Orange;
             else if (VieActuelle > 0)
                 color = Color.Red;
+            
 
             Raylib.DrawRectangleRounded(new Rectangle(1380 - 50 + 25, 10, new(300 - 25, 60)), 0.2f, 4, Color.SkyBlue);
             Raylib.DrawRectangle(1365, 25, 200, 30, Color.Black);
@@ -785,6 +793,8 @@ namespace Squelette
             Raylib.DrawRectangleLines(1365, 25, Convert.ToInt32(VieActuelle) * 2, 30, Color.Black);
 
             Raylib.DrawTextureEx(Coeur, new(1580, 20), 0f, 0.9f, Color.White);
+
+            Raylib.DrawText($"Wave : {Vagues.Wave}, you have {Vagues.NbMonstres} monsters to kill !!!", 400, 10, 40, Color.Red);
 
         }
 

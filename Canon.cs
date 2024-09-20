@@ -83,7 +83,8 @@ namespace Squelette
         }
         public void UpdateTimer()
         {
-            temp += 0.1f;
+            if (!Program.menuOuvert)
+                temp += 0.1f;
         }
         public float getTimer()
         {

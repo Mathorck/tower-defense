@@ -1,7 +1,5 @@
 using Raylib_cs;
-using System;
 using System.Numerics;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Squelette
 {
@@ -108,6 +106,273 @@ namespace Squelette
 
             Random rand = new Random();
 
+            // déclaration des textures
+            #region Textures2D Ennemy (Ne pas ouvrir danger de mort)
+            Texture2D[] monstre1run = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_018.png")
+            };
+            Texture2D[] monstre1die = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_012.png")
+            };
+
+            Texture2D[] monstre2run = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_018.png")
+            };
+            Texture2D[] monstre2die = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_001.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_003.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_005.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_007.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_009.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_011.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_013.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_015.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_019.png")
+            };
+
+            Texture2D[] monstre3run = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_018.png")
+            };
+            Texture2D[] monstre3die = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_018.png")
+            };
+
+            Texture2D[] monstre4run = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_018.png")
+            };
+            Texture2D[] monstre4die = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_018.png")
+            };
+
+            Texture2D[] monstre5run = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_018.png")
+            };
+            Texture2D[] monstre5die = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_018.png")
+            };
+
+            Texture2D[] monstre6run = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_018.png")
+            };
+            Texture2D[] monstre6die = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_018.png")
+            };
+
+            Texture2D[] monstre7run = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_018.png")
+            };
+            Texture2D[] monstre7die = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_018.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_019.png")
+            };
+
+            Texture2D[] monstre8run = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_018.png")
+            };
+            Texture2D[] monstre8die = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_018.png")
+            };
+
+            Texture2D[] monstre9run = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_018.png")
+            };
+            Texture2D[] monstre9die = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_018.png")
+            };
+
+            Texture2D[] monstre10run = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_018.png")
+            };
+            Texture2D[] monstre10die = new Texture2D[]
+            {
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_018.png")
+            };
+            #endregion
+
 
             ///////////// Boucle menu /////////////
             while (!start && !stop)
@@ -157,271 +422,7 @@ namespace Squelette
                 Mg = Raylib.LoadTexture(@"./images/Cannon/MG.png");
                 MissileLauncher = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher.png");
 
-                #region Textures2D Ennemy (Ne pas ouvrir danger de mort)
-                Texture2D[] monstre1run = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_018.png")
-                };
-                Texture2D[] monstre1die = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_012.png")
-                };
-
-                Texture2D[] monstre2run = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_018.png")
-                };
-                Texture2D[] monstre2die = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_001.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_003.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_005.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_007.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_009.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_011.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_013.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_015.png"),
-                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_019.png")
-                };
-
-                Texture2D[] monstre3run = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_018.png")
-                };
-                Texture2D[] monstre3die = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_018.png")
-                };
-
-                Texture2D[] monstre4run = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_018.png")
-                };
-                Texture2D[] monstre4die = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_018.png")
-                };
-
-                Texture2D[] monstre5run = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_018.png")
-                };
-                Texture2D[] monstre5die = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_018.png")
-                };
-
-                Texture2D[] monstre6run = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_018.png")
-                };
-                Texture2D[] monstre6die = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_018.png")
-                };
-
-                Texture2D[] monstre7run = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_018.png")
-                };
-                Texture2D[] monstre7die = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_018.png"),
-                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_019.png")
-                };
-
-                Texture2D[] monstre8run = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_018.png")
-                };
-                Texture2D[] monstre8die = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_018.png")
-                };
-
-                Texture2D[] monstre9run = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_018.png")
-                };
-                Texture2D[] monstre9die = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_018.png")
-                };
-
-                Texture2D[] monstre10run = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_018.png")
-                };
-                Texture2D[] monstre10die = new Texture2D[]
-                {
-                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_018.png")
-                };
-                #endregion
+                
 
                 ///////////// Boucle principale /////////////
                 while (!stop)
@@ -491,7 +492,7 @@ namespace Squelette
                     Raylib.BeginDrawing();
                     Raylib.ClearBackground(Color.White);
                     DessinerJeuFond();
-                    DessinerEntitees(monstre1run, monstre2run, monstre3run, monstre4run, monstre5run, monstre6run, monstre7run, monstre8run, monstre9run, monstre10run);
+                    DessinerEntitees(monstre1run, monstre2run, monstre3run, monstre4run, monstre5run, monstre6run, monstre7run, monstre8run, monstre9run, monstre10run, monstre1die, monstre2die, monstre3die, monstre4die, monstre5die, monstre6die, monstre7die, monstre8die, monstre9die, monstre10die);
                     Explosion();
                     DessinerBase();
                     MenuConstruction();
@@ -499,6 +500,7 @@ namespace Squelette
                     DessinerGui(texte);
                     //// En Dessu de GUI parce qu'elles dépassent
                     DessinerPortesMonstres();
+                    killEnemy();
                     Raylib.EndDrawing();
 
 
@@ -538,6 +540,79 @@ namespace Squelette
                     /////////////////////////// MENU ///////////////////////////
                 }
             }
+            #region Unload Textures
+
+            Raylib.UnloadTexture(Fond);
+            Raylib.UnloadTexture(Porte);
+            Raylib.UnloadTexture(BaseV);
+            Raylib.UnloadTexture(Cible);
+            Raylib.UnloadTexture(Coeur);
+            Raylib.UnloadTexture(Argent);
+            Raylib.UnloadTexture(Cannon);
+            Raylib.UnloadTexture(Mg);
+            Raylib.UnloadTexture(MissileLauncher);
+
+            foreach (Texture2D texture in monstre1run)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre2run)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre3run)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre4run)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre5run)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre6run)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre7run)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre8run)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre9run)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre10run)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre1die)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre2die)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre3die)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre4die)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre5die)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre6die)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre7die)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre8die)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre9die)
+                Raylib.UnloadTexture(texture);
+
+            foreach (Texture2D texture in monstre10die)
+                Raylib.UnloadTexture(texture);
+            #endregion
+
             Raylib.CloseWindow();
         }
 
@@ -573,7 +648,7 @@ namespace Squelette
             Raylib.DrawTexturePro(BaseV, new Rectangle(0, 0, BaseV.Width, BaseV.Height), new Rectangle(1815, 735, BaseV.Width / 4, BaseV.Height / 4), new Vector2(0, 0), 0.0f, Color.White);
         }
 
-        static void DessinerEntitees(Texture2D[] monstre1run, Texture2D[] monstre2run, Texture2D[] monstre3run, Texture2D[] monstre4run, Texture2D[] monstre5run, Texture2D[] monstre6run, Texture2D[] monstre7run, Texture2D[] monstre8run, Texture2D[] monstre9run, Texture2D[] monstre10run)
+        static void DessinerEntitees(Texture2D[] monstre1run, Texture2D[] monstre2run, Texture2D[] monstre3run, Texture2D[] monstre4run, Texture2D[] monstre5run, Texture2D[] monstre6run, Texture2D[] monstre7run, Texture2D[] monstre8run, Texture2D[] monstre9run, Texture2D[] monstre10run, Texture2D[] monstre1die, Texture2D[] monstre2die, Texture2D[] monstre3die, Texture2D[] monstre4die, Texture2D[] monstre5die, Texture2D[] monstre6die, Texture2D[] monstre7die, Texture2D[] monstre8die, Texture2D[] monstre9die, Texture2D[] monstre10die)
         {
             foreach (Bullet bullet in Bullets)
             {
@@ -587,43 +662,53 @@ namespace Squelette
             foreach (Canon canon in Canons)
                 canon.Draw();
 
+            List<Enemy> EnemyToRemove = new List<Enemy>();
+
             foreach (Enemy enemy in Enemies)
             {
                 enemy.UpdateTimer();
                 switch (enemy.EnemyType)
                 {
                     case 1:
-                        enemy.PlayAnime(monstre1run);
+                        PlayAnime(enemy, monstre1run, monstre1die, EnemyToRemove);
                         break;
                     case 2:
-                        enemy.PlayAnime(monstre2run);
+                        PlayAnime(enemy, monstre2run, monstre2die, EnemyToRemove);
                         break;
                     case 3:
-                        enemy.PlayAnime(monstre3run);
+                        PlayAnime(enemy, monstre3run, monstre3die, EnemyToRemove);
                         break;
                     case 4:
-                        enemy.PlayAnime(monstre4run);
+                        PlayAnime(enemy, monstre4run, monstre4die, EnemyToRemove);
                         break;
                     case 5:
-                        enemy.PlayAnime(monstre5run);
+                        PlayAnime(enemy, monstre5run, monstre5die, EnemyToRemove);
                         break;
                     case 6:
-                        enemy.PlayAnime(monstre6run);
+                        PlayAnime(enemy, monstre6run, monstre6die, EnemyToRemove);
                         break;
                     case 7:
-                        enemy.PlayAnime(monstre7run);
+                        PlayAnime(enemy, monstre7run, monstre7die, EnemyToRemove);
                         break;
                     case 8:
-                        enemy.PlayAnime(monstre8run);
+                        PlayAnime(enemy, monstre8run, monstre8die, EnemyToRemove);
                         break;
                     case 9:
-                        enemy.PlayAnime(monstre9run);
+                        PlayAnime(enemy, monstre9run, monstre9die, EnemyToRemove);
                         break;
                     case 10:
-                        enemy.PlayAnime(monstre10run);
+                        PlayAnime(enemy, monstre10run, monstre10die, EnemyToRemove);
                         break;
                 }
             }
+
+            foreach (Enemy deadGuy in EnemyToRemove)
+            {
+                Enemies.Remove(deadGuy);
+            }
+            Enemies.Order();
+            EnemyToRemove.Clear();
+
             foreach (Canon canon2 in Canons)
             {
                 if (Raylib.CheckCollisionPointCircle(Raylib.GetMousePosition(), canon2.Position, canon2.hitbox))
@@ -645,12 +730,18 @@ namespace Squelette
                         canon2.Fire(Bullets, EnemyLeMieux(canon2));
                         try
                         {
-                            canon2.setRotation(getRotation(EnemyLeMieux(canon2).position, canon2.Position,0));
+                            canon2.setRotation(getRotation(EnemyLeMieux(canon2).position, canon2.Position, 0));
                         }
                         catch { }
                     }
                 }
             }
+        }
+        static void PlayAnime(Enemy enemy, Texture2D[] textureRun, Texture2D[] textureDie, List<Enemy> EnemyToRemove)
+        {
+            enemy.PlayRunAnime(textureRun);
+            if (enemy.PlayDieAnime(textureDie))
+                EnemyToRemove.Add(enemy);
         }
 
         static void DessinerGui(string texte)
@@ -808,8 +899,6 @@ namespace Squelette
 
         #endregion
 
-
-
         static void Explosion()
         {
             List<Explosion> explosionsToRemove = new List<Explosion>();
@@ -856,9 +945,9 @@ namespace Squelette
                 }
             }
         }
-        static void killEnemy(List<Enemy> enemies)
+        static void killEnemy()
         {
-            foreach (Enemy enemy in enemies)
+            foreach (Enemy enemy in Enemies)
             {
                 if (enemy.vie <= 0)
                 {

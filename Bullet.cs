@@ -55,8 +55,6 @@ namespace Squelette
             rctDest.Y = Position.Y;
 
             Raylib.DrawTexturePro(texture, rctSource, rctDest, origin, Rotation, Color.White);
-
-
         }
         public Bullet Destroy(List<Explosion> explosions)
         {

@@ -158,266 +158,266 @@ namespace Squelette
                 #region Textures2D Ennemy (Ne pas ouvrir danger de mort)
                 Texture2D[] monstre1run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre1die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_012.png")
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_012.png")
                 };
 
                 Texture2D[] monstre2run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre2die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_001.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_003.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_005.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_007.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_009.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_011.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_013.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_015.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_019.png")
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_001.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_003.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_005.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_007.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_009.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_011.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_013.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_015.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_019.png")
                 };
 
                 Texture2D[] monstre3run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre3die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_018.png")
                 };
 
                 Texture2D[] monstre4run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre4die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_018.png")
                 };
 
                 Texture2D[] monstre5run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre5die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_018.png")
                 };
 
                 Texture2D[] monstre6run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre6die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_018.png")
                 };
 
                 Texture2D[] monstre7run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre7die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_018.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_019.png")
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_018.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_019.png")
                 };
 
                 Texture2D[] monstre8run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre8die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_018.png")
                 };
 
                 Texture2D[] monstre9run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre9die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_018.png")
                 };
 
                 Texture2D[] monstre10run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre10die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_018.png")
                 };
                 #endregion
 

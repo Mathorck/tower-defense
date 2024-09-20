@@ -443,8 +443,8 @@ namespace Squelette
                         ChoixTourOuvert = false;
                     }
 
-                    if (Raylib.IsKeyDown(KeyboardKey.Escape))
-                        ModeConstruction = false;
+                    if (Raylib.IsKeyPressed(KeyboardKey.Escape))
+                        menuOuvert = true;
 
                     for (int i = 0; i < Enemies.Count; i++)
                     {
@@ -461,8 +461,8 @@ namespace Squelette
 
                     foreach (Bullet balle in Bullets)
                     {
-
-                        if (HitEnnemy(Enemies, balle, out Enemy touche))
+                        
+                        if (HitEnnemy(Enemies, balle, out Enemy touche) || !Enemies.Contains(balle.Target) || balle.Target.Mourrant)
                         {
                             bulletsToRemove.Add(balle);
                             if (!touche.Placebo)
@@ -515,6 +515,9 @@ namespace Squelette
                             menuOuvert = false;
                             stop = true;
                         }
+
+                        if (Raylib.IsKeyPressed(KeyboardKey.Escape))
+                            menuOuvert = false;
 
                         ModeConstruction = false;
 
@@ -865,7 +868,7 @@ namespace Squelette
             Touche = new Enemy(Vector2.Zero);
             foreach (Enemy enemy in enemies)
             {
-                if (Raylib.CheckCollisionCircleRec(enemy.position, enemy.size, balle.rctDest))
+                if (Raylib.CheckCollisionCircleRec(enemy.position, enemy.size, balle.rctDest) && !enemy.Mourrant)
                 {
                     hit = true;
                     Touche = enemy;
@@ -884,17 +887,20 @@ namespace Squelette
             Enemy Mieu = null;
             float maxDistance = canon.PorteeTir;
 
+            Enemies.Reverse();
 
             foreach (Enemy enemy in Enemies)
             {
                 float distance = Vector2.Distance(canon.Position, enemy.position);
-                if (distance <= canon.PorteeTir)
+                if (distance <= canon.PorteeTir && !enemy.Mourrant)
                 {
                     maxDistance = distance;
                     Mieu = enemy;
 
                 }
             }
+
+            Enemies.Reverse();
 
             // Si aucun ennemi n'est trouvé dans la portée, retourner le premier ennemi
             if (Mieu == null)

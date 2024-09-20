@@ -32,16 +32,16 @@ namespace Squelette
                 Console.WriteLine($"Stade : {stade}");
             }
 
-            rctSource = new(explosionTexture.Width/8*stade, 0, explosionTexture.Width / 8, explosionTexture.Height);
-            Raylib.DrawTexturePro(explosionTexture, rctSource, new Rectangle(Position -new Vector2(100,100), 200, 200), new(0, 0), 0, Color.White);
+            rctSource = new(explosionTexture.Width / 8 * stade, 0, explosionTexture.Width / 8, explosionTexture.Height);
+            Raylib.DrawTexturePro(explosionTexture, rctSource, new Rectangle(Position - new Vector2(100, 100), 200, 200), new(0, 0), 0, Color.White);
 
-            
+
             if (stade >= 8)
             {
                 Console.WriteLine("SuprrExp");
                 destroy = true;
             }
-            
+
             return destroy;
         }
     }

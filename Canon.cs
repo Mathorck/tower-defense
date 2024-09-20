@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using Raylib_cs;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-using Raylib_cs;
 
 namespace Squelette
 {
@@ -100,8 +94,8 @@ namespace Squelette
         {
             temp = 0.0f;
         }
-    
-        
+
+
 
         private void setTextureCanon()
         {
@@ -158,11 +152,11 @@ namespace Squelette
                             break;
                         case 2:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher2.png");
-                            vitesseDattaque =  20f-20f/3;
+                            vitesseDattaque = 20f - 20f / 3;
                             break;
                         case 3:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher3.png");
-                            vitesseDattaque = 20f/3;
+                            vitesseDattaque = 20f / 3;
                             break;
                     }
                     break;
@@ -171,7 +165,7 @@ namespace Squelette
             frameHeight = Cannon.Height;
             destRec = new Rectangle(Position.X + 0, Position.Y + 0, frameWidth / 3, frameHeight / 3);
             sourceRec = new Rectangle(0, 0, frameWidth, frameHeight);
-            origin = new Vector2(frameWidth/2/3, frameHeight/4*3/3);
+            origin = new Vector2(frameWidth / 2 / 3, frameHeight / 4 * 3 / 3);
         }
 
         public int getPrice()

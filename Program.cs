@@ -10,11 +10,47 @@ namespace Squelette
         // Auteurs   : Elias Fahme, Mathéo Monnier
         // Nom       : Tower Defense
 
+        const int PRIXCANON = 100;
+        const int PRIXROCKETLAUNCHER = 200;
+        const int PRIXMG = 500;
+
         public static bool DebugActivated = true;
-        public static Rectangle[] cheminNonPosable = new Rectangle[13];
 
+        public static bool ModeConstruction = false;
+        public static bool ChoixTourOuvert = false;
+        public static bool menuOuvert = false;
 
+        public static Vector2 MousePoint = new Vector2(0, 0);
+        public static Vector2 tempMousePosition = new Vector2(0, 0);
 
+        public static Rectangle[] CheminNonPosable = new Rectangle[13];
+        public static Rectangle[] BtnAffichage = new Rectangle[2];
+        public static Rectangle[] BtnChoixTour = new Rectangle[3];
+
+        //// liste Enemy /////
+        public static List<Enemy> Enemies = new List<Enemy>();
+        //// liste Canon /////
+        public static List<Canon> Canons = new List<Canon>();
+        //// liste bullets ////
+        public static List<Bullet> Bullets = new List<Bullet>();
+        //// liste Explosion ////
+        public static List<Explosion> Explosions = new List<Explosion>();
+
+        public static int Money = 20000;
+        public static float VieActuelle = 100;
+        public static int vague = 0;
+
+        //// Textures ////
+        public static Texture2D Fond;
+        public static Texture2D Porte;
+        public static Texture2D BaseV;
+        public static Texture2D Cible;
+        public static Texture2D Coeur;
+        public static Texture2D Argent;
+
+        public static Texture2D Cannon;
+        public static Texture2D Mg;
+        public static Texture2D MissileLauncher;
 
         public static void Main()
         {
@@ -27,78 +63,64 @@ namespace Squelette
             //// Déclaration Variables hitbox ////
             // BtnStart
             Rectangle btnStart = new(750, 450, new Vector2(420, 110));
+
             // BtnLeave
             Rectangle btnStop = new(750, 650, new Vector2(420, 110));
 
             //// Hitbox non posables //////
-            cheminNonPosable[0] = new Rectangle(420, 80, new Vector2(105, 455));
-            cheminNonPosable[1] = new Rectangle(240, 450, new Vector2(235, 85));
-            cheminNonPosable[2] = new Rectangle(240, 450, new Vector2(100, 285));
-            cheminNonPosable[3] = new Rectangle(240, 650, new Vector2(410, 70));
-            cheminNonPosable[4] = new Rectangle(565, 260, new Vector2(345, 85));
-            cheminNonPosable[5] = new Rectangle(825, 340, new Vector2(85, 135));
-            cheminNonPosable[6] = new Rectangle(755, 390, new Vector2(105, 210));
-            cheminNonPosable[7] = new Rectangle(835, 520, new Vector2(330, 75));
-            cheminNonPosable[8] = new Rectangle(1070, 585, new Vector2(95, 270));
-            cheminNonPosable[9] = new Rectangle(1010, 775, new Vector2(95, 215));
-            cheminNonPosable[10] = new Rectangle(1015, 900, new Vector2(905, 85));
-            cheminNonPosable[11] = new Rectangle(565, 260, new Vector2(100, 465));
-            cheminNonPosable[12] = new Rectangle(945, 80, new Vector2(95, 465));
-            //// autre hitbox
-            Rectangle[] objetNp = new Rectangle[13];
-            objetNp[0] = new Rectangle(260, 210, new Vector2(50, 50));
+            CheminNonPosable[0] = new Rectangle(420, 80, new Vector2(105, 455));
+            CheminNonPosable[1] = new Rectangle(240, 450, new Vector2(235, 85));
+            CheminNonPosable[2] = new Rectangle(240, 450, new Vector2(100, 285));
+            CheminNonPosable[3] = new Rectangle(240, 650, new Vector2(410, 70));
+            CheminNonPosable[4] = new Rectangle(565, 260, new Vector2(345, 85));
+            CheminNonPosable[5] = new Rectangle(825, 340, new Vector2(85, 135));
+            CheminNonPosable[6] = new Rectangle(755, 390, new Vector2(105, 210));
+            CheminNonPosable[7] = new Rectangle(835, 520, new Vector2(330, 75));
+            CheminNonPosable[8] = new Rectangle(1070, 585, new Vector2(95, 270));
+            CheminNonPosable[9] = new Rectangle(1010, 775, new Vector2(95, 215));
+            CheminNonPosable[10] = new Rectangle(1015, 900, new Vector2(905, 85));
+            CheminNonPosable[11] = new Rectangle(565, 260, new Vector2(100, 465));
+            CheminNonPosable[12] = new Rectangle(945, 80, new Vector2(95, 465));
+
             ///// tableau Rectangles a afficher ////
-            Rectangle[] btnAffichage = new Rectangle[2];
+
             // btnMenu
-            Rectangle btnMenu = new(10, 10, new Vector2(60, 60));
-            btnAffichage[0] = btnMenu;
-            bool menuOuvert = false;
+            BtnAffichage[0] = new(10, 10, new Vector2(60, 60));
+
             // btnConstruction
-            btnAffichage[1] = new Rectangle(300, 10, new Vector2(60, 60));
-            //int nbCanon = 0;
-            bool modeConstruction = false;
-            //// liste Enemy /////
-            List<Enemy> enemies = new List<Enemy>();
-            //// liste Canon /////
-            List<Canon> canons = new List<Canon>();
-            //// liste bullets ////
-            List<Bullet> bullets = new List<Bullet>();
+            BtnAffichage[1] = new Rectangle(300, 10, new Vector2(60, 60));
+
             // canonPos
             Canon canon = new Canon();
-            //// liste Explosion ////
-            List<Explosion> explosions = new List<Explosion>();
+
             //// btnChoixTour /////
-            Rectangle[] btnChoixTour = new Rectangle[3];
-            btnChoixTour[0] = new Rectangle(0, 0, new Vector2(75, 75));
-            btnChoixTour[1] = new Rectangle(0, 0, new Vector2(75, 75));
-            btnChoixTour[2] = new Rectangle(0, 0, new Vector2(75, 75));
-            bool choixTourOuvert = false;
+            BtnChoixTour[0] = new Rectangle(0, 0, new Vector2(75, 75));
+            BtnChoixTour[1] = new Rectangle(0, 0, new Vector2(75, 75));
+            BtnChoixTour[2] = new Rectangle(0, 0, new Vector2(75, 75));
+
 
             //// Déclaration variables Autres ////
-            Vector2 mousePoint = new Vector2(0f, 0f);
-            string texte = "Pressez ESC pour quitter!";
+            string texte = "Debug Actif";
             bool start = false;
             bool stop = false;
             Vector2 porteMonstre1 = new Vector2(480, 80);
             Vector2 porteMonstre2 = new Vector2(990, 80);
-            Vector2 tempMousePosition = new Vector2(0, 0);
-            int Argent = int.MaxValue;
-            int vague = 0;
+
             Random rand = new Random();
 
-            float vieActuelle = 100;
+
             ///////////// Boucle menu /////////////
             while (!start && !stop)
             {
-                mousePoint = Raylib.GetMousePosition();
+                MousePoint = Raylib.GetMousePosition();
 
                 //////// Boutton Vérif ////////////
                 // BtnStart
-                if (Raylib.CheckCollisionPointRec(mousePoint, btnStart) && Raylib.IsMouseButtonDown(MouseButton.Left))
+                if (Raylib.CheckCollisionPointRec(MousePoint, btnStart) && Raylib.IsMouseButtonDown(MouseButton.Left))
                     start = true;
 
                 // BtnStop
-                else if (Raylib.CheckCollisionPointRec(mousePoint, btnStop) && Raylib.IsMouseButtonDown(MouseButton.Left))
+                else if (Raylib.CheckCollisionPointRec(MousePoint, btnStop) && Raylib.IsMouseButtonDown(MouseButton.Left))
                     stop = true;
 
 
@@ -109,7 +131,7 @@ namespace Squelette
                 if (DebugActivated)
                 {
                     Raylib.DrawText(texte, 12, 12, 20, Color.Black);
-                    Raylib.DrawText($"X:{mousePoint.X} Y:{mousePoint.Y}", 12, 35, 20, Color.Black);
+                    Raylib.DrawText($"X:{MousePoint.X} Y:{MousePoint.Y}", 12, 35, 20, Color.Black);
                 }
                 DessinerMenu();
                 Raylib.EndDrawing();
@@ -117,318 +139,319 @@ namespace Squelette
             }
             if (start)
             {
-                enemies.Add(new Enemy(porteMonstre1, 5f, Color.SkyBlue, 20, 200));
-                enemies.Add(new Enemy(porteMonstre2, 1f, Color.Brown, 50, 200));
+                Enemies.Add(new Enemy(porteMonstre1, 5f, Color.SkyBlue, 20, 200));
+                Enemies.Add(new Enemy(porteMonstre2, 1f, Color.Brown, 50, 200));
 
                 ////////////// Déclarations des textures ////////////////////////////////////////////////////////////
                 //// pour libèrer des la place dans la ram lorsqu'on est dans le menu ////
                 //// Aussi pour éviter de charger trop longtemps dans les menu ////
-                Texture2D fond = Raylib.LoadTexture("./images/backgroundgame.png");
-                Texture2D porte = Raylib.LoadTexture("./images/basemonstre1.png");
-                Texture2D baseV = Raylib.LoadTexture("./images/base1.png");
-                Texture2D cible = Raylib.LoadTexture("./images/Target-icon.png");
-                Texture2D coeur = Raylib.LoadTexture("./images/coeur.png");
-                Texture2D argent = Raylib.LoadTexture("./images/Argent.png");
+                Fond = Raylib.LoadTexture("./images/backgroundgame.png");
+                Porte = Raylib.LoadTexture("./images/basemonstre1.png");
+                BaseV = Raylib.LoadTexture("./images/base1.png");
+                Cible = Raylib.LoadTexture("./images/Target-icon.png");
+                Coeur = Raylib.LoadTexture("./images/Coeur.png");
+                Argent = Raylib.LoadTexture("./images/Argent.png");
 
-                Texture2D cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon.png");
-                Texture2D mg = Raylib.LoadTexture(@"./images/Cannon/MG.png");
-                Texture2D missileLauncher = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher.png");
+                //// Image Canon ////
+                Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon.png");
+                Mg = Raylib.LoadTexture(@"./images/Cannon/MG.png");
+                MissileLauncher = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher.png");
 
                 #region Textures2D Ennemy (Ne pas ouvrir danger de mort)
                 Texture2D[] monstre1run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/run/1_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/run/1_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre1die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/1/die/1_enemies_1_die_012.png")
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/1/die/1_enemies_1_die_012.png")
                 };
 
                 Texture2D[] monstre2run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/run/2_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/run/2_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre2die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_001.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_003.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_005.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_007.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_009.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_011.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_013.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_015.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/2/die/2_enemies_1_die_019.png")
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_001.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_003.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_005.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_007.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_009.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_011.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_013.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_015.png"),
+                    Raylib.LoadTexture("./images/Monstres/2/die/2_enemies_1_die_019.png")
                 };
 
                 Texture2D[] monstre3run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/run/3_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/run/3_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre3die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/3/die/3_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/3/die/3_enemies_1_die_018.png")
                 };
 
                 Texture2D[] monstre4run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/run/4_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/run/4_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre4die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/4/die/4_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/4/die/4_enemies_1_die_018.png")
                 };
 
                 Texture2D[] monstre5run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/run/5_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/run/5_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre5die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/5/die/5_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/5/die/5_enemies_1_die_018.png")
                 };
 
                 Texture2D[] monstre6run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/run/6_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/run/6_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre6die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/6/die/6_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/6/die/6_enemies_1_die_018.png")
                 };
 
                 Texture2D[] monstre7run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/run/7_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/run/7_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre7die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_018.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/7/die/7_enemies_1_die_019.png")
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_018.png"),
+                    Raylib.LoadTexture("./images/Monstres/7/die/7_enemies_1_die_019.png")
                 };
 
                 Texture2D[] monstre8run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/run/8_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/run/8_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre8die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/8/die/8_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/8/die/8_enemies_1_die_018.png")
                 };
 
                 Texture2D[] monstre9run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/run/9_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/run/9_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre9die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/9/die/9_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/9/die/9_enemies_1_die_018.png")
                 };
 
                 Texture2D[] monstre10run = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/run/10_enemies_1_run_018.png")
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/run/10_enemies_1_run_018.png")
                 };
                 Texture2D[] monstre10die = new Texture2D[]
                 {
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_000.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_002.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_004.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_006.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_008.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_010.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_012.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_014.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_016.png"),
-                    Raylib.LoadTexture("D:/tower-defense/images/Monstres/10/die/10_enemies_1_die_018.png")
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_000.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_002.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_004.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_006.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_008.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_010.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_012.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_014.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_016.png"),
+                    Raylib.LoadTexture("./images/Monstres/10/die/10_enemies_1_die_018.png")
                 };
                 #endregion
 
                 ///////////// Boucle principale /////////////
                 while (!stop)
                 {
-                    mousePoint = Raylib.GetMousePosition();
+                    MousePoint = Raylib.GetMousePosition();
                     if (DebugActivated)
-                        texte = bullets.Count().ToString();
+                        texte = Bullets.Count().ToString();
 
-
-                    if (Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[0]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
+                    if (Raylib.CheckCollisionPointRec(MousePoint, BtnAffichage[0]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
                         menuOuvert = true;
 
-                    if (Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[1]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
+                    if (Raylib.CheckCollisionPointRec(MousePoint, BtnAffichage[1]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
                     {
-                        if (modeConstruction)
-                            modeConstruction = false;
+                        if (ModeConstruction)
+                            ModeConstruction = false;
                         else
-                            modeConstruction = true;
-                        choixTourOuvert = false;
+                            ModeConstruction = true;
+
+                        ChoixTourOuvert = false;
                     }
 
                     if (Raylib.IsKeyDown(KeyboardKey.Escape))
-                        modeConstruction = false;
+                        ModeConstruction = false;
 
-                    for (int i = 0; i < enemies.Count; i++)
+                    for (int i = 0; i < Enemies.Count; i++)
                     {
                         try
                         {
-                            Direction(enemies[i], enemies, ref vieActuelle);
-                            enemies[i].Go();
+                            Direction(Enemies[i]);
+                            Enemies[i].Go();
                         }
                         catch { }
                     }
@@ -436,10 +459,10 @@ namespace Squelette
 
                     List<Bullet> bulletsToRemove = new List<Bullet>();
 
-                    foreach (Bullet balle in bullets)
+                    foreach (Bullet balle in Bullets)
                     {
 
-                        if (HitEnnemy(enemies, balle, out Enemy touche))
+                        if (HitEnnemy(Enemies, balle, out Enemy touche))
                         {
                             bulletsToRemove.Add(balle);
                             if (!touche.Placebo)
@@ -449,174 +472,33 @@ namespace Squelette
                         }
                         else if (balle.Position.X > Raylib.GetScreenWidth() || balle.Position.Y > Raylib.GetScreenHeight())
                             bulletsToRemove.Add(balle);
-                        else if (enemies.Count == 0)
+                        else if (Enemies.Count == 0)
                             bulletsToRemove.Add(balle);
                         else if (balle.Position.X < 0 || balle.Position.Y < 0)
                             bulletsToRemove.Add(balle);
                     }
                     foreach (Bullet balle in bulletsToRemove)
                     {
-                        bullets.Remove(balle.Destroy(explosions));
+                        Bullets.Remove(balle.Destroy(Explosions));
                     }
-                    bullets.Order();
+                    Bullets.Order();
                     bulletsToRemove.Clear();
 
 
 
 
-                    if (modeConstruction)
-                    {
-                        if ((Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(mousePoint, btnAffichage[1]) && !TourCollide(cheminNonPosable, canons)) && !choixTourOuvert)
-                        {
-                            choixTourOuvert = true;
-                            tempMousePosition = mousePoint;
-                        }
-                        if (Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[0]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
-                        {
-                            if (Argent >= 100)
-                            {
-                                canons.Add(new Canon(tempMousePosition, 1));
-                                choixTourOuvert = false;
-                                modeConstruction = false;
-                                btnChoixTour[0].Position = new Vector2(0, 0);
-                                btnChoixTour[1].Position = new Vector2(0, 0);
-                                btnChoixTour[2].Position = new Vector2(0, 0);
-                                Argent -= 100;
-                            }
-                        }
-                        else if (Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[1]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
-                        {
-                            if (Argent >= 200)
-                            {
-                                canons.Add(new Canon(tempMousePosition, 2));
-                                choixTourOuvert = false;
-                                modeConstruction = false;
-                                btnChoixTour[0].Position = new Vector2(0, 0);
-                                btnChoixTour[1].Position = new Vector2(0, 0);
-                                btnChoixTour[2].Position = new Vector2(0, 0);
-                                Argent -= 200;
-                            }
-                        }
-                        else if (Raylib.CheckCollisionPointRec(mousePoint, btnChoixTour[2]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
-                        {
-                            if (Argent >= 500)
-                            {
-                                canons.Add(new Canon(tempMousePosition, 3));
-                                choixTourOuvert = false;
-                                modeConstruction = false;
-                                btnChoixTour[0].Position = new Vector2(0, 0);
-                                btnChoixTour[1].Position = new Vector2(0, 0);
-                                btnChoixTour[2].Position = new Vector2(0, 0);
-                                Argent -= 500;
-                            }
-                        }
-                    }
+
                     Raylib.BeginDrawing();
                     Raylib.ClearBackground(Color.White);
-                    DessinerJeuFond(fond);
-                    DessinerEntitees(canons);
-
-
-                    List<Explosion> explosionsToRemove = new List<Explosion>();
-
-                    // Itérer sur les explosions sans les supprimer directement
-                    foreach (Explosion explosion in explosions)
-                    {
-                        if (explosion.UpdateTimer())
-                        {
-                            explosionsToRemove.Add(explosion);
-                        }
-                    }
-
-                    // Supprimer les explosions après la boucle
-                    foreach (Explosion explosion in explosionsToRemove)
-                    {
-                        explosions.Remove(explosion);
-                    }
-                    explosions.Order();
-
-
-                    foreach (Canon canon2 in canons)
-                    {
-                        if (Raylib.CheckCollisionPointCircle(Raylib.GetMousePosition(), canon2.Position, canon2.hitbox))
-                        {
-                            Raylib.DrawCircleLinesV(canon2.Position, canon2.PorteeTir, Color.Black);
-                            Raylib.DrawText(canon2.getPrice().ToString(), (int)canon2.Position.X, (int)canon2.Position.Y, 20, Color.Black);
-                            if (Raylib.IsMouseButtonPressed(MouseButton.Left))
-                            {
-                                canon2.Upgrade(ref Argent);
-                            }
-                        }
-
-
-                        canon2.UpdateTimer();
-                        if (enemies.Count != 0)
-                        {
-                            if (!EnemyLeMieux(enemies, canon2).Placebo)
-                            {
-                                canon2.Fire(bullets, EnemyLeMieux(enemies, canon2));
-                                try
-                                {
-                                    canon2.setRotation(getRotation(EnemyLeMieux(enemies, canon2).position, canon2.Position));
-                                }
-                                catch
-                                {
-
-                                }
-                            }
-                        }
-                    }
-                    foreach (Enemy enemy in enemies)
-                    {
-                        enemy.UpdateTimer();
-                        switch (enemy.EnemyType)
-                        {
-                            case 1:
-                                enemy.PlayRunAnime(monstre1run);
-                                enemy.PlayDieAnime(monstre1die);
-                                break;
-                        }
-
-                        
-                    }
-                    foreach (Bullet bullet in bullets)
-                    {
-                        if (enemies.Count > 0 || bullet.Target != null)
-                        {
-                            bullet.Rotation = getRotation(bullet.Target.position, bullet.Position, 90);
-                        }
-                        bullet.Draw();
-                    }
-                    DessinerGui(texte, mousePoint, btnAffichage, cible, Argent, argent, vieActuelle, coeur);
-                    DessinerBase(baseV);
-                    DessinerPortesMonstres(porte);
-                    killEnemy(enemies);
-
-                    DessinerPortesMonstres(porte);
-                    if (modeConstruction)
-                    {
-                        Raylib.DrawText("Mode Construction activé", 370, 30, 20, Color.Red);
-
-
-                        if (choixTourOuvert)
-                        {
-                            canon.Place(tempMousePosition);
-                            btnChoixTour[0].Position = tempMousePosition + new Vector2(90 - 35, 50);
-                            btnChoixTour[1].Position = tempMousePosition + new Vector2(0 - 35, 50);
-                            btnChoixTour[2].Position = tempMousePosition + new Vector2(-90 - 35, 50);
-                            Raylib.DrawRectangleRounded(btnChoixTour[0], 0.2f, 4, Color.SkyBlue);
-                            Raylib.DrawTextureEx(cannon, btnChoixTour[0].Position + new Vector2(52.5f, -7.5f), 45f, 0.3f, Color.White);
-                            Raylib.DrawRectangleRounded(btnChoixTour[1], 0.2f, 4, Color.SkyBlue);
-                            Raylib.DrawTextureEx(mg, btnChoixTour[1].Position + new Vector2(45, -2.5f), 45f, 0.3f, Color.White);
-                            Raylib.DrawRectangleRounded(btnChoixTour[2], 0.2f, 4, Color.SkyBlue);
-                            Raylib.DrawTextureEx(missileLauncher, btnChoixTour[2].Position + new Vector2(45, 0), 45f, 0.3f, Color.White);
-                        }
-                        else
-                        {
-                            canon.Place(mousePoint);
-                        }
-                    }
-
+                    DessinerJeuFond();
+                    DessinerEntitees(monstre1run, monstre2run, monstre3run, monstre4run, monstre5run, monstre6run, monstre7run, monstre8run, monstre9run, monstre10run);
+                    Explosion();
+                    DessinerBase();
+                    MenuConstruction();
+                    DessinMenuConstruction();
+                    DessinerGui(texte);
+                    //// En Dessu de GUI parce qu'elles dépassent
+                    DessinerPortesMonstres();
                     Raylib.EndDrawing();
 
 
@@ -624,24 +506,22 @@ namespace Squelette
                     //////////////////////////// MENU ///////////////////////
                     while (menuOuvert)
                     {
-                        mousePoint = Raylib.GetMousePosition();
-                        if ((Raylib.CheckCollisionPointRec(mousePoint, btnStart) && Raylib.IsMouseButtonDown(MouseButton.Left)) || (Raylib.CheckCollisionPointRec(mousePoint, btnMenu) && Raylib.IsMouseButtonPressed(MouseButton.Left)))
+                        MousePoint = Raylib.GetMousePosition();
+                        if ((Raylib.CheckCollisionPointRec(MousePoint, btnStart) && Raylib.IsMouseButtonDown(MouseButton.Left)) || (Raylib.CheckCollisionPointRec(MousePoint, BtnAffichage[0]) && Raylib.IsMouseButtonPressed(MouseButton.Left)))
                             menuOuvert = false;
-
-                        else if (Raylib.CheckCollisionPointRec(mousePoint, btnStop) && Raylib.IsMouseButtonDown(MouseButton.Left))
+                        else if (Raylib.CheckCollisionPointRec(MousePoint, btnStop) && Raylib.IsMouseButtonDown(MouseButton.Left))
                         {
                             menuOuvert = false;
                             stop = true;
                         }
 
-
-                        modeConstruction = false;
+                        ModeConstruction = false;
 
                         Raylib.BeginDrawing();
                         Raylib.ClearBackground(Color.White);
-                        DessinerJeuFond(fond);
+                        DessinerJeuFond();
 
-                        DessinerEntitees(canons);
+                        //DessinerEntitees();
 
                         Raylib.DrawText("PAUSE", 822, 225, 80, Color.Black);
 
@@ -651,7 +531,7 @@ namespace Squelette
                         Raylib.DrawRectangleRec(btnStop, Color.Red);
                         Raylib.DrawText("Quit", 910, 685, 50, Color.Black);
 
-                        DessinerGui(texte, mousePoint, btnAffichage, cible, Argent, argent, vieActuelle, coeur);
+                        DessinerGui(texte);
                         Raylib.EndDrawing();
 
                     }
@@ -661,23 +541,9 @@ namespace Squelette
             Raylib.CloseWindow();
         }
 
-        static bool TourCollide(Rectangle[] chm, List<Canon> canon)
-        {
-            Vector2 mousePoint = Raylib.GetMousePosition();
 
-            bool touche = false;
-            foreach (Rectangle bout in chm)
-            {
-                if (Raylib.CheckCollisionCircleRec(mousePoint, 40f, bout))
-                    touche = true;
-            }
-            foreach (Canon canon1 in canon)
-            {
-                if (Raylib.CheckCollisionCircles(mousePoint, 40f, canon1.Position, 40f))
-                    touche = true;
-            }
-            return touche;
-        }
+        #region Dessin
+
         static void DessinerMenu()
         {
             // Titre //
@@ -694,83 +560,151 @@ namespace Squelette
 
         }
 
-        static void DessinerPortesMonstres(Texture2D porte)
+        static void DessinerPortesMonstres()
         {
-            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), new Rectangle(445 - 31, 40, porte.Width / 8, porte.Height / 8), new Vector2(0, 0), 0.0f, Color.White);
-            Raylib.DrawTexturePro(porte, new Rectangle(0, 0, porte.Width, porte.Height), new Rectangle(955 - 31, 40, porte.Width / 8, porte.Height / 8), new Vector2(0, 0), 0.0f, Color.White);
+            Raylib.DrawTexturePro(Porte, new Rectangle(0, 0, Porte.Width, Porte.Height), new Rectangle(445 - 31, 40, Porte.Width / 8, Porte.Height / 8), new Vector2(0, 0), 0.0f, Color.White);
+            Raylib.DrawTexturePro(Porte, new Rectangle(0, 0, Porte.Width, Porte.Height), new Rectangle(955 - 31, 40, Porte.Width / 8, Porte.Height / 8), new Vector2(0, 0), 0.0f, Color.White);
 
         }
 
-        static void DessinerBase(Texture2D baseV)
+        static void DessinerBase()
         {
             //Raylib.DrawRectangle(1860, 910, 75, 70, Color.Green);
-            Raylib.DrawTexturePro(baseV, new Rectangle(0, 0, baseV.Width, baseV.Height), new Rectangle(1815, 735, baseV.Width / 4, baseV.Height / 4), new Vector2(0, 0), 0.0f, Color.White);
+            Raylib.DrawTexturePro(BaseV, new Rectangle(0, 0, BaseV.Width, BaseV.Height), new Rectangle(1815, 735, BaseV.Width / 4, BaseV.Height / 4), new Vector2(0, 0), 0.0f, Color.White);
         }
 
-        static void DessinerEntitees(List<Canon> canons)
+        static void DessinerEntitees(Texture2D[] monstre1run, Texture2D[] monstre2run, Texture2D[] monstre3run, Texture2D[] monstre4run, Texture2D[] monstre5run, Texture2D[] monstre6run, Texture2D[] monstre7run, Texture2D[] monstre8run, Texture2D[] monstre9run, Texture2D[] monstre10run)
         {
-            for (int i = 0; i < canons.Count; i++)
-                canons[i].Draw();
+            foreach (Bullet bullet in Bullets)
+            {
+                if (Enemies.Count > 0 || bullet.Target != null)
+                {
+                    bullet.Rotation = getRotation(bullet.Target.position, bullet.Position, 90);
+                }
+                bullet.Draw();
+            }
 
+            foreach (Canon canon in Canons)
+                canon.Draw();
+
+            foreach (Enemy enemy in Enemies)
+            {
+                enemy.UpdateTimer();
+                switch (enemy.EnemyType)
+                {
+                    case 1:
+                        enemy.PlayAnime(monstre1run);
+                        break;
+                    case 2:
+                        enemy.PlayAnime(monstre2run);
+                        break;
+                    case 3:
+                        enemy.PlayAnime(monstre3run);
+                        break;
+                    case 4:
+                        enemy.PlayAnime(monstre4run);
+                        break;
+                    case 5:
+                        enemy.PlayAnime(monstre5run);
+                        break;
+                    case 6:
+                        enemy.PlayAnime(monstre6run);
+                        break;
+                    case 7:
+                        enemy.PlayAnime(monstre7run);
+                        break;
+                    case 8:
+                        enemy.PlayAnime(monstre8run);
+                        break;
+                    case 9:
+                        enemy.PlayAnime(monstre9run);
+                        break;
+                    case 10:
+                        enemy.PlayAnime(monstre10run);
+                        break;
+                }
+            }
+            foreach (Canon canon2 in Canons)
+            {
+                if (Raylib.CheckCollisionPointCircle(Raylib.GetMousePosition(), canon2.Position, canon2.hitbox))
+                {
+                    Raylib.DrawCircleLinesV(canon2.Position, canon2.PorteeTir, Color.Black);
+                    Raylib.DrawText(canon2.getPrice().ToString(), (int)canon2.Position.X, (int)canon2.Position.Y, 20, Color.Black);
+                    if (Raylib.IsMouseButtonPressed(MouseButton.Left))
+                    {
+                        canon2.Upgrade(ref Money);
+                    }
+                }
+
+
+                canon2.UpdateTimer();
+                if (Enemies.Count != 0)
+                {
+                    if (!EnemyLeMieux(canon2).Placebo)
+                    {
+                        canon2.Fire(Bullets, EnemyLeMieux(canon2));
+                        try
+                        {
+                            canon2.setRotation(getRotation(EnemyLeMieux(canon2).position, canon2.Position,0));
+                        }
+                        catch { }
+                    }
+                }
+            }
         }
 
-        static void DessinerGui(string texte, Vector2 mousePoint, Rectangle[] btnAfficher, Texture2D cible, int Argent, Texture2D argent, float vieActuelle, Texture2D coeur)
+        static void DessinerGui(string texte)
         {
             Raylib.DrawRectangleGradientV(0, 0, 1920, 80, Color.Blue, Color.DarkBlue);
-            // Debug
-            Raylib.DrawText(texte, 100, 12, 20, Color.Black);
-            Raylib.DrawText($"X:{mousePoint.X} Y:{mousePoint.Y}", 100, 35, 20, Color.Black);
-            //
-            Raylib.DrawRectangleRounded(btnAfficher[0], 0.2f, 4, Color.SkyBlue);
+            if (DebugActivated)
+            {
+                Raylib.DrawText(texte, 100, 12, 20, Color.Black);
+                Raylib.DrawText($"X:{MousePoint.X} Y:{MousePoint.Y}", 100, 35, 20, Color.Black);
+            }
+            Raylib.DrawRectangleRounded(BtnAffichage[0], 0.2f, 4, Color.SkyBlue);
             Raylib.DrawLineEx(new Vector2(20, 25), new Vector2(60, 25), 6f, Color.Black);
             Raylib.DrawLineEx(new Vector2(20, 40), new Vector2(60, 40), 6f, Color.Black);
             Raylib.DrawLineEx(new Vector2(20, 55), new Vector2(60, 55), 6f, Color.Black);
 
 
-            Raylib.DrawRectangleRounded(btnAfficher[1], 0.2f, 4, Color.SkyBlue); //Dessin contour bouton menu tours
-            Raylib.DrawTextureEx(cible, btnAfficher[1].Position + new Vector2(4.5f, 5), 0, 0.1f, Color.White); //affichage de l'icon dans le menu des tours
+            Raylib.DrawRectangleRounded(BtnAffichage[1], 0.2f, 4, Color.SkyBlue); //Dessin contour bouton menu tours
+            Raylib.DrawTextureEx(Cible, BtnAffichage[1].Position + new Vector2(4.5f, 5), 0, 0.1f, Color.White); //affichage de l'icon dans le menu des tours
 
             Raylib.DrawRectangleRounded(new Rectangle(1000 + 650, 10, new(250, 60)), 0.2f, 4, Color.SkyBlue);
-            Raylib.DrawTextureEx(argent, new Vector2(1000 + 250 - 50 + 650, 20), 0f, 0.2f, Color.White);
-            Raylib.DrawText(Argent.ToString(), 1010 + 650, 22, 40, Color.Black);
+            Raylib.DrawTextureEx(Argent, new Vector2(1000 + 250 - 50 + 650, 20), 0f, 0.2f, Color.White);
+            Raylib.DrawText(Money.ToString(), 1010 + 650, 22, 40, Color.Black);
 
-            if (vieActuelle > 100)
-                vieActuelle = 100;
-
-
-
+            if (VieActuelle > 100)
+                VieActuelle = 100;
             Color color = Color.DarkGray;
-            if (vieActuelle > 80)
+            if (VieActuelle > 80)
                 color = Color.DarkGreen;
-            else if (vieActuelle > 60)
+            else if (VieActuelle > 60)
                 color = Color.Green;
-            else if (vieActuelle > 40)
+            else if (VieActuelle > 40)
                 color = Color.Yellow;
-            else if (vieActuelle > 20)
+            else if (VieActuelle > 20)
                 color = Color.Orange;
-            else if (vieActuelle > 0)
+            else if (VieActuelle > 0)
                 color = Color.Red;
 
             Raylib.DrawRectangleRounded(new Rectangle(1380 - 50 + 25, 10, new(300 - 25, 60)), 0.2f, 4, Color.SkyBlue);
             Raylib.DrawRectangle(1365, 25, 200, 30, Color.Black);
-            Raylib.DrawRectangle(1365, 25, Convert.ToInt32(vieActuelle) * 2, 30, color);
-            Raylib.DrawRectangleLines(1365, 25, Convert.ToInt32(vieActuelle) * 2, 30, Color.Black);
-            Raylib.DrawTextureEx(coeur, new(1580, 20), 0f, 0.9f, Color.White);
+            Raylib.DrawRectangle(1365, 25, Convert.ToInt32(VieActuelle) * 2, 30, color);
+            Raylib.DrawRectangleLines(1365, 25, Convert.ToInt32(VieActuelle) * 2, 30, Color.Black);
+
+            Raylib.DrawTextureEx(Coeur, new(1580, 20), 0f, 0.9f, Color.White);
 
         }
 
-        static void DessinerJeuFond(Texture2D fond)
+        static void DessinerJeuFond()
         {
-            Raylib.DrawTextureEx(fond, new Vector2(0, 80), 0f, 1f, Color.White);
+            Raylib.DrawTextureEx(Fond, new Vector2(0, 80), 0f, 1f, Color.White);
         }
+        #endregion
 
-        static bool Collide(Rectangle rect)
-        {
-            Vector2 mousePoint = Raylib.GetMousePosition();
-            return Raylib.CheckCollisionPointRec(mousePoint, rect);
-        }
-
-        static void Direction(Enemy monstre, List<Enemy> monstresList, ref float vie)
+        #region Calcul Enemies
+        static void Direction(Enemy monstre)
         {
             if (monstre.position == new Vector2(480, 490))
                 monstre.dir = 2;
@@ -816,16 +750,10 @@ namespace Squelette
 
             if (monstre.position == new Vector2(1910, 940))
             {
-                vie -= monstre.vie;
-                monstresList.Remove(monstre);
-                monstresList.Order();
+                VieActuelle -= monstre.vie;
+                Enemies.Remove(monstre);
+                Enemies.Order();
             }
-        }
-        static float getRotation(Vector2 Ennemy, Vector2 Tour)
-        {
-            float deltaY = Ennemy.Y - Tour.Y;
-            float deltaX = Ennemy.X - Tour.X;
-            return (float)(Math.Atan2(deltaY, deltaX) * (180.0 / Math.PI));
         }
         static float getRotation(Vector2 Ennemy, Vector2 Tour, float offset)
         {
@@ -849,7 +777,8 @@ namespace Squelette
 
             return hit;
         }
-        static Enemy EnemyLeMieux(List<Enemy> enemies, Canon canon)
+
+        static Enemy EnemyLeMieux(Canon canon)
         {
             // Initialiser Mieu avec le premier ennemi de la liste qui est dans la portée du canon
 
@@ -857,7 +786,7 @@ namespace Squelette
             float maxDistance = canon.PorteeTir;
 
 
-            foreach (Enemy enemy in enemies)
+            foreach (Enemy enemy in Enemies)
             {
                 float distance = Vector2.Distance(canon.Position, enemy.position);
                 if (distance <= canon.PorteeTir)
@@ -877,6 +806,56 @@ namespace Squelette
             return Mieu;
         }
 
+        #endregion
+
+
+
+        static void Explosion()
+        {
+            List<Explosion> explosionsToRemove = new List<Explosion>();
+            foreach (Explosion explosion in Explosions)
+            {
+                if (explosion.UpdateTimer())
+                {
+                    explosionsToRemove.Add(explosion);
+                }
+            }
+            foreach (Explosion explosion in explosionsToRemove)
+            {
+                Explosions.Remove(explosion);
+            }
+            Explosions.Order();
+            explosionsToRemove.Clear();
+        }
+
+        #region Construction
+
+        static void MenuConstruction()
+        {
+            if (ModeConstruction)
+            {
+                Raylib.DrawText("Mode Construction activé", 370, 30, 20, Color.Red);
+                Canon canon = new Canon();
+
+                if (ChoixTourOuvert)
+                {
+                    canon.Place(tempMousePosition);
+                    BtnChoixTour[0].Position = tempMousePosition + new Vector2(90 - 35, 50);
+                    BtnChoixTour[1].Position = tempMousePosition + new Vector2(0 - 35, 50);
+                    BtnChoixTour[2].Position = tempMousePosition + new Vector2(-90 - 35, 50);
+                    Raylib.DrawRectangleRounded(BtnChoixTour[0], 0.2f, 4, Color.SkyBlue);
+                    Raylib.DrawTextureEx(Cannon, BtnChoixTour[0].Position + new Vector2(52.5f, -7.5f), 45f, 0.3f, Color.White);
+                    Raylib.DrawRectangleRounded(BtnChoixTour[1], 0.2f, 4, Color.SkyBlue);
+                    Raylib.DrawTextureEx(Mg, BtnChoixTour[1].Position + new Vector2(45, -2.5f), 45f, 0.3f, Color.White);
+                    Raylib.DrawRectangleRounded(BtnChoixTour[2], 0.2f, 4, Color.SkyBlue);
+                    Raylib.DrawTextureEx(MissileLauncher, BtnChoixTour[2].Position + new Vector2(45, 0), 45f, 0.3f, Color.White);
+                }
+                else
+                {
+                    canon.Place(MousePoint);
+                }
+            }
+        }
         static void killEnemy(List<Enemy> enemies)
         {
             foreach (Enemy enemy in enemies)
@@ -884,12 +863,81 @@ namespace Squelette
                 if (enemy.vie <= 0)
                 {
                     enemy.Mourrant = true;
-                    
                 }
             }
         }
 
-        
 
+        static bool TourCollide(Rectangle[] chm, List<Canon> canon)
+        {
+            MousePoint = Raylib.GetMousePosition();
+
+            bool touche = false;
+            foreach (Rectangle bout in chm)
+            {
+                if (Raylib.CheckCollisionCircleRec(MousePoint, 40f, bout))
+                    touche = true;
+            }
+            foreach (Canon canon1 in canon)
+            {
+                if (Raylib.CheckCollisionCircles(MousePoint, 40f, canon1.Position, 40f))
+                    touche = true;
+            }
+            return touche;
+        }
+
+        static void DessinMenuConstruction()
+        {
+
+            if (ModeConstruction)
+            {
+                if ((Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(MousePoint, BtnAffichage[1]) && !TourCollide(CheminNonPosable, Canons)) && !ChoixTourOuvert)
+                {
+                    ChoixTourOuvert = true;
+                    tempMousePosition = MousePoint;
+                }
+                if (Raylib.CheckCollisionPointRec(MousePoint, BtnChoixTour[0]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
+                {
+                    if (Money >= PRIXCANON)
+                    {
+                        Canons.Add(new Canon(tempMousePosition, 1));
+                        ChoixTourOuvert = false;
+                        ModeConstruction = false;
+                        BtnChoixTour[0].Position = new Vector2(0, 0);
+                        BtnChoixTour[1].Position = new Vector2(0, 0);
+                        BtnChoixTour[2].Position = new Vector2(0, 0);
+                        Money -= PRIXCANON;
+                    }
+                }
+                else if (Raylib.CheckCollisionPointRec(MousePoint, BtnChoixTour[1]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
+                {
+                    if (Money >= PRIXROCKETLAUNCHER)
+                    {
+                        Canons.Add(new Canon(tempMousePosition, 2));
+                        ChoixTourOuvert = false;
+                        ModeConstruction = false;
+                        BtnChoixTour[0].Position = new Vector2(0, 0);
+                        BtnChoixTour[1].Position = new Vector2(0, 0);
+                        BtnChoixTour[2].Position = new Vector2(0, 0);
+                        Money -= PRIXROCKETLAUNCHER;
+                    }
+                }
+                else if (Raylib.CheckCollisionPointRec(MousePoint, BtnChoixTour[2]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
+                {
+                    if (Money >= PRIXMG)
+                    {
+                        Canons.Add(new Canon(tempMousePosition, 3));
+                        ChoixTourOuvert = false;
+                        ModeConstruction = false;
+                        BtnChoixTour[0].Position = new Vector2(0, 0);
+                        BtnChoixTour[1].Position = new Vector2(0, 0);
+                        BtnChoixTour[2].Position = new Vector2(0, 0);
+                        Money -= PRIXMG;
+                    }
+                }
+            }
+        }
+
+        #endregion
     }
 }

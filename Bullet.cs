@@ -1,10 +1,5 @@
 ﻿using Raylib_cs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Squelette
 {
@@ -22,7 +17,7 @@ namespace Squelette
         private Texture2D texture;
         private int type;
 
-        
+
 
         public Bullet(float rotation, Vector2 position, int type, float Size, Enemy Target, float degats)
         {
@@ -52,16 +47,16 @@ namespace Squelette
         }
         public void Draw()
         {
-            Vector2 direction = new Vector2((float)Math.Cos((Rotation-90) * (Math.PI / 180.0)), (float)Math.Sin((Rotation-90) * (Math.PI / 180.0)));
+            Vector2 direction = new Vector2((float)Math.Cos((Rotation - 90) * (Math.PI / 180.0)), (float)Math.Sin((Rotation - 90) * (Math.PI / 180.0)));
 
-            Position += direction * 15; 
+            Position += direction * 15;
 
             rctDest.X = Position.X;
             rctDest.Y = Position.Y;
 
             Raylib.DrawTexturePro(texture, rctSource, rctDest, origin, Rotation, Color.White);
 
-            
+
         }
         public Bullet Destroy(List<Explosion> explosions)
         {

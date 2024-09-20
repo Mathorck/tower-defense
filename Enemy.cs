@@ -1,5 +1,4 @@
 ﻿using Raylib_cs;
-using Squelette;
 using System.Numerics;
 
 public class Enemy
@@ -30,31 +29,17 @@ public class Enemy
     public Enemy(Vector2 position)
     {
         this.position = position;
+        Placebo = true;
     }
-    public Enemy(Vector2 position, float vitesse)
+    public Enemy(Vector2 position, float vitesse, int recompense, int type)
     {
         this.position = position;
         this.speed = vitesse;
-    }
-    public Enemy(Vector2 position, float vitesse, Color couleur)
-    {
-        this.position = position;
-        this.speed = vitesse;
-        this.couleur = couleur;
-    }
-    public Enemy(Vector2 position, float vitesse, int vie)
-    {
-        this.position = position;
-        this.speed = vitesse;
-        this.vie = vie;
-    }
-    public Enemy(Vector2 position, float vitesse, int vie, int recompense,int type)
-    {
-        this.position = position;
-        this.speed = vitesse;
-        this.vie = vie;
         this.recompense = recompense;
         this.EnemyType = type;
+
+        // calcule vie max
+        vie = vieMax;
     }
 
     public void Go()
@@ -111,7 +96,7 @@ public class Enemy
                 isDead = true;
             }
             else
-                Raylib.DrawTextureEx(texture[deadState], position - new Vector2(50, 70), 0f, 0.5f, Color.White);
+                DrawTexture(texture, deadState);
         }
         return isDead;
     }
@@ -128,7 +113,28 @@ public class Enemy
                 else
                     runState++;
             }
-            Raylib.DrawTextureEx(texture[runState], position - new Vector2(50, 70), 0f, 0.5f, Color.White);
+            DrawTexture(texture,runState);
+        }
+    }
+    public void DrawTexture(Texture2D[] texture, int state)
+    {
+        switch (EnemyType)
+        {
+            case 1:
+                Raylib.DrawTextureEx(texture[state], position - new Vector2(50, 70), 0f, 0.5f, Color.White);
+                break;
+            case 2:
+                Raylib.DrawTextureEx(texture[state], position - new Vector2(45, 75), 0f, 0.35f, Color.White);
+                break;
+            case 3:
+                Raylib.DrawTextureEx(texture[state], position - new Vector2(50, 75), 0f, 0.4f, Color.White);
+                break;
+            case 4:
+                Raylib.DrawTextureEx(texture[state], position - new Vector2(50, 75), 0f, 0.4f, Color.White);
+                break;
+            case 5:
+                Raylib.DrawTextureEx(texture[state], position - new Vector2(50, 75), 0f, 0.4f, Color.White);
+                break;
         }
     }
 

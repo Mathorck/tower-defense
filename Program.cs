@@ -465,10 +465,6 @@ namespace Squelette
                         if (HitEnnemy(Enemies, balle, out Enemy touche))
                         {
                             bulletsToRemove.Add(balle);
-                            if (!touche.Placebo)
-                            {
-                                touche.vie -= 10;
-                            }
                         }
                         else if (balle.Position.X > Raylib.GetScreenWidth() || balle.Position.Y > Raylib.GetScreenHeight())
                             bulletsToRemove.Add(balle);
@@ -636,6 +632,7 @@ namespace Squelette
 
         }
 
+     
         static void DessinerPortesMonstres()
         {
             Raylib.DrawTexturePro(Porte, new Rectangle(0, 0, Porte.Width, Porte.Height), new Rectangle(445 - 31, 40, Porte.Width / 8, Porte.Height / 8), new Vector2(0, 0), 0.0f, Color.White);
@@ -667,6 +664,9 @@ namespace Squelette
 
             foreach (Enemy enemy in Enemies)
             {
+                enemy.DessinerLifeBar();
+                enemy.UpdateLife();
+
                 if (!menuOuvert)
                     enemy.UpdateTimer();
                 switch (enemy.EnemyType)
@@ -910,13 +910,13 @@ namespace Squelette
             List<Explosion> explosionsToRemove = new List<Explosion>();
             foreach (Explosion explosion in Explosions)
             {
-                if (explosion.Stade == 4)
+                if (explosion.Stade == 2)
                 {
                     foreach (Enemy enemy in Enemies)
                     {
                         if (Raylib.CheckCollisionCircles(enemy.position, enemy.size, explosion.Position, Explosion.EXPLOSIONRADIUS) && !explosion.DegatFait)
                         {
-                            enemy.vie -= 10;
+                            enemy.vie -= explosion.Degats;
                             explosion.DegatFait = true;
                         }
                             
@@ -975,7 +975,6 @@ namespace Squelette
                 }
             }
         }
-
 
         static bool TourCollide(Rectangle[] chm, List<Canon> canon)
         {

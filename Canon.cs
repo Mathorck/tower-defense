@@ -8,7 +8,7 @@ namespace Squelette
         private float porteeTir = 500f;
         public float hitbox = 40f;
         private int niveau = 1;
-        private float degats = 10f;
+        private float degats;
         private float vitesseDattaque = 10f;
         public Vector2 Position;
         public int tourChoisie = 0;
@@ -108,18 +108,22 @@ namespace Squelette
                     {
                         case 1:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon.png");
-                            vitesseDattaque = 10f;
+                            vitesseDattaque = 12f;
                             porteeTir = 250f;
-                            degats = 10f;
+                            degats = 20f;
 
                             break;
                         case 2:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon2.png");
-                            vitesseDattaque = 5f;
+                            vitesseDattaque = 7f;
+                            porteeTir = 270f;
+                            degats = 40f;
                             break;
                         case 3:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon3.png");
-                            vitesseDattaque = 9f;
+                            vitesseDattaque = 10f;
+                            porteeTir = 300f;
+                            degats = 75f;
                             bulletSize = 1.5f;
                             break;
                     }
@@ -129,18 +133,23 @@ namespace Squelette
                     {
                         case 1:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/MG.png");
-                            vitesseDattaque = 1f;
-                            degats = 3f;
+                            vitesseDattaque = 3f;
+                            porteeTir = 250f;
+                            degats = 2f;
+                            
                             break;
                         case 2:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/MG2.png");
-                            vitesseDattaque = 0.5f;
+                            vitesseDattaque = 2f;
+                            porteeTir = 270f;
                             degats = 3f;
+                            
                             break;
                         case 3:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/MG3.png");
-                            vitesseDattaque = 0.2f;
-                            degats = 3f;
+                            vitesseDattaque = 1f;
+                            porteeTir = 300f;
+                            degats = 4f;
                             break;
                     }
                     break;
@@ -150,14 +159,20 @@ namespace Squelette
                         case 1:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher.png");
                             vitesseDattaque = 20f;
+                            porteeTir = 350f;
+                            degats = 65f;
                             break;
                         case 2:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher2.png");
-                            vitesseDattaque = 20f - 20f / 3;
+                            vitesseDattaque = 15f;
+                            porteeTir = 400f;
+                            degats = 85f;
                             break;
                         case 3:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Missile_Launcher3.png");
-                            vitesseDattaque = 20f / 3;
+                            vitesseDattaque = 10f;
+                            porteeTir = 450f;
+                            degats = 95f;
                             break;
                     }
                     break;

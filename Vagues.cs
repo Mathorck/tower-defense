@@ -45,7 +45,7 @@ namespace Squelette
             for (int i = 0; i < NbMonstres; i++)
             {
                 await Task.Delay(1000);
-                Program.Enemies.Add(new Enemy(Program.porteMonstre1, 5f, Color.SkyBlue, 20, 200));
+                Program.Enemies.Add(new Enemy(Program.porteMonstre1, 5f,100, 200, 1));
             }
         }
     }

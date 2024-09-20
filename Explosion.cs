@@ -9,14 +9,16 @@ namespace Squelette
         public float ExplosionTime = 0;
         public int Stade = 0;
         public Vector2 Position;
+        public float Degats;
         public bool DegatFait = false;
         Rectangle rctSource;
         Rectangle rctDestination;
         Texture2D explosionTexture;
 
-        public Explosion(Vector2 pos)
+        public Explosion(Vector2 pos, float Degats)
         {
             Position = pos;
+            this.Degats = Degats;
             rctDestination = new Rectangle(pos, 50, 50);
             Console.WriteLine("Explosion !!!!");
             explosionTexture = Raylib.LoadTexture("./images/Cannon/explosion.png");

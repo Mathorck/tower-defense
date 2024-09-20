@@ -5,18 +5,20 @@ using System.Numerics;
 public class Enemy
 {
     public Vector2 position;
-    public float size = 35;
+    public  float size = 35;
     public float speed = 0.1f;
     public int dir = 1;
     public Color couleur = Color.Red;
-    public float vie = 20;
+    public  float vie = 100;
     public bool Placebo = false;
     public int recompense = 100;
     private float temp = 0.0f;
-    public int EnemyType = 1;
+    public int EnemyType = 1; 
     private int runState = 0;
     private int deadState = 0;
     public bool Mourrant = false;
+    public  float vieMax = 100;
+    public  float pourcentageVie;
 
     //   3      
     // 2 0 4    
@@ -73,6 +75,21 @@ public class Enemy
         {
             position.X += speed;
         }
+    }
+
+    public void DessinerLifeBar()
+    {
+        if ( vie!= vieMax)
+        {
+            Raylib.DrawRectangle(Convert.ToInt32(position.X + size / 2 - 75 / 2), Convert.ToInt32(position.Y - 50), 75, 5, Color.Black);
+            double val = (75.0/100.0) * pourcentageVie;
+            Raylib.DrawRectangle(Convert.ToInt32(position.X + size / 2 - 75 / 2), Convert.ToInt32(position.Y - 50), Convert.ToInt32(val), 5, Color.Red);
+        }
+    }
+
+    public void UpdateLife()
+    {
+        pourcentageVie = (float)(vie/(vieMax/100));
     }
 
     public bool PlayDieAnime(Texture2D[] texture)

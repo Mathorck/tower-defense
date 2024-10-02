@@ -46,12 +46,13 @@ namespace Squelette
 
         //// Textures ////
         public static Texture2D Fond;
-        public static Texture2D Porte;
         public static Texture2D BaseV;
         public static Texture2D Cible;
         public static Texture2D Coeur;
         public static Texture2D Argent;
         public static Texture2D Poubelle;
+        public static Texture2D Crane;
+        public static Texture2D Vague;
 
         public static Texture2D Cannon;
         public static Texture2D Mg;
@@ -422,12 +423,13 @@ namespace Squelette
                 //// pour libèrer des la place dans la ram lorsqu'on est dans le menu ////
                 //// Aussi pour éviter de charger trop longtemps dans les menu ////
                 Fond = Raylib.LoadTexture("./images/backgroundgame.png");
-                Porte = Raylib.LoadTexture("./images/basemonstre1.png");
                 BaseV = Raylib.LoadTexture("./images/base1.png");
                 Cible = Raylib.LoadTexture("./images/Target-icon.png");
                 Coeur = Raylib.LoadTexture("./images/Coeur.png");
                 Argent = Raylib.LoadTexture("./images/Argent.png");
                 Poubelle = Raylib.LoadTexture("./images/poubelle.png");
+                Crane = Raylib.LoadTexture("./images/crane.png");
+                Vague = Raylib.LoadTexture("./images/Wave.png");
 
                 //// Image Canon ////
                 Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon.png");
@@ -515,9 +517,6 @@ namespace Squelette
                     MenuConstruction();
                     DessinMenuConstruction();
                     DessinerGui();
-                    //// En Dessus de GUI parce qu'elle dépasse
-                    DessinerPortesMonstres();
-                    ////
                     killEnemy();
                     Raylib.EndDrawing();
 
@@ -547,8 +546,6 @@ namespace Squelette
                         MenuConstruction();
                         DessinMenuConstruction();
                         DessinerGui();
-                        //// En Dessus de GUI parce qu'elles dépassent
-                        DessinerPortesMonstres();
 
                         Raylib.DrawText("PAUSE", 822, 225, 80, Color.Black);
 
@@ -566,7 +563,6 @@ namespace Squelette
             #region Unload Textures
 
             Raylib.UnloadTexture(Fond);
-            Raylib.UnloadTexture(Porte);
             Raylib.UnloadTexture(BaseV);
             Raylib.UnloadTexture(Cible);
             Raylib.UnloadTexture(Coeur);
@@ -658,13 +654,6 @@ namespace Squelette
 
         }
 
-
-        static void DessinerPortesMonstres()
-        {
-            Raylib.DrawTexturePro(Porte, new Rectangle(0, 0, Porte.Width, Porte.Height), new Rectangle(445 - 31, 40, Porte.Width / 8, Porte.Height / 8), new Vector2(0, 0), 0.0f, Color.White);
-            Raylib.DrawTexturePro(Porte, new Rectangle(0, 0, Porte.Width, Porte.Height), new Rectangle(955 - 31, 40, Porte.Width / 8, Porte.Height / 8), new Vector2(0, 0), 0.0f, Color.White);
-
-        }
 
         static void DessinerBase()
         {
@@ -782,6 +771,7 @@ namespace Squelette
             enemy.PlayRunAnime(textureRun);
             if (enemy.PlayDieAnime(textureDie))
             {
+                Vagues.NombreRestantDeMonstre--;
                 EnemyToRemove.Add(enemy);
 
             }
@@ -808,11 +798,22 @@ namespace Squelette
             Raylib.DrawRectangleRounded(BtnAffichage[2], 0.2f, 4, Color.SkyBlue);
             Raylib.DrawTextureEx(Poubelle, BtnAffichage[2].Position + new Vector2(4.5f, 5), 0, 0.1f, Color.White);
 
+            // Nombre d'ennemi Restant 
+            Raylib.DrawRectangleRounded(new Rectangle(1100, 10, 230, 60), 0.2f, 4, Color.SkyBlue);
+            Raylib.DrawTextureEx(Crane, new Vector2(1180, 10) + new Vector2(95, 5), 0, 0.45f, Color.White);
+            Raylib.DrawText($" {Vagues.NombreRestantDeMonstre} / {Vagues.NbMonstres}", 1100, 22, 40, Color.Black);
+
+            // Nombre de Vagues Restantes
+            Raylib.DrawRectangleRounded(new Rectangle(910, 10, 160, 60), 0.2f, 4, Color.SkyBlue);
+            Raylib.DrawTextureEx(Vague, new Vector2(980, 10), 0,0.15f, Color.White);
+            Raylib.DrawText($"{Vagues.Wave}", 930, 22, 40, Color.Black);
+
             // Argent
             Raylib.DrawRectangleRounded(new Rectangle(1000 + 650, 10, new(250, 60)), 0.2f, 4, Color.SkyBlue);
-            Raylib.DrawTextureEx(Argent, new Vector2(1000 + 250 - 50 + 650, 20), 0f, 0.2f, Color.White);
+            Raylib.DrawTextureEx(Argent, new Vector2(1000 + 200 + 650, 20), 0f, 0.2f, Color.White);
             Raylib.DrawText(Money.ToString(), 1010 + 650, 22, 40, Color.Black);
 
+            // Barre de vie
             if (VieActuelle > 100)
                 VieActuelle = 100;
             Color color = Color.DarkGray;
@@ -826,16 +827,12 @@ namespace Squelette
                 color = Color.Orange;
             else if (VieActuelle > 0)
                 color = Color.Red;
-
-
             Raylib.DrawRectangleRounded(new Rectangle(1380 - 50 + 25, 10, new(300 - 25, 60)), 0.2f, 4, Color.SkyBlue);
             Raylib.DrawRectangle(1365, 25, 200, 30, Color.Black);
             Raylib.DrawRectangle(1365, 25, Convert.ToInt32(VieActuelle) * 2, 30, color);
             Raylib.DrawRectangleLines(1365, 25, Convert.ToInt32(VieActuelle) * 2, 30, Color.Black);
-
             Raylib.DrawTextureEx(Coeur, new(1580, 20), 0f, 0.9f, Color.White);
 
-            Raylib.DrawText($"Wave : {Vagues.Wave}, you have {Vagues.NbMonstres} monsters to kill !!!", 400, 10, 40, Color.Red);
 
         }
 
@@ -897,6 +894,7 @@ namespace Squelette
                 Enemies.Remove(monstre);
                 Enemies.Order();
                 Vagues.WaitForEnnemy = false;
+                Vagues.NombreRestantDeMonstre--;
             }
         }
 
@@ -1000,7 +998,7 @@ namespace Squelette
 
                 if (ChoixTourOuvert)
                 {
-                    canon.Place(tempMousePosition);
+                    canon.Place(tempMousePosition,Color.White);
                     BtnChoixTour[0].Position = tempMousePosition + new Vector2(90 - 35, 50);
                     BtnChoixTour[1].Position = tempMousePosition + new Vector2(0 - 35, 50);
                     BtnChoixTour[2].Position = tempMousePosition + new Vector2(-90 - 35, 50);
@@ -1016,7 +1014,7 @@ namespace Squelette
                 }
                 else
                 {
-                    canon.Place(MousePoint);
+                    canon.Place(MousePoint,!(TourCollide(CheminNonPosable)|| TourCollide(BlockNonPosable)) ? Color.White : new Color(0,0,0,35));
                 }
             }
         }

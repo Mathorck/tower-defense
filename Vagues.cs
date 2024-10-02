@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Raylib_cs;
+﻿using System.Runtime.CompilerServices;
 
 namespace Squelette
 {
     public class Vagues
     {
-        public static int Wave = 50;
+        public static int Wave = 0;
         public static int MonstresRestants = 0;
         public static bool VagueTerminee = false;
         public static int NbMonstres = 0;
+        public static bool WaitForEnnemy = false;
+        public static int HardnessOfTheWave;
+
         private static Random R = new Random();
         private static int Rand;
+        private static int RandMonstre;
+        private static int randomTime;
 
         public static async Task Update()
         {
@@ -22,7 +22,7 @@ namespace Squelette
             // for (;;) = while (true)
             for (;;)
             {
-                if (!Program.menuOuvert)
+                if (!Program.MenuOuvert)
                 {
                     MonstresRestants = Program.Enemies.Count;
                     if (VagueTerminee)
@@ -43,19 +43,59 @@ namespace Squelette
 
         public static async Task LancerNouvelleVague()
         {
+            bool bossAlreadySpawned =false;
             Wave++;
             NbMonstres = 5 + (Wave * 3);
             VagueTerminee = false;
 
 
+            if (Wave > 45)
+                HardnessOfTheWave = 10;
+            else if (Wave > 40)
+                HardnessOfTheWave = 9;
+            else if (Wave > 35)
+                HardnessOfTheWave = 8;
+            else if (Wave > 30)
+                HardnessOfTheWave = 7;
+            else if (Wave > 25)
+                HardnessOfTheWave = 6;
+            else if (Wave > 20)
+                HardnessOfTheWave = 5;
+            else if (Wave > 15)
+                HardnessOfTheWave = 4;
+            else if (Wave > 10)
+                HardnessOfTheWave = 3;
+            else if (Wave > 0)
+                HardnessOfTheWave = 2;
+
+            while (WaitForEnnemy)
+                await Task.Delay(1);
+
+
+
             for (int i = 0; i < NbMonstres; i++)
             {
-                await Task.Delay(1000);
+                if (Wave % 10 == 0 && !bossAlreadySpawned)
+                {
+                    bossAlreadySpawned = true;
+                    Program.Enemies.Add(new Enemy(Rand == 1 ? Program.porteMonstre1 : Program.porteMonstre2, 10));
+                }
+
+                randomTime = R.Next(1000/HardnessOfTheWave, 2000/HardnessOfTheWave);
+                await Task.Delay(randomTime);
+
+                while (WaitForEnnemy)
+                    await Task.Delay(1);
+
                 Rand = R.Next(1, 3);
+                RandMonstre = R.Next(1, HardnessOfTheWave);
+
                 // Bout de code compliqué mais en gros en fonction du chiffre tiré au dessu cela prend soit la porte1 soit la porte2
                 // c'est un if sur une ligne
-                Program.Enemies.Add(new Enemy(Rand==1?Program.porteMonstre1:Program.porteMonstre2, 5f, 20, 200, 5));
+                Program.Enemies.Add(new Enemy(Rand == 1 ? Program.porteMonstre1 : Program.porteMonstre2, RandMonstre));
             }
+
+
         }
     }
 }

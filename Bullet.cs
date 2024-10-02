@@ -57,9 +57,9 @@ namespace Squelette
         }
         public Bullet Destroy(List<Explosion> explosions)
         {
-            if (Type == 3)
+            if (Type == 3 && Program.Enemies.Contains(Target))
             {
-                explosions.Add(new Explosion(Position,Degats));
+                explosions.Add(new Explosion(Position, Degats));
             }
             Raylib.UnloadTexture(texture);
             return this;

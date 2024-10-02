@@ -1,4 +1,5 @@
 ﻿using Raylib_cs;
+using System.Diagnostics;
 using System.Numerics;
 
 namespace Squelette
@@ -11,29 +12,28 @@ namespace Squelette
         public Vector2 Position;
         public float Degats;
         public bool DegatFait = false;
-        Rectangle rctSource;
-        Rectangle rctDestination;
-        Texture2D explosionTexture;
-
+        private Rectangle rctSource;
+        private Rectangle rctDestination;  
+        private Texture2D explosionTexture;
+   
         public Explosion(Vector2 pos, float Degats)
-        {
+        {  
             Position = pos;
-            this.Degats = Degats;
-            rctDestination = new Rectangle(pos, 50, 50);
-            Console.WriteLine("Explosion !!!!");
+            this.Degats = Degats;  
+            rctDestination = new Rectangle(pos, 50, 50);   
+            Console.WriteLine("Explosion !!!!");   
             explosionTexture = Raylib.LoadTexture("./images/Cannon/explosion.png");
-        }
-
-        public bool UpdateTimer()
-        {
+        }  
+   
+        public bool UpdateTimer()  
+        {  
             ExplosionTime += 0.15f;
-            bool destroy = false;
+            bool destroy = false;  
 
             if (ExplosionTime > 1f)
             {
                 ExplosionTime = 0f;
                 Stade++;
-                Console.WriteLine($"Stade : {Stade}");
             }
 
             rctSource = new(explosionTexture.Width / 8 * Stade, 0, explosionTexture.Width / 8, explosionTexture.Height);
@@ -42,7 +42,6 @@ namespace Squelette
 
             if (Stade >= 8)
             {
-                Console.WriteLine("SuprrExp");
                 destroy = true;
             }
 

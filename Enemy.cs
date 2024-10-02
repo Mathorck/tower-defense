@@ -1,23 +1,27 @@
 ﻿using Raylib_cs;
+using Squelette;
+using System;
 using System.Numerics;
 
 public class Enemy
 {
     public Vector2 position;
-    public  float size = 35;
+    public float size = 35;
     public float speed = 0.1f;
     public int dir = 1;
     public Color couleur = Color.Red;
-    public  float vie = 100;
+    public float vie = 100;
     public bool Placebo = false;
-    public int recompense = 100;
+    public int Recompense = 100;
     private float temp = 0.0f;
-    public int EnemyType = 1; 
+    public int EnemyType = 1;
     private int runState = 0;
     private int deadState = 0;
     public bool Mourrant = false;
-    public  float vieMax = 100;
-    public  float pourcentageVie;
+    public float vieMax = 100;
+    public float pourcentageVie;
+    private int dejaDonne = 0;
+    
 
     //   3      
     // 2 0 4    
@@ -31,12 +35,64 @@ public class Enemy
         this.position = position;
         Placebo = true;
     }
-    public Enemy(Vector2 position, float vitesse, int recompense, int type)
+    public Enemy(Vector2 position, int type)
     {
         this.position = position;
-        this.speed = vitesse;
-        this.recompense = recompense;
         this.EnemyType = type;
+
+        switch (EnemyType)
+        {
+            case 1:
+                Recompense = 10;
+                speed = 5f;
+                vieMax = 20;
+                break;
+            case 2:
+                Recompense = 20;
+                speed = 2f;
+                vieMax = 75;
+                break;
+            case 3:
+                Recompense = 20;
+                speed = 5f;
+                vieMax = 55;
+                break;
+            case 4:
+                Recompense = 25;
+                speed = 2f;
+                vieMax = 150;
+                break;
+            case 5:
+                Recompense = 30;
+                speed = 1f;
+                vieMax = 200;
+                break;
+            case 6:
+                Recompense = 40;
+                speed = 5f;
+                vieMax = 225;
+                break;
+            case 7:
+                Recompense = 50;
+                speed = 2f;
+                vieMax = 350;
+                break;
+            case 8:
+                Recompense = 55;
+                speed = 2f;
+                vieMax = 500;
+                break;
+            case 9:
+                Recompense = 200;
+                speed = 10f;
+                vieMax = 250;
+                break;
+            case 10:
+                Recompense = 1000;
+                speed = 0.5f;
+                vieMax = 1000 * Vagues.HardnessOfTheWave;
+                break;
+        }
 
         // calcule vie max
         vie = vieMax;
@@ -64,17 +120,17 @@ public class Enemy
 
     public void DessinerLifeBar()
     {
-        if ( vie!= vieMax)
+        if (vie != vieMax)
         {
             Raylib.DrawRectangle(Convert.ToInt32(position.X + size / 2 - 75 / 2), Convert.ToInt32(position.Y - 50), 75, 5, Color.Black);
-            double val = (75.0/100.0) * pourcentageVie;
+            double val = (75.0 / 100.0) * pourcentageVie;
             Raylib.DrawRectangle(Convert.ToInt32(position.X + size / 2 - 75 / 2), Convert.ToInt32(position.Y - 50), Convert.ToInt32(val), 5, Color.Red);
         }
     }
 
     public void UpdateLife()
     {
-        pourcentageVie = (float)(vie/(vieMax/100));
+        pourcentageVie = (float)(vie / (vieMax / 100));
     }
 
     public bool PlayDieAnime(Texture2D[] texture)
@@ -83,6 +139,25 @@ public class Enemy
         if (Mourrant)
         {
             speed = 0;
+            if (dejaDonne < Recompense)
+            {
+                if (Recompense-dejaDonne > 100)
+                {
+                    Program.Money += 100;
+                    dejaDonne += 100;
+                }
+                else if (Recompense > 100 && Recompense-dejaDonne > 10)
+                {
+                    Program.Money += 10;
+                    dejaDonne += 10;
+                }
+                else
+                {
+                    Program.Money += 1;
+                    dejaDonne += 1;
+                }
+
+            }
             if (getTimer() > 1f)
             {
                 ResetTimer();
@@ -113,7 +188,7 @@ public class Enemy
                 else
                     runState++;
             }
-            DrawTexture(texture,runState);
+            DrawTexture(texture, runState);
         }
     }
     public void DrawTexture(Texture2D[] texture, int state)
@@ -121,7 +196,7 @@ public class Enemy
         switch (EnemyType)
         {
             case 1:
-                Raylib.DrawTextureEx(texture[state], position - new Vector2(50, 70), 0f, 0.5f, Color.White);
+                Raylib.DrawTextureEx(texture[state], position - new Vector2(50, 70), 0f, 0.45f, Color.White);
                 break;
             case 2:
                 Raylib.DrawTextureEx(texture[state], position - new Vector2(45, 75), 0f, 0.35f, Color.White);
@@ -133,8 +208,25 @@ public class Enemy
                 Raylib.DrawTextureEx(texture[state], position - new Vector2(50, 75), 0f, 0.4f, Color.White);
                 break;
             case 5:
+                Raylib.DrawTextureEx(texture[state], position - new Vector2(37, 75), 0f, 0.4f, Color.White);
+                break;
+            case 6:
+                Raylib.DrawTextureEx(texture[state], position - new Vector2(37, 75), 0f, 0.4f, Color.White);
+                break;
+            case 7:
+                Raylib.DrawTextureEx(texture[state], position - new Vector2(37, 75), 0f, 0.4f, Color.White);
+                break;
+            case 8:
                 Raylib.DrawTextureEx(texture[state], position - new Vector2(50, 75), 0f, 0.4f, Color.White);
                 break;
+            case 9:
+                Raylib.DrawTextureEx(texture[state], position - new Vector2(37, 75), 0f, 0.4f, Color.White);
+                break;
+            case 10:
+                Raylib.DrawTextureEx(texture[state], position - new Vector2(60, 165), 0f, 0.5f, Color.White);
+                break;
+            default:
+                throw new NotImplementedException("Le type de monstre entré n'existe pas.");
         }
     }
 

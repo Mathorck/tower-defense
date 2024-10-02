@@ -10,6 +10,7 @@ namespace Squelette
         public static int NbMonstres = 0;
         public static bool WaitForEnnemy = false;
         public static int HardnessOfTheWave;
+        public static int NombreRestantDeMonstre = 0;
 
         private static Random R = new Random();
         private static int Rand;
@@ -47,6 +48,7 @@ namespace Squelette
             Wave++;
             NbMonstres = 5 + (Wave * 3);
             VagueTerminee = false;
+            NombreRestantDeMonstre = NbMonstres;
 
 
             if (Wave > 45)
@@ -68,10 +70,6 @@ namespace Squelette
             else if (Wave > 0)
                 HardnessOfTheWave = 2;
 
-            while (WaitForEnnemy)
-                await Task.Delay(1);
-
-
 
             for (int i = 0; i < NbMonstres; i++)
             {
@@ -83,9 +81,6 @@ namespace Squelette
 
                 randomTime = R.Next(1000/HardnessOfTheWave, 2000/HardnessOfTheWave);
                 await Task.Delay(randomTime);
-
-                while (WaitForEnnemy)
-                    await Task.Delay(1);
 
                 Rand = R.Next(1, 3);
                 RandMonstre = R.Next(1, HardnessOfTheWave);

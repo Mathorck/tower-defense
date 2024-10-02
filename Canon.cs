@@ -64,9 +64,9 @@ namespace Squelette
             Raylib.DrawTexturePro(Cannon, sourceRec, destRec, origin, rotation, Color.White);
 
         }
-        public void Place(Vector2 mousePosition)
+        public void Place(Vector2 mousePosition,Color color)
         {
-            Raylib.DrawTextureEx(Base, mousePosition - new Vector2(35, 35), 0, 0.30f, Color.White);
+            Raylib.DrawTextureEx(Base, mousePosition - new Vector2(35, 35), 0, 0.30f, color);
         }
         public void setRotation(float rotation)
         {

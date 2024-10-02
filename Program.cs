@@ -90,7 +90,7 @@ namespace Squelette
             CheminNonPosable[12] = new Rectangle(945, 80, new Vector2(95, 465));
 
             BlockNonPosable[0] = new Rectangle(0, 0, 80, 1080);
-            BlockNonPosable[1] = new Rectangle(0, 0, 1920,100);
+            BlockNonPosable[1] = new Rectangle(0, 0, 1920, 100);
             BlockNonPosable[2] = new Rectangle(1840, 0, 80, 1920);
             BlockNonPosable[3] = new Rectangle(0, 1000, 1920, 80);
 
@@ -440,14 +440,12 @@ namespace Squelette
                 while (!stop)
                 {
                     MousePoint = Raylib.GetMousePosition();
-                    if (DebugActivated)
-                        texte = Bullets.Count().ToString();
-
                     if (Raylib.CheckCollisionPointRec(MousePoint, BtnAffichage[0]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
                         MenuOuvert = true;
 
                     if (Raylib.CheckCollisionPointRec(MousePoint, BtnAffichage[1]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
                     {
+                        ModeDestruction = false;
                         if (ModeConstruction)
                             ModeConstruction = false;
                         else
@@ -455,6 +453,17 @@ namespace Squelette
 
                         ChoixTourOuvert = false;
                     }
+                    if (Raylib.CheckCollisionPointRec(MousePoint, BtnAffichage[2]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
+                    {
+                        ModeConstruction = false;
+                        if (ModeDestruction)
+                            ModeDestruction = false;
+                        else
+                            ModeDestruction = true;
+
+                        ChoixTourOuvert = false;
+                    }
+                    ModeDeconstruction();
 
                     if (Raylib.IsKeyPressed(KeyboardKey.Escape))
                         MenuOuvert = true;
@@ -506,8 +515,9 @@ namespace Squelette
                     MenuConstruction();
                     DessinMenuConstruction();
                     DessinerGui();
-                    //// En Dessus de GUI parce qu'elles dépassent
+                    //// En Dessus de GUI parce qu'elle dépasse
                     DessinerPortesMonstres();
+                    ////
                     killEnemy();
                     Raylib.EndDrawing();
 
@@ -526,6 +536,7 @@ namespace Squelette
                         if (Raylib.IsKeyPressed(KeyboardKey.Escape))
                             MenuOuvert = false;
 
+                        ModeDestruction = false;
                         ModeConstruction = false;
 
                         Raylib.BeginDrawing();
@@ -560,6 +571,7 @@ namespace Squelette
             Raylib.UnloadTexture(Cible);
             Raylib.UnloadTexture(Coeur);
             Raylib.UnloadTexture(Argent);
+            Raylib.UnloadTexture(Poubelle);
             Raylib.UnloadTexture(Cannon);
             Raylib.UnloadTexture(Mg);
             Raylib.UnloadTexture(MissileLauncher);
@@ -667,7 +679,8 @@ namespace Squelette
                 Vagues.WaitForEnnemy = true;
                 if (Enemies.Count > 0 || bullet.Target != null)
                 {
-                    bullet.Rotation = getRotation(bullet.Target.position, bullet.Position, 90);
+                    // il y a un ! pour dire au compilateur "Ici c'est pas null"
+                    bullet.Rotation = getRotation(bullet.Target!.position, bullet.Position, 90);
                 }
                 Vagues.WaitForEnnemy = false;
                 bullet.Draw();
@@ -720,7 +733,7 @@ namespace Squelette
                         PlayAnime(enemy, monstre10run, monstre10die, EnemyToRemove);
                         break;
                 }
-                
+
             }
             Enemies.Reverse();
 
@@ -737,10 +750,10 @@ namespace Squelette
 
             foreach (Canon canon2 in Canons)
             {
-                if (Raylib.CheckCollisionPointCircle(Raylib.GetMousePosition(), canon2.Position, canon2.hitbox))
+                if (Raylib.CheckCollisionPointCircle(Raylib.GetMousePosition(), canon2.Position, canon2.hitbox) && !ModeDestruction)
                 {
                     Raylib.DrawCircleLinesV(canon2.Position, canon2.PorteeTir, Color.Black);
-                    Raylib.DrawText(canon2.getPrice().ToString(), (int)canon2.Position.X -15, (int)canon2.Position.Y + 35, 20, Color.Black);
+                    Raylib.DrawText(canon2.getPrice().ToString(), (int)canon2.Position.X - 15, (int)canon2.Position.Y + 35, 20, Color.Black);
                     if (Raylib.IsMouseButtonPressed(MouseButton.Left))
                     {
                         canon2.Upgrade(ref Money);
@@ -770,9 +783,9 @@ namespace Squelette
             if (enemy.PlayDieAnime(textureDie))
             {
                 EnemyToRemove.Add(enemy);
-                
+
             }
-                
+
         }
 
         static void DessinerGui()
@@ -918,7 +931,7 @@ namespace Squelette
         {
             // Initialiser Mieu avec le premier ennemi de la liste qui est dans la portée du canon
 
-            Enemy Mieu = null;
+            Enemy? Mieu = null;
             float maxDistance = canon.PorteeTir;
 
             Enemies.Reverse();
@@ -993,7 +1006,7 @@ namespace Squelette
                     BtnChoixTour[2].Position = tempMousePosition + new Vector2(-90 - 35, 50);
                     Raylib.DrawRectangleRounded(BtnChoixTour[0], 0.2f, 4, Color.SkyBlue);
                     Raylib.DrawTextureEx(Cannon, BtnChoixTour[0].Position + new Vector2(52.5f, -7.5f), 45f, 0.3f, Color.White);
-                    Raylib.DrawText(PRIXCANON.ToString(), (int)BtnChoixTour[0].X + 5, (int)BtnChoixTour[0].Y +5, 15, Color.Black);
+                    Raylib.DrawText(PRIXCANON.ToString(), (int)BtnChoixTour[0].X + 5, (int)BtnChoixTour[0].Y + 5, 15, Color.Black);
                     Raylib.DrawRectangleRounded(BtnChoixTour[1], 0.2f, 4, Color.SkyBlue);
                     Raylib.DrawTextureEx(Mg, BtnChoixTour[1].Position + new Vector2(45, -2.5f), 45f, 0.3f, Color.White);
                     Raylib.DrawText(PRIXROCKETLAUNCHER.ToString(), (int)BtnChoixTour[1].X + 5, (int)BtnChoixTour[1].Y + 5, 15, Color.Black);
@@ -1020,7 +1033,7 @@ namespace Squelette
             Vagues.WaitForEnnemy = false;
         }
 
-        static bool TourCollide(Rectangle[] chm, List<Canon> canon)
+        static bool TourCollide(Rectangle[] chm)
         {
             MousePoint = Raylib.GetMousePosition();
 
@@ -1030,7 +1043,7 @@ namespace Squelette
                 if (Raylib.CheckCollisionCircleRec(MousePoint, 40f, bout))
                     touche = true;
             }
-            foreach (Canon canon1 in canon)
+            foreach (Canon canon1 in Canons)
             {
                 if (Raylib.CheckCollisionCircles(MousePoint, 40f, canon1.Position, 40f))
                     touche = true;
@@ -1038,12 +1051,30 @@ namespace Squelette
             return touche;
         }
 
+        static bool TourCollideMousePointer(out Canon? canon)
+        {
+            foreach (Canon canon1 in Canons)
+            {
+                if (Raylib.CheckCollisionPointCircle(MousePoint,canon1.Position,40f))
+                {
+                    canon = canon1;
+                    return true;
+                }
+            }
+            canon = null;
+            return false;
+        }
+
         static void DessinMenuConstruction()
         {
+            if (ModeDestruction)
+            {
+                Raylib.DrawRectangleLinesEx(new Rectangle(0, 80, Raylib.GetRenderWidth(), Raylib.GetScreenHeight() - 80f), 7f, Color.Red);
+            }
 
             if (ModeConstruction)
             {
-                if ((Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(MousePoint, BtnAffichage[1]) && !TourCollide(CheminNonPosable, Canons)) && !TourCollide(BlockNonPosable, Canons) && !ChoixTourOuvert)
+                if ((Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(MousePoint, BtnAffichage[1]) && !TourCollide(CheminNonPosable)) && !TourCollide(BlockNonPosable) && !ChoixTourOuvert)
                 {
                     ChoixTourOuvert = true;
                     tempMousePosition = MousePoint;
@@ -1085,6 +1116,21 @@ namespace Squelette
                         BtnChoixTour[1].Position = new Vector2(0, 0);
                         BtnChoixTour[2].Position = new Vector2(0, 0);
                         Money -= PRIXMG;
+                    }
+                }
+            }
+        }
+        static void ModeDeconstruction()
+        {
+            if (ModeDestruction)
+            {
+                // dire qu'il est activé
+
+                if (TourCollideMousePointer(out Canon? canon) && Raylib.IsMouseButtonPressed(MouseButton.Left))
+                {
+                    if (canon != null)
+                    {
+                        Canons.Remove(canon);
                     }
                 }
             }

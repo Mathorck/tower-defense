@@ -27,6 +27,7 @@ namespace Squelette
         public static Vector2 porteMonstre1 = new Vector2(480, 80);
         public static Vector2 porteMonstre2 = new Vector2(990, 80);
 
+        public static Rectangle[] ObjetNonPosable = new Rectangle[24];
         public static Rectangle[] CheminNonPosable = new Rectangle[13];
         public static Rectangle[] BlockNonPosable = new Rectangle[4];
         public static Rectangle[] BtnAffichage = new Rectangle[3];
@@ -76,11 +77,11 @@ namespace Squelette
             Rectangle btnStop = new(750, 650, new Vector2(420, 110));
 
             //// Hitbox non posables //////
-            CheminNonPosable[0] = new Rectangle(420, 80, new Vector2(105, 455));
-            CheminNonPosable[1] = new Rectangle(240, 450, new Vector2(235, 85));
-            CheminNonPosable[2] = new Rectangle(240, 450, new Vector2(100, 285));
-            CheminNonPosable[3] = new Rectangle(240, 650, new Vector2(410, 70));
-            CheminNonPosable[4] = new Rectangle(565, 260, new Vector2(345, 85));
+            CheminNonPosable[0] = new Rectangle(440, 80, new Vector2(80, 455));
+            CheminNonPosable[1] = new Rectangle(250, 455, new Vector2(235, 80));
+            CheminNonPosable[2] = new Rectangle(250, 455, new Vector2(75, 270));
+            CheminNonPosable[3] = new Rectangle(250, 650, new Vector2(315, 75));
+            CheminNonPosable[4] = new Rectangle(570, 260, new Vector2(345, 85));
             CheminNonPosable[5] = new Rectangle(825, 340, new Vector2(85, 135));
             CheminNonPosable[6] = new Rectangle(755, 390, new Vector2(105, 210));
             CheminNonPosable[7] = new Rectangle(835, 520, new Vector2(330, 75));
@@ -89,6 +90,31 @@ namespace Squelette
             CheminNonPosable[10] = new Rectangle(1015, 900, new Vector2(905, 85));
             CheminNonPosable[11] = new Rectangle(565, 260, new Vector2(100, 465));
             CheminNonPosable[12] = new Rectangle(945, 80, new Vector2(95, 465));
+
+            ObjetNonPosable[0] = new Rectangle(135, 140, new Vector2(50, 60));
+            ObjetNonPosable[1] = new Rectangle(255, 210, new Vector2(50, 60));
+            ObjetNonPosable[2] = new Rectangle(115, 295, new Vector2(85, 95));
+            ObjetNonPosable[3] = new Rectangle(65, 660, new Vector2(55, 60));
+            ObjetNonPosable[4] = new Rectangle(135, 790, new Vector2(50, 60));
+            ObjetNonPosable[5] = new Rectangle(320, 785, new Vector2(65, 60));
+            ObjetNonPosable[6] = new Rectangle(60, 840, new Vector2(320, 195));
+            ObjetNonPosable[7] = new Rectangle(515, 785, new Vector2(55, 60));
+            ObjetNonPosable[8] = new Rectangle(515, 910, new Vector2(50, 60));
+            ObjetNonPosable[9] = new Rectangle(380, 920, new Vector2(75, 115));
+            ObjetNonPosable[10] = new Rectangle(705, 785, new Vector2(75, 60));
+            ObjetNonPosable[11] = new Rectangle(765, 660, new Vector2(130, 120));
+            ObjetNonPosable[12] = new Rectangle(835, 845, new Vector2(65, 60));
+            ObjetNonPosable[13] = new Rectangle(775, 920, new Vector2(50, 45));
+            ObjetNonPosable[14] = new Rectangle(645, 150, new Vector2(50, 60));
+            ObjetNonPosable[15] = new Rectangle(775, 85, new Vector2(50, 60));
+            ObjetNonPosable[16] = new Rectangle(1100, 85, new Vector2(50, 60));
+            ObjetNonPosable[17] = new Rectangle(1225, 215, new Vector2(50, 60));
+            ObjetNonPosable[18] = new Rectangle(1345, 145, new Vector2(55, 60));
+            ObjetNonPosable[19] = new Rectangle(1345, 80, new Vector2(565, 505));
+            ObjetNonPosable[20] = new Rectangle(1300, 805, new Vector2(25, 35));
+            ObjetNonPosable[21] = new Rectangle(1345, 725, new Vector2(125, 55));
+            ObjetNonPosable[22] = new Rectangle(1470, 780, new Vector2(65, 75));
+            ObjetNonPosable[23] = new Rectangle(1680, 725, new Vector2(35, 40));
 
             BlockNonPosable[0] = new Rectangle(0, 0, 80, 1080);
             BlockNonPosable[1] = new Rectangle(0, 0, 1920, 100);
@@ -518,6 +544,15 @@ namespace Squelette
                     DessinMenuConstruction();
                     DessinerGui();
                     killEnemy();
+
+                    foreach (Rectangle r in ObjetNonPosable) 
+                    {
+                        Raylib.DrawRectangleRec(r, new(255,0,0,50));
+                    }
+                    foreach ( Rectangle r in CheminNonPosable) 
+                    {
+                        Raylib.DrawRectangleRec(r, new(255, 0, 0, 50));
+                    }
                     Raylib.EndDrawing();
 
                     //////////////////////////// MENU ///////////////////////
@@ -1072,7 +1107,7 @@ namespace Squelette
 
             if (ModeConstruction)
             {
-                if ((Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(MousePoint, BtnAffichage[1]) && !TourCollide(CheminNonPosable)) && !TourCollide(BlockNonPosable) && !ChoixTourOuvert)
+                if ((Raylib.IsMouseButtonPressed(MouseButton.Left) && !Raylib.CheckCollisionPointRec(MousePoint, BtnAffichage[1]) && !TourCollide(CheminNonPosable)) && !TourCollide(BlockNonPosable) && !TourCollide(ObjetNonPosable) && !ChoixTourOuvert)
                 {
                     ChoixTourOuvert = true;
                     tempMousePosition = MousePoint;

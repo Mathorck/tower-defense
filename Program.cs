@@ -1014,7 +1014,7 @@ namespace Squelette
                 }
                 else
                 {
-                    canon.Place(MousePoint,!(TourCollide(CheminNonPosable)|| TourCollide(BlockNonPosable)) ? Color.White : new Color(0,0,0,35));
+                    canon.Place(MousePoint,!(TourCollide(CheminNonPosable)|| TourCollide(BlockNonPosable) /*|| TourCollide()*/) ? Color.White : new Color(0,0,0,35));
                 }
             }
         }

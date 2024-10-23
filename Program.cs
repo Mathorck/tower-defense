@@ -1,5 +1,7 @@
 using Raylib_cs;
+using System.Diagnostics;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace Squelette
 {
@@ -143,6 +145,7 @@ namespace Squelette
             string texte = "Debug Actif";
             bool start = false;
             bool stop = false;
+            bool mort = false;
 
 
             Random rand = new Random();
@@ -544,7 +547,8 @@ namespace Squelette
                     DessinMenuConstruction();
                     DessinerGui();
                     killEnemy();
-
+                    
+                    /*
                     foreach (Rectangle r in ObjetNonPosable) 
                     {
                         Raylib.DrawRectangleRec(r, new(255,0,0,50));
@@ -553,7 +557,15 @@ namespace Squelette
                     {
                         Raylib.DrawRectangleRec(r, new(255, 0, 0, 50));
                     }
+                    */
                     Raylib.EndDrawing();
+
+                    if (VieActuelle <= 0)
+                    {
+                        stop = true;
+                        mort = true;
+                    }
+
 
                     //////////////////////////// MENU ///////////////////////
                     while (MenuOuvert)
@@ -576,11 +588,12 @@ namespace Squelette
                         Raylib.BeginDrawing();
                         Raylib.ClearBackground(Color.White);
                         DessinerJeuFond();
-                        DessinerEntitees(monstre1run, monstre2run, monstre3run, monstre4run, monstre5run, monstre6run, monstre7run, monstre8run, monstre9run, monstre10run, monstre1die, monstre2die, monstre3die, monstre4die, monstre5die, monstre6die, monstre7die, monstre8die, monstre9die, monstre10die);
                         DessinerBase();
                         MenuConstruction();
                         DessinMenuConstruction();
                         DessinerGui();
+
+                        Raylib.DrawRectangleRounded(new(650, 150, 600, 700), 0.2f, 1, new Color(135, 206, 235, 200));
 
                         Raylib.DrawText("PAUSE", 822, 225, 80, Color.Black);
 
@@ -591,10 +604,67 @@ namespace Squelette
                         Raylib.DrawText("Quit", 910, 685, 50, Color.Black);
 
                         Raylib.EndDrawing();
+
+
+                        if (DebugActivated)
+                        {
+                            VieActuelle = 0;
+                        }
                     }
                     /////////////////////////// MENU ////////////////////////////
                 }
             }
+            if (mort)
+            {
+                Random random = new Random();
+                Particle[] particles = new Particle[1500];
+
+                for (int i = 0; i < particles.Length; i++)
+                {
+                    particles[i] = new Particle(random.Next(0, Raylib.GetScreenWidth()), Raylib.GetScreenHeight(), (float)random.NextDouble() * 2 + 1);
+                }
+
+                while (mort)
+                {
+                    MousePoint = Raylib.GetMousePosition();
+                    Raylib.BeginDrawing();
+                    Raylib.ClearBackground(new Color(80, 0, 0, 255));
+
+                    foreach (var particle in particles)
+                    {
+                        particle.Update();
+                        particle.Draw();
+                        if (particle.Alpha == 0)
+                        {
+                            particle.Position.Y = Raylib.GetScreenHeight();
+                            particle.Position.X = random.Next(0, Raylib.GetScreenWidth());
+                            particle.Alpha = 1.0f;
+                        }
+                    }
+                    DessinerMort(btnStart, btnStop);
+                    Raylib.EndDrawing();
+
+                    if (Raylib.CheckCollisionPointRec(MousePoint, btnStart) && Raylib.IsMouseButtonPressed(MouseButton.Left))
+                    {
+                        Raylib.CloseWindow();
+
+                        // Petite pause avant le redémarrage
+                        Thread.Sleep(500); // Pause de 500 millisecondes (0,5 seconde)
+
+                        // Lancer un nouveau processus qui redémarre l'application
+                        Process.Start(Process.GetCurrentProcess().MainModule.FileName);
+
+                        // Ferme le processus actuel
+                        Process.GetCurrentProcess().Kill();
+                    }
+                    else if (Raylib.CheckCollisionPointRec(MousePoint, btnStop) && Raylib.IsMouseButtonPressed(MouseButton.Left))
+                    {
+                        Raylib.CloseWindow();
+                        Process.GetCurrentProcess().Kill();
+                    }
+                }
+            }
+
             #region Unload Textures
 
             Raylib.UnloadTexture(Fond);
@@ -669,10 +739,32 @@ namespace Squelette
             #endregion
 
             Raylib.CloseWindow();
+            Process.GetCurrentProcess().Kill();
         }
 
         #region Dessin
+        static void DessinerMort(Rectangle btnStart, Rectangle btnStop)
+        {
 
+
+            
+            Raylib.DrawText("GAME OVER", 725, 230, 80, Color.Black);
+            Raylib.DrawText("GAME OVER", 720, 225, 80, Color.LightGray);
+
+            Raylib.DrawRectangleRec(btnStart, Color.Lime);
+            Raylib.DrawText("Retry", 880, 480, 50, Color.Black);
+
+            Raylib.DrawRectangleRec(btnStop, Color.Red);
+            Raylib.DrawText("Exit", 910, 685, 50, Color.Black);
+
+
+
+
+
+
+
+
+        }
         static void DessinerMenu()
         {
             // Titre //
@@ -1037,19 +1129,19 @@ namespace Squelette
                     BtnChoixTour[0].Position = tempMousePosition + new Vector2(90 - 35, 50);
                     BtnChoixTour[1].Position = tempMousePosition + new Vector2(0 - 35, 50);
                     BtnChoixTour[2].Position = tempMousePosition + new Vector2(-90 - 35, 50);
-                    Raylib.DrawRectangleRounded(BtnChoixTour[0], 0.2f, 4, Color.SkyBlue);
+                    Raylib.DrawRectangleRounded(BtnChoixTour[0], 0.2f, 4, new(135, 206, 235, 225));
                     Raylib.DrawTextureEx(Cannon, BtnChoixTour[0].Position + new Vector2(52.5f, -7.5f), 45f, 0.3f, Color.White);
                     Raylib.DrawText(PRIXCANON.ToString(), (int)BtnChoixTour[0].X + 5, (int)BtnChoixTour[0].Y + 5, 15, Color.Black);
-                    Raylib.DrawRectangleRounded(BtnChoixTour[1], 0.2f, 4, Color.SkyBlue);
+                    Raylib.DrawRectangleRounded(BtnChoixTour[1], 0.2f, 4, new(135, 206, 235, 225));
                     Raylib.DrawTextureEx(Mg, BtnChoixTour[1].Position + new Vector2(45, -2.5f), 45f, 0.3f, Color.White);
                     Raylib.DrawText(PRIXROCKETLAUNCHER.ToString(), (int)BtnChoixTour[1].X + 5, (int)BtnChoixTour[1].Y + 5, 15, Color.Black);
-                    Raylib.DrawRectangleRounded(BtnChoixTour[2], 0.2f, 4, Color.SkyBlue);
+                    Raylib.DrawRectangleRounded(BtnChoixTour[2], 0.2f, 4, new(135, 206, 235, 225));
                     Raylib.DrawTextureEx(MissileLauncher, BtnChoixTour[2].Position + new Vector2(45, 0), 45f, 0.3f, Color.White);
                     Raylib.DrawText(PRIXMG.ToString(), (int)BtnChoixTour[2].X + 5, (int)BtnChoixTour[2].Y + 5, 15, Color.Black);
                 }
                 else
                 {
-                    canon.Place(MousePoint,!(TourCollide(CheminNonPosable)|| TourCollide(BlockNonPosable) /*|| TourCollide()*/) ? Color.White : new Color(0,0,0,35));
+                    canon.Place(MousePoint,!(TourCollide(CheminNonPosable)|| TourCollide(BlockNonPosable) || TourCollide(ObjetNonPosable)) ? Color.White : new Color(0,0,0,35));
                 }
             }
         }

@@ -20,8 +20,7 @@ namespace Squelette
         public static async Task Update()
         {
             await Task.Delay(3000);
-            // for (;;) = while (true)
-            for (;;)
+            while (Program.VieActuelle > 0)
             {
                 if (!Program.MenuOuvert)
                 {
@@ -40,6 +39,7 @@ namespace Squelette
                     }
                 }
             }
+            Console.WriteLine("INFO: THREAD: Thread wawe stopped");
         }
 
         public static async Task LancerNouvelleVague()

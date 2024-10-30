@@ -64,9 +64,9 @@ namespace Squelette
             Raylib.DrawTexturePro(Cannon, sourceRec, destRec, origin, rotation, Color.White);
 
         }
-        public void Place(Vector2 mousePosition)
+        public void Place(Vector2 mousePosition,Color color)
         {
-            Raylib.DrawTextureEx(Base, mousePosition - new Vector2(35, 35), 0, 0.30f, Color.White);
+            Raylib.DrawTextureEx(Base, mousePosition - new Vector2(35, 35), 0, 0.30f, color);
         }
         public void setRotation(float rotation)
         {
@@ -110,7 +110,7 @@ namespace Squelette
                     {
                         case 1:
                             Cannon = Raylib.LoadTexture(@"./images/Cannon/Cannon.png");
-                            vitesseDattaque = 10f;
+                            vitesseDattaque = 8f;
                             porteeTir = 250f;
                             degats = 10f;
 
@@ -192,23 +192,23 @@ namespace Squelette
             if (TourChoisie == 1)
             {
                 if (niveau == 1)
-                    Argent = 400;
+                    Argent = 300;
                 else if (niveau == 2)
-                    Argent = 800;
+                    Argent = 600;
             }
             else if (TourChoisie == 2)
             {
                 if (niveau == 1)
-                    Argent = 1000;
+                    Argent = 8000;
                 else if (niveau == 2)
-                    Argent = 2500;
+                    Argent = 2000;
             }
             else if (TourChoisie == 3)
             {
                 if (niveau == 1)
-                    Argent = 1000;
+                    Argent = 850;
                 else if (niveau == 2)
-                    Argent = 1500;
+                    Argent = 1050;
             }
             return Argent;
         }

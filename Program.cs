@@ -547,17 +547,17 @@ namespace Squelette
                     DessinMenuConstruction();
                     DessinerGui();
                     killEnemy();
+
                     
-                    /*
-                    foreach (Rectangle r in ObjetNonPosable) 
+                    // dessin des zones non posables
+                    /*foreach (Rectangle r in ObjetNonPosable) 
                     {
                         Raylib.DrawRectangleRec(r, new(255,0,0,50));
                     }
                     foreach ( Rectangle r in CheminNonPosable) 
                     {
                         Raylib.DrawRectangleRec(r, new(255, 0, 0, 50));
-                    }
-                    */
+                    }*/ 
                     Raylib.EndDrawing();
 
                     if (VieActuelle <= 0)

@@ -43,42 +43,42 @@ public class Enemy
         switch (EnemyType)
         {
             case 1:
-                Recompense = 10;
+                Recompense = 25;
                 speed = 5f;
                 vieMax = 20;
                 break;
             case 2:
-                Recompense = 20;
+                Recompense = 45;
                 speed = 2f;
                 vieMax = 75;
                 break;
             case 3:
-                Recompense = 20;
+                Recompense = 25;
                 speed = 5f;
                 vieMax = 55;
                 break;
             case 4:
-                Recompense = 25;
+                Recompense = 45;
                 speed = 2f;
                 vieMax = 150;
                 break;
             case 5:
-                Recompense = 30;
+                Recompense = 50;
                 speed = 1f;
                 vieMax = 200;
                 break;
             case 6:
-                Recompense = 40;
+                Recompense = 65;
                 speed = 5f;
                 vieMax = 225;
                 break;
             case 7:
-                Recompense = 50;
+                Recompense = 80;
                 speed = 2f;
                 vieMax = 350;
                 break;
             case 8:
-                Recompense = 55;
+                Recompense = 85;
                 speed = 2f;
                 vieMax = 500;
                 break;

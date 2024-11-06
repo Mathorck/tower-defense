@@ -199,7 +199,7 @@ namespace Squelette
             else if (TourChoisie == 2)
             {
                 if (niveau == 1)
-                    Argent = 8000;
+                    Argent = 800;
                 else if (niveau == 2)
                     Argent = 2000;
             }
@@ -220,11 +220,13 @@ namespace Squelette
                 {
                     Argent -= 400;
                     niveau++;
+                    setTextureCanon();
                 }
                 else if (niveau == 2 && Argent >= 800)
                 {
                     Argent -= 800;
                     niveau++;
+                    setTextureCanon();
                 }
             }
             else if (TourChoisie == 2)
@@ -233,11 +235,13 @@ namespace Squelette
                 {
                     Argent -= 1000;
                     niveau++;
+                    setTextureCanon();
                 }
                 else if (niveau == 2 && Argent >= 2500)
                 {
                     Argent -= 2500;
                     niveau++;
+                    setTextureCanon();
                 }
             }
             else if (TourChoisie == 3)
@@ -246,17 +250,18 @@ namespace Squelette
                 {
                     Argent -= 1000;
                     niveau++;
+                    setTextureCanon();
                 }
                 else if (niveau == 2 && Argent >= 1500)
                 {
                     Argent -= 1500;
                     niveau++;
+                    setTextureCanon();
                 }
             }
 
 
-
-            setTextureCanon();
+            
         }
 
         private void allVariables()

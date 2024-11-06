@@ -55,21 +55,21 @@ namespace Squelette
             NombreRestantDeMonstre = NbMonstres;
 
 
-            if (Wave > 45)
+            if (Wave > 40)
                 HardnessOfTheWave = 10;
-            else if (Wave > 40)
-                HardnessOfTheWave = 9;
             else if (Wave > 35)
-                HardnessOfTheWave = 8;
+                HardnessOfTheWave = 9;
             else if (Wave > 30)
-                HardnessOfTheWave = 7;
+                HardnessOfTheWave = 8;
             else if (Wave > 25)
-                HardnessOfTheWave = 6;
+                HardnessOfTheWave = 7;
             else if (Wave > 20)
-                HardnessOfTheWave = 5;
+                HardnessOfTheWave = 6;
             else if (Wave > 15)
-                HardnessOfTheWave = 4;
+                HardnessOfTheWave = 5;
             else if (Wave > 10)
+                HardnessOfTheWave = 4;
+            else if (Wave > 5)
                 HardnessOfTheWave = 3;
             else if (Wave > 0)
                 HardnessOfTheWave = 2;
@@ -77,6 +77,7 @@ namespace Squelette
 
             for (int i = 0; i < NbMonstres; i++)
             {
+                Rand = R.Next(1, 3);
                 if (Wave % 10 == 0 && !bossAlreadySpawned)
                 {
                     bossAlreadySpawned = true;
@@ -86,7 +87,6 @@ namespace Squelette
                 randomTime = R.Next(1000/HardnessOfTheWave, 2000/HardnessOfTheWave);
                 await Task.Delay(randomTime);
 
-                Rand = R.Next(1, 3);
                 RandMonstre = R.Next(1, HardnessOfTheWave);
 
                 // Bout de code compliqué mais en gros en fonction du chiffre tiré au dessu cela prend soit la porte1 soit la porte2

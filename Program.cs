@@ -14,7 +14,7 @@ namespace Squelette
         const int PRIXROCKETLAUNCHER = 500;
         const int PRIXMG = 750;
 
-        const int NOMBREDETOURMAX = 5;
+        const int NOMBREDETOURMAX = 10;
         public static int NombreDeTour = 0;
 
         public static bool DebugActivated = true;
@@ -473,6 +473,7 @@ namespace Squelette
                 ///////////// Boucle principale /////////////
                 while (!stop)
                 {
+                    
                     NombreDeTour = Canons.Count;
                     MousePoint = Raylib.GetMousePosition();
                     if (Raylib.CheckCollisionPointRec(MousePoint, BtnAffichage[0]) && Raylib.IsMouseButtonPressed(MouseButton.Left))
@@ -612,12 +613,6 @@ namespace Squelette
                         Raylib.DrawText("Quit", 910, 685, 50, Color.Black);
 
                         Raylib.EndDrawing();
-
-
-                        if (DebugActivated)
-                        {
-                            VieActuelle = 0;
-                        }
                     }
                     /////////////////////////// MENU ////////////////////////////
                 }
@@ -821,7 +816,7 @@ namespace Squelette
                 {
                     Raylib.DrawCircleLinesV(canon2.Position, canon2.PorteeTir, Color.Black);
                     Raylib.DrawText(canon2.getPrice().ToString(), (int)canon2.Position.X - 15, (int)canon2.Position.Y + 35, 20, Color.Black);
-                    if (Raylib.IsMouseButtonPressed(MouseButton.Left))
+                    if (Raylib.IsMouseButtonDown(MouseButton.Left))
                     {
                         canon2.Upgrade(ref Money);
                     }
@@ -1271,5 +1266,6 @@ namespace Squelette
             }
         }
         #endregion
+
     }
 }

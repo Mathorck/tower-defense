@@ -6,7 +6,7 @@ namespace Squelette
 {
     public class Explosion
     {
-        public const float EXPLOSIONRADIUS = 100;
+        public const float EXPLOSIONRADIUS = 120;
         public float ExplosionTime = 0;
         public int Stade = 0;
         public Vector2 Position;

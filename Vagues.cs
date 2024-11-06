@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Data.SqlTypes;
+using System.Runtime.CompilerServices;
 
 namespace Squelette
 {
@@ -29,12 +30,15 @@ namespace Squelette
                     {
                         await Task.Delay(3000);
                         await LancerNouvelleVague();
+                        
                     }
                     else
                     {
-                        if (MonstresRestants <= 0)
+                        if (MonstresRestants <= 0 )
                         {
                             VagueTerminee = true;
+                            if (Wave != 0)
+                                Program.Money += Wave * 5 + 100;
                         }
                     }
                 }
